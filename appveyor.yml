@@ -1,3 +1,5 @@
+os: Visual Studio 2015
+
 install:
 - cmd: Scripts\patch-version.cmd
 - ps: if ($env:APPVEYOR_REPO_BRANCH -eq "master" -Or $env:APPVEYOR_REPO_BRANCH -eq "development" -Or $env:APPVEYOR_REPO_BRANCH.StartsWith("release") -Or $env:APPVEYOR_REPO_BRANCH.StartsWith("hotfix")) { $env:RunOctoPack="true" }
@@ -10,6 +12,7 @@ assembly_info:
   assembly_informational_version: $(CUSTOM_INFORMATIONAL_VERSION)
 
 before_build:
+- cmd: dnu restore
 - cmd: nuget restore "Source\PositiveFeedback.sln"
 
 build:
