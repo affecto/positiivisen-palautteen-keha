@@ -1,4 +1,4 @@
-﻿/// <binding Clean='clean' />
+﻿/// <binding AfterBuild='moveToLib' Clean='clean' />
 "use strict";
 
 var gulp = require("gulp"),
@@ -43,3 +43,19 @@ gulp.task("min:css", function () {
 });
 
 gulp.task("min", ["min:js", "min:css"]);
+
+
+var paths = {
+    npmSrc: "./node_modules/",
+    libTarget: "./wwwroot/lib/"
+};
+
+var libsToMove = [
+   paths.npmSrc + '/angular2/bundles/angular2-polyfills.js',
+   paths.npmSrc + '/systemjs/dist/system.src.js',
+   paths.npmSrc + '/rxjs/bundles/Rx.js',
+   paths.npmSrc + '/angular2/bundles/angular2.dev.js'
+];
+gulp.task('moveToLib', function () {
+    return gulp.src(libsToMove).pipe(gulp.dest(paths.libTarget));
+});
