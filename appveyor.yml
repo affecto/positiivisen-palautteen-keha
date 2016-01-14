@@ -23,8 +23,8 @@ pull_requests:
 nuget:
   disable_publish_on_pr: true
 
-artifacts:
-  - path: 'Source\Api\obj\octopacked\PositiveFeedback.API.*.nupkg'
-    name: PositiveFeedback API OctoPack
-  - path: 'Source\UI\obj\octopacked\PositiveFeedback.UI.*.nupkg'
-    name: PositiveFeedback UI OctoPack
+#artifacts:
+#  - path: 'Source\Api\obj\octopacked\PositiveFeedback.API.*.nupkg'
+#    name: PositiveFeedback API OctoPack
+#  - path: 'Source\AngularUI\obj\octopacked\PositiveFeedback.UI.*.nupkg'
+#    name: PositiveFeedback UI OctoPack
