@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNet.Mvc;
 
-namespace PositiveFeedback.AngularUI.Controllers
+namespace Affecto.PositiveFeedback.AngularUI.Controllers
 {
     public class HomeController : Controller
     {
