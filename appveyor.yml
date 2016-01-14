@@ -13,8 +13,13 @@ assembly_info:
 
 before_build:
 - cmd: dnu restore
-- cmd: npm install Source
-#- cmd: nuget restore "Source\PositiveFeedback.sln"
+- cmd: >-
+    cd Source
+
+    npm install
+
+    cd..
+
 
 build:
   verbosity: minimal
