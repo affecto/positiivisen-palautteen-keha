@@ -14,7 +14,7 @@ assembly_info:
 before_build:
 - cmd: dnu restore
 - cmd: >-
-    cd Source
+    cd Source\AngularUI
 
     npm install
 
