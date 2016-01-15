@@ -38,5 +38,5 @@ nuget:
 artifacts:
   - path: 'Source\AngularUI\obj\octopacked\PositiveFeedback.UI.*.nupkg'
     name: PositiveFeedback UI OctoPack
-#  - path: 'Source\Api\obj\octopacked\PositiveFeedback.API.*.nupkg'
-#    name: PositiveFeedback API OctoPack
+  - path: 'Source\Api\obj\octopacked\PositiveFeedback.API.*.nupkg'
+    name: PositiveFeedback API OctoPack
