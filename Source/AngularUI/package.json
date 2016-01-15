@@ -1,5 +1,5 @@
 {
-  "name": "PositiveFeedback",
+  "name": "PositiveFeedback.AngularUI",
   "version": "0.1.0",
   "dependencies": {
     "angular2": "2.0.0-beta.0",
