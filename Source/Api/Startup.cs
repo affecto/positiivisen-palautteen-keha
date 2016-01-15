@@ -5,6 +5,7 @@ using Affecto.PositiveFeedback.Api;
 using Autofac;
 using Autofac.Integration.WebApi;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Newtonsoft.Json.Serialization;
 using Owin;
 
