@@ -9,7 +9,9 @@ var gulp = require("gulp"),
     uglify = require("gulp-uglify");
 
 var paths = {
-    webroot: "./"
+    webroot: "./",
+    npmSource: "./node_modules/",
+    libTarget: "./Scripts/"
 };
 
 paths.js = paths.webroot + "Scripts/**/*.js";
@@ -44,3 +46,14 @@ gulp.task("min:css", function () {
 });
 
 gulp.task("min", ["min:js", "min:css"]);
+
+var libsToMove = [
+   paths.npmSource + "/angular2/bundles/angular2-polyfills.js",
+   paths.npmSource + "/systemjs/dist/system.src.js",
+   paths.npmSource + "/rxjs/bundles/Rx.js",
+   paths.npmSource + "/angular2/bundles/angular2.dev.js"
+];
+
+gulp.task("moveToLib", function () {
+    return gulp.src(libsToMove).pipe(gulp.dest(paths.libTarget));
+});
