@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,6 +52,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\EmployeeSynchronization\EmployeeSynchronization.csproj">
+      <Project>{5AD7C419-4DE4-4A14-ACAC-B3289A45AD53}</Project>
+      <Name>EmployeeSynchronization</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Store.MongoDb\Store.MongoDb.csproj">
+      <Project>{44AC6B7C-92E5-463A-B6F0-0067F7E8847B}</Project>
+      <Name>Store.MongoDb</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
