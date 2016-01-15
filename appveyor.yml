@@ -1,9 +1,9 @@
 os: Visual Studio 2015
 
-cache:
-  - C:\Users\appveyor\.dnx\packages
-  - Source\packages -> **\packages.config
-  - '%APPDATA%\npm-cache'
+#cache:
+#  - C:\Users\appveyor\.dnx\packages
+#  - Source\packages -> **\packages.config
+#  - '%APPDATA%\npm-cache'
 
 install:
 - cmd: dnvm install 1.0.0-rc1-update1
