@@ -27,7 +27,7 @@ before_build:
     cd ..\..
 
 build:
-  verbosity: minimal
+  verbosity: detailed
 
 configuration: Release
 
