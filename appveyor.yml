@@ -1,10 +1,12 @@
 os: Visual Studio 2015
 
-install:
-- cmd: >-
-    set PATH=C:\Program Files (x86)\MSBuild\14.0\Bin;%PATH%
+cache:
+  - C:\Users\appveyor\.dnx\packages
+  - Source\packages -> **\packages.config
+  - '%APPDATA%\npm-cache'
 
-    dnvm install 1.0.0-rc1-update1
+install:
+- cmd: dnvm install 1.0.0-rc1-update1
 - cmd: Scripts\patch-version.cmd
 - ps: if ($env:APPVEYOR_REPO_BRANCH -eq "master" -Or $env:APPVEYOR_REPO_BRANCH -eq "development" -Or $env:APPVEYOR_REPO_BRANCH.StartsWith("release") -Or $env:APPVEYOR_REPO_BRANCH.StartsWith("hotfix")) { $env:RunOctoPack="true" }
 
@@ -22,9 +24,7 @@ before_build:
 
     npm install
 
-    cd..
-
-    cd..
+    cd ..\..
 
 build:
   verbosity: minimal
