@@ -1,12 +1,10 @@
 os: Visual Studio 2015
 
 #cache:
-#  - C:\Users\appveyor\.dnx\packages
 #  - Source\packages -> **\packages.config
 #  - '%APPDATA%\npm-cache'
 
 install:
-- cmd: dnvm install 1.0.0-rc1-update1
 - cmd: Scripts\patch-version.cmd
 - ps: if ($env:APPVEYOR_REPO_BRANCH -eq "master" -Or $env:APPVEYOR_REPO_BRANCH -eq "development" -Or $env:APPVEYOR_REPO_BRANCH.StartsWith("release") -Or $env:APPVEYOR_REPO_BRANCH.StartsWith("hotfix")) { $env:RunOctoPack="true" }
 
@@ -18,7 +16,7 @@ assembly_info:
   assembly_informational_version: $(CUSTOM_INFORMATIONAL_VERSION)
 
 before_build:
-- cmd: dnu restore
+- cmd: nuget restore "Source\PositiveFeedback.sln"
 - cmd: >-
     cd Source\AngularUI
 
@@ -27,7 +25,7 @@ before_build:
     cd ..\..
 
 build:
-  verbosity: detailed
+  verbosity: minimal
 
 configuration: Release
 
