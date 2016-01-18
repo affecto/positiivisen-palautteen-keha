@@ -1,4 +1,4 @@
-﻿/// <binding AfterBuild='moveToLib' Clean='clean' />
+﻿/// <binding Clean='clean' />
 
 "use strict";
 
@@ -9,17 +9,17 @@ var gulp = require("gulp"),
     uglify = require("gulp-uglify");
 
 var paths = {
-    webroot: "./wwwroot/",
-    npmSrc: "./node_modules/",
-    libTarget: "./wwwroot/lib/"
+    webroot: "./",
+    npmSource: "./node_modules/",
+    libTarget: "./Scripts/"
 };
 
-paths.js = paths.webroot + "js/**/*.js";
-paths.minJs = paths.webroot + "js/**/*.min.js";
-paths.css = paths.webroot + "css/**/*.css";
-paths.minCss = paths.webroot + "css/**/*.min.css";
-paths.concatJsDest = paths.webroot + "js/site.min.js";
-paths.concatCssDest = paths.webroot + "css/site.min.css";
+paths.js = paths.webroot + "Scripts/**/*.js";
+paths.minJs = paths.webroot + "Scripts/**/*.min.js";
+paths.css = paths.webroot + "Content/**/*.css";
+paths.minCss = paths.webroot + "Content/**/*.min.css";
+paths.concatJsDest = paths.webroot + "Scripts/site.min.js";
+paths.concatCssDest = paths.webroot + "Content/site.min.css";
 
 gulp.task("clean:js", function (cb) {
     rimraf(paths.concatJsDest, cb);
@@ -48,11 +48,12 @@ gulp.task("min:css", function () {
 gulp.task("min", ["min:js", "min:css"]);
 
 var libsToMove = [
-   paths.npmSrc + "/angular2/bundles/angular2-polyfills.js",
-   paths.npmSrc + "/systemjs/dist/system.src.js",
-   paths.npmSrc + "/rxjs/bundles/Rx.js",
-   paths.npmSrc + "/angular2/bundles/angular2.dev.js"
+   paths.npmSource + "/angular2/bundles/angular2-polyfills.js",
+   paths.npmSource + "/systemjs/dist/system.src.js",
+   paths.npmSource + "/rxjs/bundles/Rx.js",
+   paths.npmSource + "/angular2/bundles/angular2.dev.js"
 ];
+
 gulp.task("moveToLib", function () {
     return gulp.src(libsToMove).pipe(gulp.dest(paths.libTarget));
 });

@@ -1,15 +1,10 @@
-﻿using Microsoft.AspNet.Mvc;
+﻿using System.Web.Mvc;
 
 namespace Affecto.PositiveFeedback.AngularUI.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Error()
+        public ActionResult Index()
         {
             return View();
         }

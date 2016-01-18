@@ -1,5 +1,9 @@
 os: Visual Studio 2015
 
+#cache:
+#  - Source\packages -> **\packages.config
+#  - '%APPDATA%\npm-cache'
+
 install:
 - cmd: Scripts\patch-version.cmd
 - ps: if ($env:APPVEYOR_REPO_BRANCH -eq "master" -Or $env:APPVEYOR_REPO_BRANCH -eq "development" -Or $env:APPVEYOR_REPO_BRANCH.StartsWith("release") -Or $env:APPVEYOR_REPO_BRANCH.StartsWith("hotfix")) { $env:RunOctoPack="true" }
@@ -12,9 +16,13 @@ assembly_info:
   assembly_informational_version: $(CUSTOM_INFORMATIONAL_VERSION)
 
 before_build:
-- cmd: dnu restore
-- cmd: npm install Source
-#- cmd: nuget restore "Source\PositiveFeedback.sln"
+- cmd: nuget restore "Source\PositiveFeedback.sln"
+- cmd: >-
+    cd Source\AngularUI
+
+    npm install
+
+    cd ..\..
 
 build:
   verbosity: minimal
@@ -27,8 +35,8 @@ pull_requests:
 nuget:
   disable_publish_on_pr: true
 
-#artifacts:
-#  - path: 'Source\Api\obj\octopacked\PositiveFeedback.API.*.nupkg'
-#    name: PositiveFeedback API OctoPack
-#  - path: 'Source\AngularUI\obj\octopacked\PositiveFeedback.UI.*.nupkg'
-#    name: PositiveFeedback UI OctoPack
+artifacts:
+  - path: 'Source\AngularUI\obj\octopacked\PositiveFeedback.UI.*.nupkg'
+    name: PositiveFeedback UI OctoPack
+  - path: 'Source\Api\obj\octopacked\PositiveFeedback.API.*.nupkg'
+    name: PositiveFeedback API OctoPack
