@@ -1,11 +1,18 @@
-﻿import {EMPLOYEES} from "./mock-employees"
-import {Injectable} from "angular2/core";
+﻿import {Injectable} from "angular2/core";
+import {Http} from "angular2/http";
+import "rxjs/add/operator/map";
 
 @Injectable()
 export class EmployeeService
 {
-    public getEmployees(): Promise<Employee[]>
+    constructor(private http: Http)
     {
-        return new Promise<Employee[]>(resolve => setTimeout(() => resolve(EMPLOYEES), 2000));
+    }
+
+    public getEmployees()
+    {
+        return this.http
+            .get("http://localhost:8050/v1/positivefeedback/employees")
+            .map((response: any) => response.json());
     }
 }
