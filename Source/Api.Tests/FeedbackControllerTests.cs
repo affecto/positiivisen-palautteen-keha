@@ -39,6 +39,29 @@ namespace Affecto.PositiveFeedback.Api.Tests
             Assert.AreSame(apiEmployee, result.Content.Single());
         }
 
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void IdCannotBeEmptyWhenGettingEmployee()
+        {
+            sut.GetEmployee(Guid.Empty);
+        }
+
+        [TestMethod]
+        public void GetEmployee()
+        {
+            Guid id = Guid.NewGuid();
+            IMapper<Application.Employee, Employee> employeeMapper = CreateEmployeeMapperMock();
+            var appEmployee = new Application.Employee(id, "name");
+            var apiEmployee = new Employee();
+            employeeMapper.Map(appEmployee).Returns(apiEmployee);
+            repository.GetEmployee(id).Returns(appEmployee);
+
+            var result = sut.GetEmployee(id) as OkNegotiatedContentResult<Employee>;
+
+            Assert.IsNotNull(result);
+            Assert.AreSame(apiEmployee, result.Content);
+        }
+
         private IMapper<Application.Employee, Employee> CreateEmployeeMapperMock()
         {
             IMapper<Application.Employee, Employee> mapper = Substitute.For<IMapper<Application.Employee, Employee>>();

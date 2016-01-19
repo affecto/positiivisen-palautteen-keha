@@ -39,6 +39,11 @@ namespace Affecto.PositiveFeedback.Api
         [Route("v1/employee/{id}")]
         public IHttpActionResult GetEmployee(Guid id)
         {
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentException("Id must be provided.", nameof(id));
+            }
+
             Application.Employee employee = repository.GetEmployee(id);
             var mapper = mapperFactory.CreateEmployeeMapper();
             return Ok(mapper.Map(employee));
