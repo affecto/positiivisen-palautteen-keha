@@ -1,4 +1,5 @@
-﻿using Affecto.PositiveFeedback.Application;
+﻿using Affecto.Configuration.Extensions;
+using Affecto.PositiveFeedback.Application;
 using Autofac;
 
 namespace Affecto.PositiveFeedback.Store.MongoDb
@@ -10,6 +11,8 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             base.Load(builder);
 
             builder.RegisterType<FeedbackRepository>().As<IFeedbackRepository>();
+            builder.RegisterType<Collections>().As<ICollections>();
+            builder.RegisterType<ApplicationConfiguration>().As<IApplicationConfiguration>();
         }
     }
 }
