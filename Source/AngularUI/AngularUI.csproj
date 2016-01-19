@@ -166,7 +166,6 @@
     <TypeScriptCompile Include="App\employee-detail.component.ts" />
     <TypeScriptCompile Include="App\model\employee.ts" />
     <TypeScriptCompile Include="App\services\employee.service.ts" />
-    <TypeScriptCompile Include="App\services\mock-employees.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

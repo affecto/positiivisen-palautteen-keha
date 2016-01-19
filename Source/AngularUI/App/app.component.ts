@@ -1,5 +1,6 @@
 ﻿import {Component} from "angular2/core";
 import {OnInit} from "angular2/core";
+import {HTTP_PROVIDERS} from "angular2/http";
 import {EmployeeService} from "./services/employee.service";
 import {EmployeeDetailComponent} from "./employee-detail.component"
 
@@ -13,7 +14,7 @@ import {EmployeeDetailComponent} from "./employee-detail.component"
             </span>
         </div>
     `,
-    providers: [EmployeeService],
+    providers: [HTTP_PROVIDERS, EmployeeService],
     directives: [EmployeeDetailComponent]
 })
 
@@ -33,6 +34,6 @@ export class AppComponent implements OnInit
     private getEmployees(): void
     {
         this.employeeService.getEmployees()
-            .then(employees => this.employees = employees);
+            .subscribe(employees => this.employees = employees);
     }
 }
