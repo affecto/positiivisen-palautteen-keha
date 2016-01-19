@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Affecto.PositiveFeedback.Application
 {
@@ -7,5 +8,6 @@ namespace Affecto.PositiveFeedback.Application
         bool HasEmployee(Guid id);
         void AddEmployee(Guid id, string name);
         void UpdateEmployee(Guid id, string name);
+        IEnumerable<Employee> GetEmployees();
     }
 }

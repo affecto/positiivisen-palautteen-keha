@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Affecto.PositiveFeedback.Application;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -39,6 +41,11 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("_id", id);
             UpdateDefinition<BsonDocument> update = Builders<BsonDocument>.Update.Set("Name", name);
             employees.UpdateOne(filter, update);
+        }
+
+        public IEnumerable<Employee> GetEmployees()
+        {
+            return employees.FindSync(FilterDefinition<BsonDocument>.Empty).ToList().Select(doc => new Employee(doc["_id"].AsGuid, doc["Name"].AsString));
         }
     }
 }
