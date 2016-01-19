@@ -1,39 +1,24 @@
 ﻿import {Component} from "angular2/core";
-import {OnInit} from "angular2/core";
-import {HTTP_PROVIDERS} from "angular2/http";
+import {RouteConfig, ROUTER_DIRECTIVES} from "angular2/router";
+
 import {EmployeeService} from "./services/employee.service";
+import {EmployeeListComponent} from "./employee-list.component"
 import {EmployeeDetailComponent} from "./employee-detail.component"
 
+@RouteConfig([
+    { path: "/",                name: "EmployeeList",   component: EmployeeListComponent, useAsDefault: true },
+    { path: "/employee/:id",    name: "EmployeeDetail", component: EmployeeDetailComponent }
+])
+
 @Component({
-    selector: "my-app",
+    selector: "positive-feedback-app",
     template: `
-        <h1>Affecton työntekijät</h1>
-        <div>
-            <span *ngFor="#employee of employees">
-                <employee-detail [employee]="employee"></employee-detail>
-            </span>
-        </div>
+        <h1>Positiivisen palautteen kehä</h1>
+        <router-outlet></router-outlet>
     `,
-    providers: [HTTP_PROVIDERS, EmployeeService],
-    directives: [EmployeeDetailComponent]
+    directives: [ROUTER_DIRECTIVES]
 })
 
-export class AppComponent implements OnInit
+export class AppComponent
 {
-    public employees: Employee[];
-
-    constructor(private employeeService: EmployeeService)
-    {
-    }
-
-    ngOnInit()
-    {
-        this.getEmployees();
-    }
-
-    private getEmployees(): void
-    {
-        this.employeeService.getEmployees()
-            .subscribe(employees => this.employees = employees);
-    }
 }

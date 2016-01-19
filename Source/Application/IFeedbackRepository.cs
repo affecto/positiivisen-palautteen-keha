@@ -9,5 +9,6 @@ namespace Affecto.PositiveFeedback.Application
         void AddEmployee(Guid id, string name);
         void UpdateEmployee(Guid id, string name);
         IEnumerable<Employee> GetEmployees();
+        Employee GetEmployee(Guid id);
     }
 }

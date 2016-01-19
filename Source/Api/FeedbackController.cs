@@ -26,13 +26,22 @@ namespace Affecto.PositiveFeedback.Api
         }
 
         [HttpGet]
-        [Route("v1/positivefeedback/employees")]
+        [Route("v1/employees")]
         public IHttpActionResult GetEmployees()
         {
             IEnumerable<Application.Employee> employees = repository.GetEmployees();
             var mapper = mapperFactory.CreateEmployeeMapper();
             IEnumerable<Employee> mappedEmployees = mapper.Map(employees);
             return Ok(mappedEmployees);
+        }
+
+        [HttpGet]
+        [Route("v1/employee/{id}")]
+        public IHttpActionResult GetEmployee(Guid id)
+        {
+            Application.Employee employee = repository.GetEmployee(id);
+            var mapper = mapperFactory.CreateEmployeeMapper();
+            return Ok(mapper.Map(employee));
         }
     }
 }

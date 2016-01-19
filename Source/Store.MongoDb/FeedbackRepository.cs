@@ -47,5 +47,18 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
         {
             return employees.FindSync(FilterDefinition<BsonDocument>.Empty).ToList().Select(doc => new Employee(doc["_id"].AsGuid, doc["Name"].AsString));
         }
+
+        public Employee GetEmployee(Guid id)
+        {
+            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("_id", id);
+            BsonDocument result = employees.FindSync(filter).SingleOrDefault();
+
+            if (result != null)
+            {
+                return new Employee(result["_id"].AsGuid, result["Name"].AsString);
+            }
+
+            return null;
+        }
     }
 }

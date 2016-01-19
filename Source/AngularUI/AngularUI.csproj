@@ -164,6 +164,8 @@
     <TypeScriptCompile Include="App\app.component.ts" />
     <TypeScriptCompile Include="App\boot.ts" />
     <TypeScriptCompile Include="App\employee-detail.component.ts" />
+    <TypeScriptCompile Include="App\employee-list.component.ts" />
+    <TypeScriptCompile Include="App\employee-list-item.component.ts" />
     <TypeScriptCompile Include="App\model\employee.ts" />
     <TypeScriptCompile Include="App\services\employee.service.ts" />
   </ItemGroup>
