@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using Affecto.PositiveFeedback.Application;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -10,12 +9,13 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
     {
         private readonly IMongoCollection<BsonDocument> employees;
         
-        public FeedbackRepository()
+        public FeedbackRepository(ICollections databaseCollections)
         {
-            MongoUrl mongourl = new MongoUrl(ConfigurationManager.ConnectionStrings["MongoDB"].ConnectionString);
-            IMongoClient client = new MongoClient(mongourl);
-            IMongoDatabase database = client.GetDatabase(mongourl.DatabaseName);
-            employees = database.GetCollection<BsonDocument>("Employee");
+            if (databaseCollections == null)
+            {
+                throw new ArgumentNullException(nameof(databaseCollections));
+            }
+            employees = databaseCollections.Load("Employee");
         }
         
         public bool HasEmployee(Guid id)
