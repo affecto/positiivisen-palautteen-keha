@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Affecto.PositiveFeedback.Application
 {
@@ -9,7 +10,7 @@ namespace Affecto.PositiveFeedback.Application
         public string Name { get; private set; }
         public IReadOnlyCollection<string> TextFeedback { get; private set; }
 
-        public Employee(Guid id, string name)
+        public Employee(Guid id, string name, IEnumerable<string> textFeedback = null)
         {
             if (id == Guid.Empty)
             {
@@ -22,6 +23,7 @@ namespace Affecto.PositiveFeedback.Application
 
             Id = id;
             Name = name;
+            TextFeedback = textFeedback?.ToList() ?? new List<string>();
         }
     }
 }

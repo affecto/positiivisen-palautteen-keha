@@ -36,13 +36,13 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
 
         public void UpdateEmployee(Guid id, string name)
         {
-            UpdateDefinition<Employee> update = Builders<Employee>.Update.Set("Name", name);
+            UpdateDefinition<Employee> update = Builders<Employee>.Update.Set(e => e.Name, name);
             employees.UpdateOne(e => e.Id.Equals(id), update);
         }
 
         public IEnumerable<Application.Employee> GetEmployees()
         {
-            return employees.Find(FilterDefinition<Employee>.Empty).ToEnumerable().Select(e => new Application.Employee(e.Id, e.Name));
+            return employees.Find(FilterDefinition<Employee>.Empty).ToEnumerable().Select(e => new Application.Employee(e.Id, e.Name, e.TextFeedback));
         }
 
         public Application.Employee GetEmployee(Guid id)
@@ -53,7 +53,8 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
 
         public void AddTextFeedback(Guid employeeId, string feedback)
         {
-            throw new NotImplementedException();
+            UpdateDefinition<Employee> update = Builders<Employee>.Update.AddToSet(e => e.TextFeedback, feedback);
+            employees.UpdateOne(e => e.Id.Equals(employeeId), update);
         }
     }
 }
