@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Affecto.PositiveFeedback.Application
 {
@@ -6,6 +7,7 @@ namespace Affecto.PositiveFeedback.Application
     {
         public Guid Id { get; private set; }
         public string Name { get; private set; }
+        public IReadOnlyCollection<string> TextFeedback { get; private set; }
 
         public Employee(Guid id, string name)
         {
