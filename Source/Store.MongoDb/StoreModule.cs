@@ -11,7 +11,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             base.Load(builder);
 
             builder.RegisterType<FeedbackRepository>().As<IFeedbackRepository>();
-            builder.RegisterType<Collections>().As<ICollections>();
+            builder.RegisterType<EmployeeCollection>().As<ICollection<Employee>>();
             builder.RegisterType<ApplicationConfiguration>().As<IApplicationConfiguration>();
         }
     }

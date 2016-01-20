@@ -2,63 +2,53 @@
 using System.Collections.Generic;
 using System.Linq;
 using Affecto.PositiveFeedback.Application;
-using MongoDB.Bson;
 using MongoDB.Driver;
 
 namespace Affecto.PositiveFeedback.Store.MongoDb
 {
     internal class FeedbackRepository : IFeedbackRepository
     {
-        private readonly IMongoCollection<BsonDocument> employees;
+        private readonly IMongoCollection<Employee> employees;
         
-        public FeedbackRepository(ICollections databaseCollections)
+        public FeedbackRepository(ICollection<Employee> databaseCollection)
         {
-            if (databaseCollections == null)
+            if (databaseCollection == null)
             {
-                throw new ArgumentNullException(nameof(databaseCollections));
+                throw new ArgumentNullException(nameof(databaseCollection));
             }
-            employees = databaseCollections.Load("Employee");
+            employees = databaseCollection.Load();
         }
         
         public bool HasEmployee(Guid id)
         {
-            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("_id", id);
-            return employees.Find(filter).Any();
+            return employees.Find(e => e.Id.Equals(id)).Any();
         }
 
-        public void AddEmployee(Guid userId, string name)
+        public void AddEmployee(Guid id, string name)
         {
-            var document = new BsonDocument
+            var document = new Employee
             {
-                {"_id", userId },
-                {"Name", name }
+                Id = id,
+                Name = name
             };
             employees.InsertOne(document);
         }
 
         public void UpdateEmployee(Guid id, string name)
         {
-            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("_id", id);
-            UpdateDefinition<BsonDocument> update = Builders<BsonDocument>.Update.Set("Name", name);
-            employees.UpdateOne(filter, update);
+            UpdateDefinition<Employee> update = Builders<Employee>.Update.Set("Name", name);
+            employees.UpdateOne(e => e.Id.Equals(id), update);
         }
 
-        public IEnumerable<Employee> GetEmployees()
+        public IEnumerable<Application.Employee> GetEmployees()
         {
-            return employees.FindSync(FilterDefinition<BsonDocument>.Empty).ToList().Select(doc => new Employee(doc["_id"].AsGuid, doc["Name"].AsString));
+            return employees.Find(FilterDefinition<Employee>.Empty).ToEnumerable().Select(e => new Application.Employee(e.Id, e.Name));
         }
 
-        public Employee GetEmployee(Guid id)
+        public Application.Employee GetEmployee(Guid id)
         {
-            FilterDefinition<BsonDocument> filter = Builders<BsonDocument>.Filter.Eq("_id", id);
-            BsonDocument result = employees.FindSync(filter).SingleOrDefault();
-
-            if (result != null)
-            {
-                return new Employee(result["_id"].AsGuid, result["Name"].AsString);
-            }
-
-            return null;
+            Employee employee = employees.Find(e => e.Id.Equals(id)).SingleOrDefault();
+            return employee != null ? new Application.Employee(employee.Id, employee.Name) : null;
         }
     }
 }
