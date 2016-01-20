@@ -47,6 +47,13 @@ namespace Affecto.PositiveFeedback.Api.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void EmployeeIdCannotBeEmptyWhenGivingFeedback()
+        {
+            sut.GiveTextFeedback(Guid.Empty, "good guy!");
+        }
+
+        [TestMethod]
         public void GetEmployee()
         {
             Guid id = Guid.NewGuid();
@@ -60,6 +67,17 @@ namespace Affecto.PositiveFeedback.Api.Tests
 
             Assert.IsNotNull(result);
             Assert.AreSame(apiEmployee, result.Content);
+        }
+
+        [TestMethod]
+        public void GiveFeedback()
+        {
+            Guid employeeId = Guid.NewGuid();
+            const string feedback = "Good job!";
+
+            sut.GiveTextFeedback(employeeId, feedback);
+
+            repository.Received(1).AddTextFeedback(employeeId, feedback);
         }
 
         private IMapper<Application.Employee, Employee> CreateEmployeeMapperMock()

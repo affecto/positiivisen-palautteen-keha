@@ -48,5 +48,18 @@ namespace Affecto.PositiveFeedback.Api
             var mapper = mapperFactory.CreateEmployeeMapper();
             return Ok(mapper.Map(employee));
         }
+
+        [HttpPost]
+        [Route("v1/employee/{id}/textfeedback")]
+        public IHttpActionResult GiveTextFeedback(Guid employeeId, [FromBody] string feedback)
+        {
+            if (employeeId == Guid.Empty)
+            {
+                throw new ArgumentException("Employee id must be provided.", nameof(employeeId));
+            }
+
+            repository.AddTextFeedback(employeeId, feedback);
+            return Ok();
+        }
     }
 }

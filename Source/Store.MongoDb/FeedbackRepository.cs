@@ -50,5 +50,10 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             Employee employee = employees.Find(e => e.Id.Equals(id)).SingleOrDefault();
             return employee != null ? new Application.Employee(employee.Id, employee.Name) : null;
         }
+
+        public void AddTextFeedback(Guid employeeId, string feedback)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
