@@ -2,8 +2,8 @@
 import {RouteConfig, ROUTER_DIRECTIVES} from "angular2/router";
 
 import {EmployeeService} from "./services/employee.service";
-import {EmployeeListComponent} from "./employee-list.component"
-import {EmployeeDetailComponent} from "./employee-detail.component"
+import {EmployeeListComponent} from "./components/employee-list.component"
+import {EmployeeDetailComponent} from "./components/employee-detail.component"
 
 @RouteConfig([
     { path: "/",                name: "EmployeeList",   component: EmployeeListComponent, useAsDefault: true },

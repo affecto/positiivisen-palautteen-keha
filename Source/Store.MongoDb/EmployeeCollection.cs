@@ -9,6 +9,15 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
     {
         private IMongoDatabase database;
 
+        static EmployeeCollection()
+        {
+            BsonClassMap.RegisterClassMap<Employee>(cm =>
+            {
+                cm.AutoMap();
+                cm.SetIdMember(cm.GetMemberMap(employee => employee.Id));
+            });
+        }
+
         public EmployeeCollection(IApplicationConfiguration configuration)
         {
             if (configuration == null)
@@ -16,7 +25,6 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
                 throw new ArgumentNullException(nameof(configuration));
             }
 
-            RegisterModelClasses();
             SetupDatabase(configuration);
         }
 
@@ -30,15 +38,6 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             var mongourl = new MongoUrl(configuration.GetConnectionString("MongoDB"));
             var client = new MongoClient(mongourl);
             database = client.GetDatabase(mongourl.DatabaseName);
-        }
-
-        private static void RegisterModelClasses()
-        {
-            BsonClassMap.RegisterClassMap<Employee>(cm =>
-            {
-                cm.AutoMap();
-                cm.SetIdMember(cm.GetMemberMap(employee => employee.Id));
-            });
         }
     }
 }

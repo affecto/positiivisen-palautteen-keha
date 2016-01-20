@@ -51,14 +51,14 @@ namespace Affecto.PositiveFeedback.Api
 
         [HttpPost]
         [Route("v1/employee/{id}/textfeedback")]
-        public IHttpActionResult GiveTextFeedback(Guid employeeId, [FromBody] string feedback)
+        public IHttpActionResult GiveEmployeeTextFeedback(Guid id, [FromBody] string feedback)
         {
-            if (employeeId == Guid.Empty)
+            if (id == Guid.Empty)
             {
-                throw new ArgumentException("Employee id must be provided.", nameof(employeeId));
+                throw new ArgumentException("Employee id must be provided.", nameof(id));
             }
 
-            repository.AddTextFeedback(employeeId, feedback);
+            repository.AddTextFeedback(id, feedback);
             return Ok();
         }
     }

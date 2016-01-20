@@ -50,7 +50,7 @@ namespace Affecto.PositiveFeedback.Api.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void EmployeeIdCannotBeEmptyWhenGivingFeedback()
         {
-            sut.GiveTextFeedback(Guid.Empty, "good guy!");
+            sut.GiveEmployeeTextFeedback(Guid.Empty, "good guy!");
         }
 
         [TestMethod]
@@ -75,7 +75,7 @@ namespace Affecto.PositiveFeedback.Api.Tests
             Guid employeeId = Guid.NewGuid();
             const string feedback = "Good job!";
 
-            sut.GiveTextFeedback(employeeId, feedback);
+            sut.GiveEmployeeTextFeedback(employeeId, feedback);
 
             repository.Received(1).AddTextFeedback(employeeId, feedback);
         }

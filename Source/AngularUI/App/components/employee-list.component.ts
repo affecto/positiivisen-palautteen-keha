@@ -2,7 +2,7 @@
 import {OnInit} from "angular2/core";
 import {HTTP_PROVIDERS} from "angular2/http";
 
-import {EmployeeService} from "./services/employee.service";
+import {EmployeeService} from "../services/employee.service";
 import {EmployeeListItemComponent} from "./employee-list-item.component"
 
 @Component({

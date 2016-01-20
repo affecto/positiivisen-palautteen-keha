@@ -131,6 +131,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\components\employee-detail.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -163,9 +164,9 @@
   <ItemGroup>
     <TypeScriptCompile Include="App\app.component.ts" />
     <TypeScriptCompile Include="App\boot.ts" />
-    <TypeScriptCompile Include="App\employee-detail.component.ts" />
-    <TypeScriptCompile Include="App\employee-list.component.ts" />
-    <TypeScriptCompile Include="App\employee-list-item.component.ts" />
+    <TypeScriptCompile Include="App\components\employee-detail.component.ts" />
+    <TypeScriptCompile Include="App\components\employee-list.component.ts" />
+    <TypeScriptCompile Include="App\components\employee-list-item.component.ts" />
     <TypeScriptCompile Include="App\model\employee.ts" />
     <TypeScriptCompile Include="App\services\employee.service.ts" />
   </ItemGroup>

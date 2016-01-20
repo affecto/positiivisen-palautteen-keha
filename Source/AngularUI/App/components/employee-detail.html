@@ -1,0 +1,15 @@
+﻿<p *ngIf="employee">
+    {{ employee.name }}
+</p>
+
+<form (ngSubmit)="sendFeedback()" #employeeFeedbackForm="ngForm">
+    <div class="form-group">
+        <label for="feedback">Anna palautetta</label>
+        <input id="feedback" type="text" class="form-control" required [(ngModel)]="feedback" ngControl="feedbackControl" #feedbackControl="ngForm">
+    </div>
+    <button type="submit" class="btn btn-default" [disabled]="!employeeFeedbackForm.form.valid">Lähetä</button>
+</form>
+
+<p>
+    <a [routerLink]="['EmployeeList']">Palaa etusivulle</a>
+</p>
