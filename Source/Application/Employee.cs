@@ -9,6 +9,15 @@ namespace Affecto.PositiveFeedback.Application
 
         public Employee(Guid id, string name)
         {
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentException("Id must be given.", nameof(id));
+            }
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("Name must be given.", nameof(name));
+            }
+
             Id = id;
             Name = name;
         }
