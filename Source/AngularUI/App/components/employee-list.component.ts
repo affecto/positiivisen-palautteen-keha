@@ -1,6 +1,7 @@
 ﻿import {Component} from "angular2/core";
 import {OnInit} from "angular2/core";
 import {HTTP_PROVIDERS} from "angular2/http";
+import {ROUTER_DIRECTIVES} from "angular2/router";
 
 import {EmployeeService} from "../services/employee.service";
 import {EmployeeListItemComponent} from "./employee-list-item.component"
@@ -13,9 +14,10 @@ import {EmployeeListItemComponent} from "./employee-list-item.component"
                 <employee-list-item [employee]="employee"></employee-list-item>
             </span>
         </div>
+        <a [routerLink]="['FeedbackReport']">Raportti</a>
     `,
     providers: [HTTP_PROVIDERS, EmployeeService],
-    directives: [EmployeeListItemComponent]
+    directives: [ROUTER_DIRECTIVES, EmployeeListItemComponent]
 })
 
 export class EmployeeListComponent implements OnInit
