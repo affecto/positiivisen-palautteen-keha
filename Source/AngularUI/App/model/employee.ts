@@ -2,4 +2,5 @@
 {
     id: string;
     name: string;
+    textFeedback: string[];
 }
