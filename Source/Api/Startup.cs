@@ -2,6 +2,7 @@
 using System.Net.Http.Formatting;
 using System.Web.Http;
 using Affecto.PositiveFeedback.Api;
+using Affecto.PositiveFeedback.Store.MongoDb;
 using Autofac;
 using Autofac.Integration.WebApi;
 using Microsoft.Owin;
@@ -17,9 +18,8 @@ namespace Affecto.PositiveFeedback.Api
         public void Configuration(IAppBuilder app)
         {
             var builder = new ContainerBuilder();
-
-            //builder.RegisterType<Log4NetLoggerFactory>().As<ILoggerFactory>();
-
+            builder.RegisterModule<ApiModule>();
+            builder.RegisterModule<StoreModule>();
             IContainer container = builder.Build();
 
             HttpConfiguration config = new HttpConfiguration

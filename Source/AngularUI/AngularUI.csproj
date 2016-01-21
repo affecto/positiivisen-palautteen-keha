@@ -26,7 +26,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <TypeScriptToolsVersion>1.7</TypeScriptToolsVersion>
+    <TypeScriptToolsVersion>1.7.6</TypeScriptToolsVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -124,13 +124,15 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\components\employee-detail.html" />
+    <Content Include="App\components\feedback-report.html" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -144,24 +146,33 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\router.dev.js" />
     <Content Include="Scripts\Rx.js" />
     <Content Include="Scripts\system.src.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Web.Octopus Deployment.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Index\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="App\app.component.ts" />
     <TypeScriptCompile Include="App\boot.ts" />
+    <TypeScriptCompile Include="App\components\employee-detail.component.ts" />
+    <TypeScriptCompile Include="App\components\feedback-report.component.ts" />
+    <TypeScriptCompile Include="App\components\employee-list.component.ts" />
+    <TypeScriptCompile Include="App\components\employee-list-item.component.ts" />
+    <TypeScriptCompile Include="App\configuration.ts" />
+    <TypeScriptCompile Include="App\model\employee.ts" />
+    <TypeScriptCompile Include="App\services\employee.service.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">

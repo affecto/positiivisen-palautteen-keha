@@ -2,7 +2,7 @@
 
 namespace Affecto.PositiveFeedback.AngularUI.Controllers
 {
-    public class HomeController : Controller
+    public class IndexController : Controller
     {
         public ActionResult Index()
         {

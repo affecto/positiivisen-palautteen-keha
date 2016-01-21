@@ -1,18 +1,37 @@
-﻿<!DOCTYPE html>
+﻿@using System.Configuration
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Positiivisen palautteen kehä</title>
+
+    <base href="@Url.Content("~")" />
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <link rel="stylesheet" href="~/node_modules/bootstrap/dist/css/bootstrap.min.css">
 
     <script src="~/node_modules/angular2/bundles/angular2-polyfills.js"></script>
     <script src="~/node_modules/systemjs/dist/system.src.js"></script>
     <script src="~/node_modules/rxjs/bundles/Rx.js"></script>
     <script src="~/node_modules/angular2/bundles/angular2.dev.js"></script>
+    <script src="~/node_modules/angular2/bundles/router.dev.js"></script>
+    <script src="~/node_modules/angular2/bundles/http.dev.js"></script>
 
     <script>
+        (function(positiveFeedbackApp) {
+            (function(config) {
+                config.apiBaseUrl = '@ConfigurationManager.AppSettings["ApiBaseUrl"]';
+            })(window.positiveFeedbackApp.config || (window.positiveFeedbackApp.config = { }));
+        })(window.positiveFeedbackApp || (window.positiveFeedbackApp = { }));
+
         System.config({
             packages: {
                 app: {
@@ -27,8 +46,6 @@
 
 </head>
 <body>
-    @RenderBody()
-
-    @RenderSection("scripts", required: false)
+    <positive-feedback-app>Ladataan...</positive-feedback-app>
 </body>
 </html>

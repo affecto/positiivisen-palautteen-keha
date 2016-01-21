@@ -51,7 +51,8 @@ var libsToMove = [
    paths.npmSource + "/angular2/bundles/angular2-polyfills.js",
    paths.npmSource + "/systemjs/dist/system.src.js",
    paths.npmSource + "/rxjs/bundles/Rx.js",
-   paths.npmSource + "/angular2/bundles/angular2.dev.js"
+   paths.npmSource + "/angular2/bundles/angular2.dev.js",
+   paths.npmSource + "/angular2/bundles/router.dev.js"
 ];
 
 gulp.task("moveToLib", function () {
