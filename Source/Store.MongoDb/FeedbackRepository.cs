@@ -57,9 +57,18 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
         {
             if (!string.IsNullOrWhiteSpace(feedback))
             {
-                UpdateDefinition<Employee> update = Builders<Employee>.Update.AddToSet(e => e.TextFeedback, feedback);
-                employees.UpdateOne(e => e.Id.Equals(employeeId), update);
+                string trimmedFeedback = feedback.Trim();
+                if (!IsTextFeedbackAdded(employeeId, trimmedFeedback))
+                {
+                    UpdateDefinition<Employee> update = Builders<Employee>.Update.AddToSet(e => e.TextFeedback, trimmedFeedback);
+                    employees.UpdateOne(e => e.Id.Equals(employeeId), update);
+                }
             }
+        }
+
+        private bool IsTextFeedbackAdded(Guid employeeId, string feedback)
+        {
+            return employees.Find(e => e.Id.Equals(employeeId) && e.TextFeedback.Contains(feedback)).Any();
         }
 
         private static void ValidateIdAndName(Guid id, string name)
