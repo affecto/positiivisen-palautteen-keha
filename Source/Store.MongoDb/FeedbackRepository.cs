@@ -26,6 +26,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
 
         public void AddEmployee(Guid id, string name)
         {
+            ValidateIdAndName(id, name);
             var document = new Employee
             {
                 Id = id,
@@ -36,6 +37,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
 
         public void UpdateEmployee(Guid id, string name)
         {
+            ValidateIdAndName(id, name);
             UpdateDefinition<Employee> update = Builders<Employee>.Update.Set(e => e.Name, name);
             employees.UpdateOne(e => e.Id.Equals(id), update);
         }
@@ -53,8 +55,23 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
 
         public void AddTextFeedback(Guid employeeId, string feedback)
         {
-            UpdateDefinition<Employee> update = Builders<Employee>.Update.AddToSet(e => e.TextFeedback, feedback);
-            employees.UpdateOne(e => e.Id.Equals(employeeId), update);
+            if (!string.IsNullOrWhiteSpace(feedback))
+            {
+                UpdateDefinition<Employee> update = Builders<Employee>.Update.AddToSet(e => e.TextFeedback, feedback);
+                employees.UpdateOne(e => e.Id.Equals(employeeId), update);
+            }
+        }
+
+        private static void ValidateIdAndName(Guid id, string name)
+        {
+            if (id.Equals(Guid.Empty))
+            {
+                throw new ArgumentException("Id must be defined.");
+            }
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("Name must be defined.");
+            }
         }
     }
 }
