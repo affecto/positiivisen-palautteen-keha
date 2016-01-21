@@ -40,3 +40,5 @@ artifacts:
     name: PositiveFeedback UI OctoPack
   - path: 'Source\Api\obj\octopacked\PositiveFeedback.API.*.nupkg'
     name: PositiveFeedback API OctoPack
+  - path: 'Source\ConsoleEmployeeSynchronizer\obj\octopacked\PositiveFeedback.EmployeeSynchronizer.*.nupkg'
+    name: PositiveFeedback EmployeeSynchronizer OctoPack
