@@ -57,7 +57,9 @@
     <Content Include="ConsoleEmployeeSynchronizer.nuspec" />
     <None Include="App.config" />
     <None Include="packages.config" />
-    <Content Include="App.Octopus Deployment.config" />
+    <Content Include="App.Octopus Deployment.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EmployeeSynchronization\EmployeeSynchronization.csproj">
