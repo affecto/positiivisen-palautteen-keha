@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Driver;
 using NSubstitute;
@@ -84,6 +86,33 @@ namespace Affecto.PositiveFeedback.Store.MongoDb.Tests
         public void EmployeeWithNullNameCannotBeUpdated()
         {
             sut.UpdateEmployee(Guid.NewGuid(), null);
+        }
+
+        [TestMethod]
+        public void AddEmployee()
+        {
+            Guid id = Guid.NewGuid();
+            const string name = "Matt";
+
+            sut.AddEmployee(id, name);
+
+            employees.Received(1).InsertOne(Arg.Is<Employee>(e => e.Id.Equals(id) && e.Name.Equals(name)));
+        }
+
+        [TestMethod]
+        public void GetEmployeeWhenEmployeeIsNotFound()
+        {
+            Application.Employee result = sut.GetEmployee(Guid.NewGuid());
+
+            Assert.IsNull(result);
+        }
+
+        [TestMethod]
+        public void GetEmployees()
+        {
+            sut.GetEmployees();
+
+            employees.Received(1).Find(FilterDefinition<Employee>.Empty);
         }
     }
 }
