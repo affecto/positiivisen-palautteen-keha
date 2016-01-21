@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using System.Configuration
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -20,6 +21,12 @@
     <script src="~/node_modules/angular2/bundles/http.dev.js"></script>
 
     <script>
+        (function(positiveFeedbackApp) {
+            (function(config) {
+                config.apiBaseUrl = '@ConfigurationManager.AppSettings["ApiBaseUrl"]';
+            })(window.positiveFeedbackApp.config || (window.positiveFeedbackApp.config = { }));
+        })(window.positiveFeedbackApp || (window.positiveFeedbackApp = { }));
+
         System.config({
             packages: {
                 app: {

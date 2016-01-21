@@ -1,25 +1,26 @@
 ﻿import {Injectable} from "angular2/core";
 import {Http, Headers} from "angular2/http";
 import "rxjs/add/operator/map";
+import {Configuration} from "../configuration";
 
 @Injectable()
 export class EmployeeService
 {
-    constructor(private http: Http)
+    constructor(private http: Http, private configuration: Configuration)
     {
     }
 
     public getEmployees()
     {
         return this.http
-            .get("http://localhost:8050/v1/employees")
+            .get(`${this.configuration.apiBaseUrl}employees`)
             .map((response: any) => response.json());
     }
 
     public getEmployee(id: string)
     {
         return this.http
-            .get(`http://localhost:8050/v1/employee/${id}`)
+            .get(`${this.configuration.apiBaseUrl}employee/${id}`)
             .map((response: any) => response.json());
     }
 
@@ -29,6 +30,6 @@ export class EmployeeService
         headers.append("Content-Type", "application/json");
 
         return this.http
-            .post(`http://localhost:8050/v1/employee/${id}/textfeedback`, JSON.stringify(feedback), { headers: headers });
+            .post(`${this.configuration.apiBaseUrl}employee/${id}/textfeedback`, JSON.stringify(feedback), { headers: headers });
     }
 }

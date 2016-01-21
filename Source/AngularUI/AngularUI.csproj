@@ -169,6 +169,7 @@
     <TypeScriptCompile Include="App\components\feedback-report.component.ts" />
     <TypeScriptCompile Include="App\components\employee-list.component.ts" />
     <TypeScriptCompile Include="App\components\employee-list-item.component.ts" />
+    <TypeScriptCompile Include="App\configuration.ts" />
     <TypeScriptCompile Include="App\model\employee.ts" />
     <TypeScriptCompile Include="App\services\employee.service.ts" />
   </ItemGroup>
