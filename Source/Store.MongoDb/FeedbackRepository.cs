@@ -24,21 +24,23 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             return employees.Find(e => e.Id.Equals(id)).Any();
         }
 
-        public void AddEmployee(Guid id, string name)
+        public void AddEmployee(Guid id, string name, string location, string organization)
         {
             ValidateIdAndName(id, name);
             var document = new Employee
             {
                 Id = id,
-                Name = name
+                Name = name,
+                Location = location,
+                Organization = organization
             };
             employees.InsertOne(document);
         }
 
-        public void UpdateEmployee(Guid id, string name)
+        public void UpdateEmployee(Guid id, string name, string location, string organization)
         {
             ValidateIdAndName(id, name);
-            UpdateDefinition<Employee> update = Builders<Employee>.Update.Set(e => e.Name, name);
+            UpdateDefinition<Employee> update = Builders<Employee>.Update.Set(e => e.Name, name).Set(e => e.Location, location).Set(e => e.Organization, organization);
             employees.UpdateOne(e => e.Id.Equals(id), update);
         }
 

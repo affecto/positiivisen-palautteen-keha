@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Tests", "Applic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Store.MongoDb.Tests", "Store.MongoDb.Tests\Store.MongoDb.Tests.csproj", "{8350615E-39D1-491E-9304-4CBAE027DEF8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeSynchronization.ActiveDirectory", "EmployeeSynchronization.ActiveDirectory\EmployeeSynchronization.ActiveDirectory.csproj", "{F8A3B665-A308-41D8-BC5D-DB3152E76FAD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -70,6 +72,10 @@ Global
 		{8350615E-39D1-491E-9304-4CBAE027DEF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8350615E-39D1-491E-9304-4CBAE027DEF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8350615E-39D1-491E-9304-4CBAE027DEF8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8A3B665-A308-41D8-BC5D-DB3152E76FAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8A3B665-A308-41D8-BC5D-DB3152E76FAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8A3B665-A308-41D8-BC5D-DB3152E76FAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8A3B665-A308-41D8-BC5D-DB3152E76FAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
