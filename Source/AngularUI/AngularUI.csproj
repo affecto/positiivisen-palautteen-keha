@@ -133,6 +133,7 @@
   <ItemGroup>
     <Content Include="App\components\employee-detail.html" />
     <Content Include="App\components\feedback-report.html" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -141,6 +142,7 @@
     <None Include="bower.json" />
     <Content Include="Scripts\angular2-polyfills.js" />
     <Content Include="Scripts\angular2.dev.js" />
+    <Content Include="Scripts\http.dev.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
