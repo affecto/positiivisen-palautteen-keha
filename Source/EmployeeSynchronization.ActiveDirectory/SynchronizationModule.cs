@@ -1,6 +1,6 @@
 ﻿using Autofac;
 
-namespace Affecto.PositiveFeedback.EmployeeSynchronization
+namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
 {
     public class SynchronizationModule : Module
     {
@@ -9,6 +9,7 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization
             base.Load(builder);
 
             builder.RegisterType<Controller>();
+            builder.RegisterType<EmployeeRepository>().As<IEmployeeRepository>();
         }
     }
 }

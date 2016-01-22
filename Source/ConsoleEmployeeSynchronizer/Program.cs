@@ -1,4 +1,5 @@
 ﻿using Affecto.PositiveFeedback.EmployeeSynchronization;
+using Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory;
 using Affecto.PositiveFeedback.Store.MongoDb;
 using Autofac;
 

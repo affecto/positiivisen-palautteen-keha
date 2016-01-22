@@ -5,37 +5,41 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization
 {
     public class Controller
     {
-        private readonly Guid firstEmployeeId = Guid.Parse("780AE7D2-880C-42BE-BFB4-342678D06AB0");
-        private readonly Guid secondEmployeeId = Guid.Parse("8166B820-5509-4169-AA89-1E1CD719ADFB");
-        private const string FirstEmployeeName = "Antti Affectolainen";
-        private const string SecondEmployeeName = "Katja Karttakeskuslainen";
+        private readonly IFeedbackRepository feedbackRepository;
+        private readonly IEmployeeRepository employeeRepository;
 
-        private readonly IFeedbackRepository repository;
-
-        public Controller(IFeedbackRepository repository)
+        public Controller(IFeedbackRepository feedbackRepository, IEmployeeRepository employeeRepository)
         {
-            if (repository == null)
+            if (feedbackRepository == null)
             {
-                throw new ArgumentNullException(nameof(repository));
+                throw new ArgumentNullException(nameof(feedbackRepository));
             }
-            this.repository = repository;
+            if (employeeRepository == null)
+            {
+                throw new ArgumentNullException(nameof(employeeRepository));
+            }
+
+            this.feedbackRepository = feedbackRepository;
+            this.employeeRepository = employeeRepository;
         }
 
         public void Synchronize()
         {
-            AddOrUpdateEmployee(firstEmployeeId, FirstEmployeeName);
-            AddOrUpdateEmployee(secondEmployeeId, SecondEmployeeName);
+            foreach (IEmployee employee in employeeRepository.GetEmployees())
+            {
+                AddOrUpdateEmployee(employee.Id, employee.Name, employee.Location, employee.Organization);
+            }
         }
 
-        private void AddOrUpdateEmployee(Guid id, string name)
+        private void AddOrUpdateEmployee(Guid id, string name, string location, string organization)
         {
-            if (repository.HasEmployee(id))
+            if (feedbackRepository.HasEmployee(id))
             {
-                repository.UpdateEmployee(id, name);
+                feedbackRepository.UpdateEmployee(id, name, location, organization);
             }
             else
             {
-                repository.AddEmployee(id, name);
+                feedbackRepository.AddEmployee(id, name, location, organization);
             }
         }
     }
