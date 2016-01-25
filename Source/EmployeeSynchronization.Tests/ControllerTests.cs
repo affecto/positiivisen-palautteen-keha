@@ -40,9 +40,9 @@ namespace EmployeeSynchronization.Tests
             const string oldEmployeeLocation = "NJ";
             const string oldEmployeeOrganization = "Sanitation";
 
-            feedbackRepository.HasActiveEmployee(newEmployee1Id).Returns(false);
-            feedbackRepository.HasActiveEmployee(newEmployee2Id).Returns(false);
-            feedbackRepository.HasActiveEmployee(oldEmployeeId).Returns(true);
+            feedbackRepository.HasEmployee(newEmployee1Id).Returns(false);
+            feedbackRepository.HasEmployee(newEmployee2Id).Returns(false);
+            feedbackRepository.HasEmployee(oldEmployeeId).Returns(true);
 
             IEmployee newEmployee1 = CreateEmployeeMock(newEmployee1Id, newEmployee1Name, newEmployee1Location, newEmployee1Organization);
             IEmployee newEmployee2 = CreateEmployeeMock(newEmployee2Id, newEmployee2Name, newEmployee2Location, newEmployee2Organization);
@@ -77,9 +77,9 @@ namespace EmployeeSynchronization.Tests
             const string oldEmployee2Location = "NJ";
             const string oldEmployee2Organization = "Sanitation";
 
-            feedbackRepository.HasActiveEmployee(newEmployeeId).Returns(false);
-            feedbackRepository.HasActiveEmployee(oldEmployee1Id).Returns(true);
-            feedbackRepository.HasActiveEmployee(oldEmployee2Id).Returns(true);
+            feedbackRepository.HasEmployee(newEmployeeId).Returns(false);
+            feedbackRepository.HasEmployee(oldEmployee1Id).Returns(true);
+            feedbackRepository.HasEmployee(oldEmployee2Id).Returns(true);
 
             IEmployee newEmployee = CreateEmployeeMock(newEmployeeId, newEmployeeName, newEmployeeLocation, newEmployeeOrganization);
             IEmployee oldEmployee1 = CreateEmployeeMock(oldEmployee1Id, oldEmployee1Name, oldEmployee1Location, oldEmployee1Organization);
@@ -111,9 +111,9 @@ namespace EmployeeSynchronization.Tests
             Guid oldRemovedEmployee2Id = Guid.NewGuid();
             const string oldRemovedEmployee2Name = "Peter";
 
-            feedbackRepository.HasActiveEmployee(oldEmployeeId).Returns(true);
-            feedbackRepository.HasActiveEmployee(oldRemovedEmployee1Id).Returns(true);
-            feedbackRepository.HasActiveEmployee(oldRemovedEmployee2Id).Returns(true);
+            feedbackRepository.HasEmployee(oldEmployeeId).Returns(true);
+            feedbackRepository.HasEmployee(oldRemovedEmployee1Id).Returns(true);
+            feedbackRepository.HasEmployee(oldRemovedEmployee2Id).Returns(true);
 
             IEmployee oldEmployee = CreateEmployeeMock(oldEmployeeId, oldEmployeeName, oldEmployeeLocation, oldEmployeeOrganization);
             employeeRepository.GetEmployees().Returns(new List<IEmployee> { oldEmployee });
@@ -128,6 +128,26 @@ namespace EmployeeSynchronization.Tests
             feedbackRepository.Received(1).DeactivateEmployee(oldRemovedEmployee1Id);
             feedbackRepository.Received(1).DeactivateEmployee(oldRemovedEmployee1Id);
             feedbackRepository.DidNotReceive().DeactivateEmployee(oldEmployeeId);
+        }
+
+        [TestMethod]
+        public void DeactivatedEmployeesCanBeActivatedAgain()
+        {
+            Guid employeeId = Guid.NewGuid();
+            const string employeeName = "John";
+            const string employeeLocation = "NJ";
+            const string employeeOrganization = "Sanitation";
+
+            feedbackRepository.HasEmployee(employeeId).Returns(true);
+
+            IEmployee employee = CreateEmployeeMock(employeeId, employeeName, employeeLocation, employeeOrganization);
+            employeeRepository.GetEmployees().Returns(new List<IEmployee> { employee });
+
+            feedbackRepository.GetActiveEmployees().Returns(new List<Employee>());
+
+            sut.Synchronize();
+
+            feedbackRepository.Received(1).UpdateEmployee(employeeId, employeeName, employeeLocation, employeeOrganization);
         }
 
         private static IEmployee CreateEmployeeMock(Guid id, string name, string location, string organization)

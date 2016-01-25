@@ -5,7 +5,7 @@ namespace Affecto.PositiveFeedback.Application
 {
     public interface IFeedbackRepository
     {
-        bool HasActiveEmployee(Guid id);
+        bool HasEmployee(Guid id);
         void AddEmployee(Guid id, string name, string location, string organization);
         void UpdateEmployee(Guid id, string name, string location, string organization);
         IEnumerable<Employee> GetActiveEmployees();
