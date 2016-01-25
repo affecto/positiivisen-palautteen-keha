@@ -28,7 +28,7 @@ namespace Affecto.PositiveFeedback.Api.Tests
         public void GetEmployees()
         {
             IMapper<Application.Employee, Employee> employeeMapper = CreateEmployeeMapperMock();
-            var appEmployee = new Application.Employee(Guid.NewGuid(), "name");
+            var appEmployee = new Application.Employee(Guid.NewGuid(), "name", null);
             var apiEmployee = new Employee();
             employeeMapper.Map(appEmployee).Returns(apiEmployee);
             repository.GetActiveEmployees().Returns(new List<Application.Employee> { appEmployee });
@@ -58,7 +58,7 @@ namespace Affecto.PositiveFeedback.Api.Tests
         {
             Guid id = Guid.NewGuid();
             IMapper<Application.Employee, Employee> employeeMapper = CreateEmployeeMapperMock();
-            var appEmployee = new Application.Employee(id, "name");
+            var appEmployee = new Application.Employee(id, "name", null);
             var apiEmployee = new Employee();
             employeeMapper.Map(appEmployee).Returns(apiEmployee);
             repository.GetEmployee(id).Returns(appEmployee);
