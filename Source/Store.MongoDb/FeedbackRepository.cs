@@ -19,9 +19,9 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             employees = databaseCollection.Load();
         }
         
-        public bool HasEmployee(Guid id)
+        public bool HasActiveEmployee(Guid id)
         {
-            return employees.Find(e => e.Id.Equals(id)).Any();
+            return employees.Find(e => e.Id.Equals(id) && e.Active).Any();
         }
 
         public void AddEmployee(Guid id, string name, string location, string organization)
@@ -32,7 +32,8 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
                 Id = id,
                 Name = name,
                 Location = location,
-                Organization = organization
+                Organization = organization,
+                Active = true
             };
             employees.InsertOne(document);
         }
@@ -40,13 +41,14 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
         public void UpdateEmployee(Guid id, string name, string location, string organization)
         {
             ValidateIdAndName(id, name);
-            UpdateDefinition<Employee> update = Builders<Employee>.Update.Set(e => e.Name, name).Set(e => e.Location, location).Set(e => e.Organization, organization);
+            UpdateDefinition<Employee> update = Builders<Employee>.Update.Set(e => e.Name, name).Set(e => e.Location, location)
+                .Set(e => e.Organization, organization).Set(e => e.Active, true);
             employees.UpdateOne(e => e.Id.Equals(id), update);
         }
 
-        public IEnumerable<Application.Employee> GetEmployees()
+        public IEnumerable<Application.Employee> GetActiveEmployees()
         {
-            return employees.Find(FilterDefinition<Employee>.Empty).ToEnumerable().Select(e => new Application.Employee(e.Id, e.Name, e.TextFeedback));
+            return employees.Find(e => e.Active).ToEnumerable().Select(e => new Application.Employee(e.Id, e.Name, e.TextFeedback));
         }
 
         public Application.Employee GetEmployee(Guid id)
@@ -66,6 +68,16 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
                     employees.UpdateOne(e => e.Id.Equals(employeeId), update);
                 }
             }
+        }
+
+        public void DeactivateEmployee(Guid id)
+        {
+            if (id.Equals(Guid.Empty))
+            {
+                throw new ArgumentException("Id must be defined.");
+            }
+            UpdateDefinition<Employee> update = Builders<Employee>.Update.Set(e => e.Active, false);
+            employees.UpdateOne(e => e.Id.Equals(id), update);
         }
 
         private bool IsTextFeedbackAdded(Guid employeeId, string feedback)

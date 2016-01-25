@@ -10,6 +10,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
         public List<string> TextFeedback { get; set; }
         public string Location { get; set; }
         public string Organization { get; set; }
+        public bool Active { get; set; }
         
         public Employee()
         {

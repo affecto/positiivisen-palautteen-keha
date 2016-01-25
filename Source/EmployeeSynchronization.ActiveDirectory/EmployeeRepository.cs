@@ -5,7 +5,7 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
 {
     internal class EmployeeRepository : IEmployeeRepository
     {
-        public IEnumerable<IEmployee> GetEmployees()
+        public IReadOnlyCollection<IEmployee> GetEmployees()
         {
             return new List<Employee>
             {

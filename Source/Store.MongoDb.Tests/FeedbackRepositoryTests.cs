@@ -100,19 +100,19 @@ namespace Affecto.PositiveFeedback.Store.MongoDb.Tests
         }
 
         [TestMethod]
+        public void AddedEmployeesAreActive()
+        {
+            sut.AddEmployee(Guid.NewGuid(), "Matt", "bosses", "Madrid");
+
+            employees.Received(1).InsertOne(Arg.Is<Employee>(e => e.Active));
+        }
+
+        [TestMethod]
         public void GetEmployeeWhenEmployeeIsNotFound()
         {
             Application.Employee result = sut.GetEmployee(Guid.NewGuid());
 
             Assert.IsNull(result);
-        }
-
-        [TestMethod]
-        public void GetEmployees()
-        {
-            sut.GetEmployees();
-
-            employees.Received(1).Find(FilterDefinition<Employee>.Empty);
         }
     }
 }

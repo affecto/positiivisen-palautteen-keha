@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using Affecto.PositiveFeedback.Application;
 
 namespace Affecto.PositiveFeedback.EmployeeSynchronization
@@ -25,7 +27,12 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization
 
         public void Synchronize()
         {
-            foreach (IEmployee employee in employeeRepository.GetEmployees())
+            IReadOnlyCollection<IEmployee> employees = employeeRepository.GetEmployees();
+            foreach (Employee employeeWithFeedback in feedbackRepository.GetActiveEmployees().Where(emplWithFeedback => !employees.Any(e => e.Id.Equals(emplWithFeedback.Id))))
+            {
+                feedbackRepository.DeactivateEmployee(employeeWithFeedback.Id);
+            }
+            foreach (IEmployee employee in employees)
             {
                 AddOrUpdateEmployee(employee.Id, employee.Name, employee.Location, employee.Organization);
             }
@@ -33,7 +40,7 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization
 
         private void AddOrUpdateEmployee(Guid id, string name, string location, string organization)
         {
-            if (feedbackRepository.HasEmployee(id))
+            if (feedbackRepository.HasActiveEmployee(id))
             {
                 feedbackRepository.UpdateEmployee(id, name, location, organization);
             }
