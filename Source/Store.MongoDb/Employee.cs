@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using MongoDB.Bson;
 
 namespace Affecto.PositiveFeedback.Store.MongoDb
 {
@@ -11,7 +12,8 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
         public string Location { get; set; }
         public string Organization { get; set; }
         public bool Active { get; set; }
-        
+        public ObjectId PictureFileId { get; set; }
+
         public Employee()
         {
             TextFeedback = new List<string>();

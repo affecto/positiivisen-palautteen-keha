@@ -2,6 +2,7 @@
 using Affecto.Configuration.Extensions;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
+using MongoDB.Driver.GridFS;
 
 namespace Affecto.PositiveFeedback.Store.MongoDb
 {
@@ -31,6 +32,11 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
         public IMongoCollection<Employee> Load()
         {
             return database.GetCollection<Employee>("Employee");
+        }
+
+        public IGridFSBucket CreateGridFSBucket()
+        {
+            return new GridFSBucket(database);
         }
 
         private void SetupDatabase(IApplicationConfiguration configuration)

@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using Affecto.PositiveFeedback.Application;
+using MongoDB.Bson;
 using MongoDB.Driver;
+using MongoDB.Driver.GridFS;
 
 namespace Affecto.PositiveFeedback.Store.MongoDb
 {
     internal class FeedbackRepository : IFeedbackRepository
     {
         private readonly IMongoCollection<Employee> employees;
+        private readonly IGridFSBucket binaryFiles;
         
         public FeedbackRepository(ICollection<Employee> databaseCollection)
         {
@@ -17,6 +20,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
                 throw new ArgumentNullException(nameof(databaseCollection));
             }
             employees = databaseCollection.Load();
+            binaryFiles = databaseCollection.CreateGridFSBucket();
         }
         
         public bool HasEmployee(Guid id)
@@ -24,25 +28,28 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             return employees.Find(e => e.Id.Equals(id)).Any();
         }
 
-        public void AddEmployee(Guid id, string name, string location, string organization)
+        public void AddEmployee(Guid id, string name, string location, string organization, byte[] picture)
         {
             ValidateIdAndName(id, name);
+            ObjectId pictureId = AddEmployeePicture(id, picture);
             var document = new Employee
             {
                 Id = id,
                 Name = name,
                 Location = location,
                 Organization = organization,
-                Active = true
+                Active = true,
+                PictureFileId = pictureId
             };
             employees.InsertOne(document);
         }
 
-        public void UpdateEmployee(Guid id, string name, string location, string organization)
+        public void UpdateEmployee(Guid id, string name, string location, string organization, byte[] picture)
         {
             ValidateIdAndName(id, name);
+            ObjectId pictureId = UpdateEmployeePicture(id, picture);
             UpdateDefinition<Employee> update = Builders<Employee>.Update.Set(e => e.Name, name).Set(e => e.Location, location)
-                .Set(e => e.Organization, organization).Set(e => e.Active, true);
+                .Set(e => e.Organization, organization).Set(e => e.Active, true).Set(e => e.PictureFileId, pictureId);
             employees.UpdateOne(e => e.Id.Equals(id), update);
         }
 
@@ -78,6 +85,31 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             }
             UpdateDefinition<Employee> update = Builders<Employee>.Update.Set(e => e.Active, false);
             employees.UpdateOne(e => e.Id.Equals(id), update);
+        }
+
+        private ObjectId UpdateEmployeePicture(Guid employeeId, byte[] picture)
+        {
+            FilterDefinition<GridFSFileInfo> filter = new FilterDefinitionBuilder<GridFSFileInfo>().Where(info => info.Filename.Equals(employeeId.ToString()));
+            GridFSFileInfo oldPictureInfo = binaryFiles.Find(filter).SingleOrDefault();
+            if (picture == null)
+            {
+                return oldPictureInfo == null ? ObjectId.Empty : oldPictureInfo.Id;
+            }
+            if (oldPictureInfo != null)
+            {
+                binaryFiles.Delete(oldPictureInfo.Id);
+            }
+            return binaryFiles.UploadFromBytes(employeeId.ToString(), picture);
+        }
+
+        private ObjectId AddEmployeePicture(Guid employeeId, byte[] picture)
+        {
+            ObjectId pictureReference = ObjectId.Empty;
+            if (picture != null)
+            {
+                pictureReference = binaryFiles.UploadFromBytes(employeeId.ToString(), picture);
+            }
+            return pictureReference;
         }
 
         private bool IsTextFeedbackAdded(Guid employeeId, string feedback)
