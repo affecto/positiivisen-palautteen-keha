@@ -29,7 +29,7 @@ namespace Affecto.PositiveFeedback.Api
         [Route("v1/employees")]
         public IHttpActionResult GetEmployees()
         {
-            IEnumerable<Application.Employee> employees = repository.GetEmployees();
+            IEnumerable<Application.Employee> employees = repository.GetActiveEmployees();
             var mapper = mapperFactory.CreateEmployeeMapper();
             IEnumerable<Employee> mappedEmployees = mapper.Map(employees);
             return Ok(mappedEmployees);

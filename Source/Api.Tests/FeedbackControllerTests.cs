@@ -31,7 +31,7 @@ namespace Affecto.PositiveFeedback.Api.Tests
             var appEmployee = new Application.Employee(Guid.NewGuid(), "name");
             var apiEmployee = new Employee();
             employeeMapper.Map(appEmployee).Returns(apiEmployee);
-            repository.GetEmployees().Returns(new List<Application.Employee> { appEmployee });
+            repository.GetActiveEmployees().Returns(new List<Application.Employee> { appEmployee });
 
             var result = sut.GetEmployees() as OkNegotiatedContentResult<IEnumerable<Employee>>;
 
