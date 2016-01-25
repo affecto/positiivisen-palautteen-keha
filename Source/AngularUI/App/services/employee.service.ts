@@ -17,6 +17,13 @@ export class EmployeeService
             .map((response: any) => response.json());
     }
 
+    public getEmployeeFeedback()
+    {
+        return this.http
+            .get(`${this.configuration.apiBaseUrl}employeefeedback`)
+            .map((response: any) => response.json());
+    }
+
     public getEmployee(id: string)
     {
         return this.http

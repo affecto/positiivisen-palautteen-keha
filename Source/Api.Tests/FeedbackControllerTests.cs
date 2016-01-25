@@ -25,6 +25,21 @@ namespace Affecto.PositiveFeedback.Api.Tests
         }
 
         [TestMethod]
+        public void GetEmployeesWithFeedback()
+        {
+            IMapper<Application.Employee, Employee> employeeMapper = CreateEmployeeMapperMock();
+            var appEmployee = new Application.Employee(Guid.NewGuid(), "name", null);
+            var apiEmployee = new Employee();
+            employeeMapper.Map(appEmployee).Returns(apiEmployee);
+            repository.GetActiveEmployeesWithFeedback().Returns(new List<Application.Employee> { appEmployee });
+
+            var result = sut.GetEmployeesWithFeedback() as OkNegotiatedContentResult<IEnumerable<Employee>>;
+
+            Assert.IsNotNull(result);
+            Assert.AreSame(apiEmployee, result.Content.Single());
+        }
+
+        [TestMethod]
         public void GetEmployees()
         {
             IMapper<Application.Employee, Employee> employeeMapper = CreateEmployeeMapperMock();

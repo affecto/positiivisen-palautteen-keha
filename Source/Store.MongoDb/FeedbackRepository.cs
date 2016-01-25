@@ -55,7 +55,12 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
 
         public IEnumerable<Application.Employee> GetActiveEmployees()
         {
-            return employees.Find(e => e.Active).ToEnumerable().Select(e => CreateEmployee(e, true));
+            return FindActiveEmployees().Select(e => CreateEmployee(e, false));
+        }
+
+        public IEnumerable<Application.Employee> GetActiveEmployeesWithFeedback()
+        {
+            return FindActiveEmployees().Select(e => CreateEmployee(e, true));
         }
 
         public Application.Employee GetEmployee(Guid id)
@@ -85,6 +90,11 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             }
             UpdateDefinition<Employee> update = Builders<Employee>.Update.Set(e => e.Active, false);
             employees.UpdateOne(e => e.Id.Equals(id), update);
+        }
+
+        private IEnumerable<Employee> FindActiveEmployees()
+        {
+            return employees.Find(e => e.Active).ToEnumerable();
         }
 
         private Application.Employee CreateEmployee(Employee employee, bool includeFeedback)

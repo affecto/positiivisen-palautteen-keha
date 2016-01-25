@@ -26,12 +26,20 @@ namespace Affecto.PositiveFeedback.Api
         }
 
         [HttpGet]
+        [Route("v1/employeefeedback")]
+        public IHttpActionResult GetEmployeesWithFeedback()
+        {
+            IEnumerable<Application.Employee> employees = repository.GetActiveEmployeesWithFeedback();
+            var mappedEmployees = MapEmployees(employees);
+            return Ok(mappedEmployees);
+        }
+
+        [HttpGet]
         [Route("v1/employees")]
         public IHttpActionResult GetEmployees()
         {
             IEnumerable<Application.Employee> employees = repository.GetActiveEmployees();
-            var mapper = mapperFactory.CreateEmployeeMapper();
-            IEnumerable<Employee> mappedEmployees = mapper.Map(employees);
+            var mappedEmployees = MapEmployees(employees);
             return Ok(mappedEmployees);
         }
 
@@ -60,6 +68,12 @@ namespace Affecto.PositiveFeedback.Api
 
             repository.AddTextFeedback(id, feedback);
             return Ok();
+        }
+
+        private IEnumerable<Employee> MapEmployees(IEnumerable<Application.Employee> employees)
+        {
+            var mapper = mapperFactory.CreateEmployeeMapper();
+            return mapper.Map(employees);
         }
     }
 }
