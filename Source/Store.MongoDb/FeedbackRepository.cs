@@ -55,13 +55,13 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
 
         public IEnumerable<Application.Employee> GetActiveEmployees()
         {
-            return employees.Find(e => e.Active).ToEnumerable().Select(e => new Application.Employee(e.Id, e.Name, e.TextFeedback));
+            return employees.Find(e => e.Active).ToEnumerable().Select(e => CreateEmployee(e, true));
         }
 
         public Application.Employee GetEmployee(Guid id)
         {
             Employee employee = employees.Find(e => e.Id.Equals(id)).SingleOrDefault();
-            return employee != null ? new Application.Employee(employee.Id, employee.Name) : null;
+            return employee != null ? CreateEmployee(employee, false) : null;
         }
 
         public void AddTextFeedback(Guid employeeId, string feedback)
@@ -85,6 +85,14 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             }
             UpdateDefinition<Employee> update = Builders<Employee>.Update.Set(e => e.Active, false);
             employees.UpdateOne(e => e.Id.Equals(id), update);
+        }
+
+        private Application.Employee CreateEmployee(Employee employee, bool includeFeedback)
+        {
+            ObjectId pictureId = employee.PictureFileId;
+            byte[] picture = pictureId.Equals(ObjectId.Empty) ? null : binaryFiles.DownloadAsBytes(pictureId);
+            return includeFeedback ? new Application.Employee(employee.Id, employee.Name, picture, employee.TextFeedback) : 
+                new Application.Employee(employee.Id, employee.Name, picture);
         }
 
         private ObjectId UpdateEmployeePicture(Guid employeeId, byte[] picture)

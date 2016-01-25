@@ -14,27 +14,27 @@ namespace Application.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void IdCannotBeEmpty()
         {
-            sut = new Employee(Guid.Empty, "Teppo");
+            sut = new Employee(Guid.Empty, "Teppo", null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void NameCannotBeEmpty()
         {
-            sut = new Employee(Guid.NewGuid(), string.Empty);
+            sut = new Employee(Guid.NewGuid(), string.Empty, null);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void NameCannotBeNull()
         {
-            sut = new Employee(Guid.NewGuid(), null);
+            sut = new Employee(Guid.NewGuid(), null, null);
         }
 
         [TestMethod]
         public void TextFeedbackIsEmptyByDefault()
         {
-            sut = new Employee(Guid.NewGuid(), "Teppo");
+            sut = new Employee(Guid.NewGuid(), "Teppo", null);
 
             Assert.IsNotNull(sut.TextFeedback);
             Assert.AreEqual(0, sut.TextFeedback.Count);
@@ -43,7 +43,7 @@ namespace Application.Tests
         [TestMethod]
         public void TextFeedbackIsInitialized()
         {
-            sut = new Employee(Guid.NewGuid(), "Teppo", new List<string> { "Nice", "Good job" });
+            sut = new Employee(Guid.NewGuid(), "Teppo", null, new List<string> { "Nice", "Good job" });
 
             Assert.IsNotNull(sut.TextFeedback);
             Assert.AreEqual(2, sut.TextFeedback.Count);
