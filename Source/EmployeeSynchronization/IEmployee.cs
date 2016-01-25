@@ -8,5 +8,6 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization
         string Name { get; }
         string Location { get; }
         string Organization { get; }
+        byte[] Picture { get; }
     }
 }
