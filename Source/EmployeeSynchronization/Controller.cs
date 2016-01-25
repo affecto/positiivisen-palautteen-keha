@@ -40,7 +40,7 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization
 
         private void AddOrUpdateEmployee(Guid id, string name, string location, string organization)
         {
-            if (feedbackRepository.HasActiveEmployee(id))
+            if (feedbackRepository.HasEmployee(id))
             {
                 feedbackRepository.UpdateEmployee(id, name, location, organization);
             }

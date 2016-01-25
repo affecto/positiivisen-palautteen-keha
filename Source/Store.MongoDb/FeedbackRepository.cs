@@ -19,9 +19,9 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             employees = databaseCollection.Load();
         }
         
-        public bool HasActiveEmployee(Guid id)
+        public bool HasEmployee(Guid id)
         {
-            return employees.Find(e => e.Id.Equals(id) && e.Active).Any();
+            return employees.Find(e => e.Id.Equals(id)).Any();
         }
 
         public void AddEmployee(Guid id, string name, string location, string organization)
