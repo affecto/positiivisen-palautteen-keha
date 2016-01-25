@@ -27,7 +27,7 @@ export class FeedbackReportComponent implements OnInit
 
     private getEmployees(): void
     {
-        this.employeeService.getEmployees()
+        this.employeeService.getEmployeeFeedback()
             .subscribe(employees => this.employees = employees);
     }
 }
