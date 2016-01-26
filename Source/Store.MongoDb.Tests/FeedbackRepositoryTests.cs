@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -157,6 +158,16 @@ namespace Affecto.PositiveFeedback.Store.MongoDb.Tests
             sut.UpdateEmployee(Guid.NewGuid(), "Mark", "Köln", "Management", null);
 
             binaryFiles.DidNotReceive().UploadFromBytes(Arg.Any<string>(), Arg.Any<byte[]>());
+        }
+
+        [TestMethod]
+        public void GetEmployeePicture()
+        {
+            Guid id = Guid.NewGuid();
+
+            sut.GetEmployeePicture(id);
+
+            binaryFiles.Received(1).DownloadToStreamByName(id.ToString(), Arg.Any<Stream>());
         }
     }
 }

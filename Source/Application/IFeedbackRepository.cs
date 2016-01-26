@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Affecto.PositiveFeedback.Application
 {
@@ -11,6 +12,7 @@ namespace Affecto.PositiveFeedback.Application
         IEnumerable<Employee> GetActiveEmployees();
         IEnumerable<Employee> GetActiveEmployeesWithFeedback();
         Employee GetEmployee(Guid id);
+        Stream GetEmployeePicture(Guid employeeId);
         void AddTextFeedback(Guid employeeId, string feedback);
         void DeactivateEmployee(Guid id);
     }

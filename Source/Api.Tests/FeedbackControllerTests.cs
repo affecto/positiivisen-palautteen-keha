@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http.Results;
 using Affecto.Mapping;
 using Affecto.PositiveFeedback.Application;
@@ -93,6 +96,21 @@ namespace Affecto.PositiveFeedback.Api.Tests
             sut.GiveEmployeeTextFeedback(employeeId, feedback);
 
             repository.Received(1).AddTextFeedback(employeeId, feedback);
+        }
+
+        [TestMethod]
+        public void GetEmployeePicture()
+        {
+            Guid employeeId = Guid.NewGuid();
+            Stream pictureStream = new MemoryStream();
+            repository.GetEmployeePicture(employeeId).Returns(pictureStream);
+
+            HttpResponseMessage result = sut.GetEmployeePicture(employeeId);
+            var resultContent = result.Content as StreamContent;
+            
+            Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
+            Assert.IsNotNull(resultContent);
+            Assert.AreEqual("application/octet-stream", resultContent.Headers.ContentType.MediaType);
         }
 
         private IMapper<Application.Employee, Employee> CreateEmployeeMapperMock()

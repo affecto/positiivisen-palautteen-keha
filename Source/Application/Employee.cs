@@ -8,10 +8,9 @@ namespace Affecto.PositiveFeedback.Application
     {
         public Guid Id { get; private set; }
         public string Name { get; private set; }
-        public byte[] Picture { get; private set; }
         public IReadOnlyCollection<string> TextFeedback { get; private set; }
 
-        public Employee(Guid id, string name, byte[] picture, IEnumerable<string> textFeedback = null)
+        public Employee(Guid id, string name, IEnumerable<string> textFeedback = null)
         {
             if (id == Guid.Empty)
             {
@@ -24,7 +23,6 @@ namespace Affecto.PositiveFeedback.Application
 
             Id = id;
             Name = name;
-            Picture = picture;
             TextFeedback = textFeedback?.ToList() ?? new List<string>();
         }
     }
