@@ -28,10 +28,12 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization
         public void Synchronize()
         {
             IReadOnlyCollection<IEmployee> employees = employeeRepository.GetEmployees();
+
             foreach (Employee employeeWithFeedback in feedbackRepository.GetActiveEmployees().Where(emplWithFeedback => !employees.Any(e => e.Id.Equals(emplWithFeedback.Id))))
             {
                 feedbackRepository.DeactivateEmployee(employeeWithFeedback.Id);
             }
+
             foreach (IEmployee employee in employees)
             {
                 AddOrUpdateEmployee(employee.Id, employee.Name, employee.Location, employee.Organization, employee.Picture);

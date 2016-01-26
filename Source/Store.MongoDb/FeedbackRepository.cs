@@ -54,14 +54,14 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             employees.UpdateOne(e => e.Id.Equals(id), update);
         }
 
-        public IEnumerable<Application.Employee> GetActiveEmployees()
+        public IReadOnlyCollection<Application.Employee> GetActiveEmployees()
         {
-            return FindActiveEmployees().Select(e => CreateEmployee(e, false));
+            return FindActiveEmployees().Select(e => CreateEmployee(e, false)).ToList();
         }
 
-        public IEnumerable<Application.Employee> GetActiveEmployeesWithFeedback()
+        public IReadOnlyCollection<Application.Employee> GetActiveEmployeesWithFeedback()
         {
-            return FindActiveEmployees().Select(e => CreateEmployee(e, true));
+            return FindActiveEmployees().Select(e => CreateEmployee(e, true)).ToList();
         }
 
         public Application.Employee GetEmployee(Guid id)
