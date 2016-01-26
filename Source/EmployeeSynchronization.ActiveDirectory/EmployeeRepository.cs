@@ -1,17 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using Affecto.ActiveDirectoryService;
 
 namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
 {
     internal class EmployeeRepository : IEmployeeRepository
     {
+        private readonly IActiveDirectoryService activeDirectoryService;
+
+        public EmployeeRepository(IActiveDirectoryService activeDirectoryService)
+        {
+            if (activeDirectoryService == null)
+            {
+                throw new ArgumentNullException(nameof(activeDirectoryService));
+            }
+            this.activeDirectoryService = activeDirectoryService;
+        }
+
         public IReadOnlyCollection<IEmployee> GetEmployees()
         {
-            return new List<Employee>
-            {
-                new Employee { Id = Guid.Parse("780AE7D2-880C-42BE-BFB4-342678D06AB0"), Name = "Antti Affectolainen", Location = "Turku", Organization = "Affecto" },
-                new Employee { Id = Guid.Parse("8166B820-5509-4169-AA89-1E1CD719ADFB"), Name = "Katja Karttakeskuslainen", Location = "Helsinki", Organization = "Karttakeskus" }
-            };
+            IEnumerable<IPrincipal> principals = activeDirectoryService.GetGroupMembers("", true, new[] { "extensionAttribute8" });
+
+            return principals
+                .Select(p => new Employee
+                {
+                    Id = p.NativeGuid,
+                    Name = p.DisplayName
+                })
+                .ToList();
         }
     }
 }

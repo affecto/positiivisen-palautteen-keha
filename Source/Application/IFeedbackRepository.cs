@@ -9,8 +9,8 @@ namespace Affecto.PositiveFeedback.Application
         bool HasEmployee(Guid id);
         void AddEmployee(Guid id, string name, string location, string organization, byte[] picture);
         void UpdateEmployee(Guid id, string name, string location, string organization, byte[] picture);
-        IEnumerable<Employee> GetActiveEmployees();
-        IEnumerable<Employee> GetActiveEmployeesWithFeedback();
+        IReadOnlyCollection<Employee> GetActiveEmployees();
+        IReadOnlyCollection<Employee> GetActiveEmployeesWithFeedback();
         Employee GetEmployee(Guid id);
         Stream GetEmployeePicture(Guid employeeId);
         void AddTextFeedback(Guid employeeId, string feedback);
