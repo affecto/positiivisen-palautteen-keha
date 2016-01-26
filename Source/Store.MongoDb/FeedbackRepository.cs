@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Affecto.PositiveFeedback.Application;
 using MongoDB.Bson;
@@ -69,6 +70,13 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             return employee != null ? CreateEmployee(employee, false) : null;
         }
 
+        public Stream GetEmployeePicture(Guid employeeId)
+        {
+            Stream pictureStream = new MemoryStream();
+            binaryFiles.DownloadToStreamByName(employeeId.ToString(), pictureStream);
+            return pictureStream;
+        }
+
         public void AddTextFeedback(Guid employeeId, string feedback)
         {
             if (!string.IsNullOrWhiteSpace(feedback))
@@ -99,10 +107,8 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
 
         private Application.Employee CreateEmployee(Employee employee, bool includeFeedback)
         {
-            ObjectId pictureId = employee.PictureFileId;
-            byte[] picture = pictureId.Equals(ObjectId.Empty) ? null : binaryFiles.DownloadAsBytes(pictureId);
-            return includeFeedback ? new Application.Employee(employee.Id, employee.Name, picture, employee.TextFeedback) : 
-                new Application.Employee(employee.Id, employee.Name, picture);
+            return includeFeedback ? new Application.Employee(employee.Id, employee.Name, employee.TextFeedback) : 
+                new Application.Employee(employee.Id, employee.Name);
         }
 
         private ObjectId UpdateEmployeePicture(Guid employeeId, byte[] picture)
