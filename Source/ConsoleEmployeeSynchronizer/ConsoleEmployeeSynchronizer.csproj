@@ -55,6 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ConsoleEmployeeSynchronizer.nuspec" />
+    <None Include="ActiveDirectory.config" />
     <None Include="App.config" />
     <None Include="packages.config" />
     <Content Include="App.Octopus Deployment.config">
