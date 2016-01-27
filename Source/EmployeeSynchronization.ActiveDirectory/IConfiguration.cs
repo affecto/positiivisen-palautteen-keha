@@ -1,11 +1,11 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
 
 namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
 {
     internal interface IConfiguration
     {
         string DomainPath { get; }
-        IEnumerable Groups { get; }
-        IEnumerable AdditionalProperties { get; }
+        IEnumerable<string> Groups { get; }
+        string PictureProperty { get; }
     }
 }

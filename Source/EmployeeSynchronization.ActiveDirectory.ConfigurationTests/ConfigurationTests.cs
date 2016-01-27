@@ -18,7 +18,7 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Confi
         [TestMethod]
         public void Groups()
         {
-            List<string> groups = sut.Groups.Cast<string>().ToList();
+            List<string> groups = sut.Groups.ToList();
 
             Assert.AreEqual(4, groups.Count);
             Assert.IsTrue(groups.Contains("main-list"));
@@ -28,9 +28,9 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Confi
         }
 
         [TestMethod]
-        public void UndefinedAdditionalProperties()
+        public void PictureProperty()
         {
-            Assert.IsNull(sut.AdditionalProperties);
+            Assert.AreEqual("picture", sut.PictureProperty);
         }
     }
 }
