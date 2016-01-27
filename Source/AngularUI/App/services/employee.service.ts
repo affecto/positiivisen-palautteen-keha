@@ -31,14 +31,6 @@ export class EmployeeService
             .map((response: any) => response.json());
     }
 
-    // todo: cache picture
-    public getEmployeePicture(id: string)
-    {
-        return this.http
-            .get(`${this.configuration.apiBaseUrl}employees/${id}/picture`)
-            .map((response: any) => response.arrayBuffer());        
-    }
-
     public addTextFeedback(id: string, feedback: string)
     {
         var headers = new Headers();
