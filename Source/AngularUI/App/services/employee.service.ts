@@ -27,8 +27,16 @@ export class EmployeeService
     public getEmployee(id: string)
     {
         return this.http
-            .get(`${this.configuration.apiBaseUrl}employee/${id}`)
+            .get(`${this.configuration.apiBaseUrl}employees/${id}`)
             .map((response: any) => response.json());
+    }
+
+    // todo: cache picture
+    public getEmployeePicture(id: string)
+    {
+        return this.http
+            .get(`${this.configuration.apiBaseUrl}employees/${id}/picture`)
+            .map((response: any) => response.arrayBuffer());        
     }
 
     public addTextFeedback(id: string, feedback: string)
@@ -37,6 +45,6 @@ export class EmployeeService
         headers.append("Content-Type", "application/json");
 
         return this.http
-            .post(`${this.configuration.apiBaseUrl}employee/${id}/textfeedback`, JSON.stringify(feedback), { headers: headers });
+            .post(`${this.configuration.apiBaseUrl}employees/${id}/textfeedback`, JSON.stringify(feedback), { headers: headers });
     }
 }

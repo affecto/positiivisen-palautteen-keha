@@ -48,7 +48,7 @@ namespace Affecto.PositiveFeedback.Api
         }
 
         [HttpGet]
-        [Route("v1/employee/{id}")]
+        [Route("v1/employees/{id}")]
         public IHttpActionResult GetEmployee(Guid id)
         {
             if (id == Guid.Empty)
@@ -62,7 +62,7 @@ namespace Affecto.PositiveFeedback.Api
         }
 
         [HttpGet]
-        [Route("v1/employee/{id}/picture")]
+        [Route("v1/employees/{id}/picture")]
         public HttpResponseMessage GetEmployeePicture(Guid id)
         {
             if (id == Guid.Empty)
@@ -75,7 +75,7 @@ namespace Affecto.PositiveFeedback.Api
         }
 
         [HttpPost]
-        [Route("v1/employee/{id}/textfeedback")]
+        [Route("v1/employees/{id}/textfeedback")]
         public IHttpActionResult GiveEmployeeTextFeedback(Guid id, [FromBody] string feedback)
         {
             if (id == Guid.Empty)
