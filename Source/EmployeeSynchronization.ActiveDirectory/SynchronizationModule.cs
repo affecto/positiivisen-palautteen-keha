@@ -10,9 +10,15 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
         {
             base.Load(builder);
 
+            builder.RegisterInstance(Configuration.Settings).As<IConfiguration>();
             builder.RegisterType<Controller>();
             builder.RegisterType<EmployeeRepository>().As<IEmployeeRepository>();
-            builder.Register(ctx => ActiveDirectoryServiceFactory.CreateActiveDirectoryService(ConfigurationManager.AppSettings["ActiveDirectoryDomainPath"]))
+            builder
+                .Register(componentContext =>
+                {
+                    IConfiguration configuration = componentContext.Resolve<IConfiguration>();
+                    return ActiveDirectoryServiceFactory.CreateActiveDirectoryService(configuration.DomainPath);
+                })
                 .As<IActiveDirectoryService>();
         }
     }

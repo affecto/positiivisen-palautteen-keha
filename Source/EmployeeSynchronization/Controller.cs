@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Affecto.PositiveFeedback.Application;
 
@@ -40,7 +41,7 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization
             }
         }
 
-        private void AddOrUpdateEmployee(Guid id, string name, string location, string organization, byte[] picture)
+        private void AddOrUpdateEmployee(Guid id, string name, string location, string organization, Stream picture)
         {
             if (feedbackRepository.HasEmployee(id))
             {
