@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Affecto.ActiveDirectoryService;
-using Affecto.Mapping;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 
@@ -12,15 +12,13 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Tests
         private EmployeeRepository sut;
         private IConfiguration configuration;
         private IActiveDirectoryService activeDirectoryService;
-        private IMapper<IPrincipal, Employee> principalMapper;
 
         [TestInitialize]
         public void Setup()
         {
             configuration = Substitute.For<IConfiguration>();
             activeDirectoryService = Substitute.For<IActiveDirectoryService>();
-            principalMapper = Substitute.For<IMapper<IPrincipal, Employee>>();
-            sut = new EmployeeRepository(activeDirectoryService, configuration, principalMapper);
+            sut = new EmployeeRepository(activeDirectoryService, configuration);
         }
 
         [TestMethod]
@@ -32,6 +30,10 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Tests
             IPrincipal group1Member1 = Substitute.For<IPrincipal>();
             IPrincipal group1Member2 = Substitute.For<IPrincipal>();
             IPrincipal group2Member1 = Substitute.For<IPrincipal>();
+
+            group1Member1.NativeGuid.Returns(Guid.NewGuid());
+            group1Member2.NativeGuid.Returns(Guid.NewGuid());
+            group2Member1.NativeGuid.Returns(Guid.NewGuid());
 
             configuration.Groups.Returns(new List<string> { group1, group2 });
 

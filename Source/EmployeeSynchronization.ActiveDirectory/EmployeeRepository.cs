@@ -43,7 +43,7 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
 
             foreach (IPrincipal principal in principals)
             {
-                Stream picture = null;
+                byte[] picture = null;
 
                 if (principal.AdditionalProperties.ContainsKey(configuration.PictureProperty))
                 {
@@ -55,7 +55,10 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
                             if (stream != null)
                             {
                                 EmployeePicture originalPicture = new EmployeePicture(stream);
-                                picture = originalPicture.GetResizedPicture(200, 300);
+                                using (MemoryStream resizedPicture = originalPicture.GetResizedPicture(200, 300))
+                                {
+                                    picture = resizedPicture.ToArray();
+                                }
                             }
                         }
                     }

@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
@@ -14,7 +15,7 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
             image = Image.FromStream(pictureStream);
         }
 
-        public Stream GetResizedPicture(int width, int height)
+        public MemoryStream GetResizedPicture(int width, int height)
         {
             Image newImage = Resize(new Size(width, height));
 
@@ -36,8 +37,8 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
                 float percentWidth = ((float) newSize.Width) / originalWidth;
                 float percentHeight = ((float) newSize.Height) / originalHeight;
                 float percent = percentHeight < percentWidth ? percentHeight : percentWidth;
-                newWidth = (int) (originalWidth * percent);
-                newHeight = (int) (originalHeight * percent);
+                newWidth = (int) Math.Ceiling(originalWidth * percent);
+                newHeight = (int) Math.Ceiling(originalHeight * percent);
             }
             else
             {

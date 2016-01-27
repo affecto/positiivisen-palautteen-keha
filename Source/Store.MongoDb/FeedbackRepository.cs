@@ -29,7 +29,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             return employees.Find(e => e.Id.Equals(id)).Any();
         }
 
-        public void AddEmployee(Guid id, string name, string location, string organization, Stream picture)
+        public void AddEmployee(Guid id, string name, string location, string organization, byte[] picture)
         {
             ValidateIdAndName(id, name);
             ObjectId pictureId = AddEmployeePicture(id, picture);
@@ -45,7 +45,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             employees.InsertOne(document);
         }
 
-        public void UpdateEmployee(Guid id, string name, string location, string organization, Stream picture)
+        public void UpdateEmployee(Guid id, string name, string location, string organization, byte[] picture)
         {
             ValidateIdAndName(id, name);
             ObjectId pictureId = UpdateEmployeePicture(id, picture);
@@ -70,11 +70,18 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             return employee != null ? CreateEmployee(employee, false) : null;
         }
 
-        public Stream GetEmployeePicture(Guid employeeId)
+        public MemoryStream GetEmployeePicture(Guid employeeId)
         {
-            Stream pictureStream = new MemoryStream();
-            binaryFiles.DownloadToStreamByName(employeeId.ToString(), pictureStream);
-            return pictureStream;
+            try
+            {
+                MemoryStream pictureStream = new MemoryStream();
+                binaryFiles.DownloadToStreamByName(employeeId.ToString(), pictureStream);
+                return pictureStream;
+            }
+            catch (GridFSFileNotFoundException e)
+            {
+                return null;
+            }
         }
 
         public void AddTextFeedback(Guid employeeId, string feedback)
@@ -111,7 +118,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
                 new Application.Employee(employee.Id, employee.Name);
         }
 
-        private ObjectId UpdateEmployeePicture(Guid employeeId, Stream picture)
+        private ObjectId UpdateEmployeePicture(Guid employeeId, byte[] picture)
         {
             FilterDefinition<GridFSFileInfo> filter = new FilterDefinitionBuilder<GridFSFileInfo>().Where(info => info.Filename.Equals(employeeId.ToString()));
             GridFSFileInfo oldPictureInfo = binaryFiles.Find(filter).SingleOrDefault();
@@ -125,15 +132,15 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
                 binaryFiles.Delete(oldPictureInfo.Id);
             }
 
-            return binaryFiles.UploadFromStream(employeeId.ToString(), picture);
+            return binaryFiles.UploadFromBytes(employeeId.ToString(), picture);
         }
 
-        private ObjectId AddEmployeePicture(Guid employeeId, Stream picture)
+        private ObjectId AddEmployeePicture(Guid employeeId, byte[] picture)
         {
             ObjectId pictureReference = ObjectId.Empty;
             if (picture != null)
             {
-                pictureReference = binaryFiles.UploadFromStream(employeeId.ToString(), picture);
+                pictureReference = binaryFiles.UploadFromBytes(employeeId.ToString(), picture);
             }
             return pictureReference;
         }
