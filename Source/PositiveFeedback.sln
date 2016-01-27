@@ -34,6 +34,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeSynchronization.Tes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeSynchronization.ActiveDirectory.ConfigurationTests", "EmployeeSynchronization.ActiveDirectory.ConfigurationTests\EmployeeSynchronization.ActiveDirectory.ConfigurationTests.csproj", "{E551C58D-C9BB-4F9B-8FA6-F6D5EB7F9C79}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeSynchronization.ActiveDirectory.Tests", "EmployeeSynchronization.ActiveDirectory.Tests\EmployeeSynchronization.ActiveDirectory.Tests.csproj", "{A14535E9-7E9F-4732-A990-789D9599EFB5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -88,6 +90,10 @@ Global
 		{E551C58D-C9BB-4F9B-8FA6-F6D5EB7F9C79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E551C58D-C9BB-4F9B-8FA6-F6D5EB7F9C79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E551C58D-C9BB-4F9B-8FA6-F6D5EB7F9C79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A14535E9-7E9F-4732-A990-789D9599EFB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A14535E9-7E9F-4732-A990-789D9599EFB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A14535E9-7E9F-4732-A990-789D9599EFB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A14535E9-7E9F-4732-A990-789D9599EFB5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -98,5 +104,6 @@ Global
 		{8350615E-39D1-491E-9304-4CBAE027DEF8} = {799D9ADA-B91B-40A6-AE99-FCC505CC45D1}
 		{D6C68E14-E698-4E61-B352-CBC765BD712F} = {799D9ADA-B91B-40A6-AE99-FCC505CC45D1}
 		{E551C58D-C9BB-4F9B-8FA6-F6D5EB7F9C79} = {799D9ADA-B91B-40A6-AE99-FCC505CC45D1}
+		{A14535E9-7E9F-4732-A990-789D9599EFB5} = {799D9ADA-B91B-40A6-AE99-FCC505CC45D1}
 	EndGlobalSection
 EndGlobal
