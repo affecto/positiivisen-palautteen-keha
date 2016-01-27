@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace Affecto.PositiveFeedback.EmployeeSynchronization
 {
@@ -8,6 +9,6 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization
         string Name { get; }
         string Location { get; }
         string Organization { get; }
-        byte[] Picture { get; }
+        Stream Picture { get; }
     }
 }

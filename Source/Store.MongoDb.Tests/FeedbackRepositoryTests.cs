@@ -55,42 +55,42 @@ namespace Affecto.PositiveFeedback.Store.MongoDb.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void EmployeeWithAnEmptyIdCannotBeAdded()
         {
-            sut.AddEmployee(Guid.Empty, "Jeff", "LA", "Management", new byte[0]);
+            sut.AddEmployee(Guid.Empty, "Jeff", "LA", "Management", new MemoryStream());
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void EmployeeWithAnEmptyNameCannotBeAdded()
         {
-            sut.AddEmployee(Guid.NewGuid(), string.Empty, "LA", "Management", new byte[0]);
+            sut.AddEmployee(Guid.NewGuid(), string.Empty, "LA", "Management", new MemoryStream());
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void EmployeeWithNullNameCannotBeAdded()
         {
-            sut.AddEmployee(Guid.NewGuid(), null, "LA", "Management", new byte[0]);
+            sut.AddEmployee(Guid.NewGuid(), null, "LA", "Management", new MemoryStream());
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void EmployeeWithAnEmptyIdCannotBeUpdated()
         {
-            sut.UpdateEmployee(Guid.Empty, "Jeff", "LA", "Management", new byte[0]);
+            sut.UpdateEmployee(Guid.Empty, "Jeff", "LA", "Management", new MemoryStream());
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void EmployeeWithAnEmptyNameCannotBeUpdated()
         {
-            sut.UpdateEmployee(Guid.NewGuid(), string.Empty, "LA", "Management", new byte[0]);
+            sut.UpdateEmployee(Guid.NewGuid(), string.Empty, "LA", "Management", new MemoryStream());
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void EmployeeWithNullNameCannotBeUpdated()
         {
-            sut.UpdateEmployee(Guid.NewGuid(), null, "LA", "Management", new byte[0]);
+            sut.UpdateEmployee(Guid.NewGuid(), null, "LA", "Management", new MemoryStream());
         }
 
         [TestMethod]
@@ -101,7 +101,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb.Tests
             const string organization = "cleaning";
             const string location = "London";
 
-            sut.AddEmployee(id, name, location, organization, new byte[0]);
+            sut.AddEmployee(id, name, location, organization, new MemoryStream());
 
             employees.Received(1).InsertOne(Arg.Is<Employee>(e => e.Id.Equals(id) && e.Name.Equals(name) && e.Location.Equals(location) && e.Organization.Equals(organization)));
         }
@@ -109,7 +109,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb.Tests
         [TestMethod]
         public void AddedEmployeesAreActive()
         {
-            sut.AddEmployee(Guid.NewGuid(), "Matt", "bosses", "Madrid", new byte[0]);
+            sut.AddEmployee(Guid.NewGuid(), "Matt", "bosses", "Madrid", new MemoryStream());
 
             employees.Received(1).InsertOne(Arg.Is<Employee>(e => e.Active));
         }
@@ -125,11 +125,11 @@ namespace Affecto.PositiveFeedback.Store.MongoDb.Tests
         [TestMethod]
         public void EmployeeWithPictureIsAdded()
         {
-            byte[] picture = new byte[0];
+            Stream picture = new MemoryStream();
             Guid id = Guid.NewGuid();
             ObjectId pictureId = new ObjectId();
 
-            binaryFiles.UploadFromBytes(id.ToString(), picture).Returns(pictureId);
+            binaryFiles.UploadFromStream(id.ToString(), picture).Returns(pictureId);
 
             sut.AddEmployee(id, "Matt", "bosses", "Madrid", picture);
             
@@ -147,7 +147,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb.Tests
         [TestMethod]
         public void OldPictureIsNotDeletedWhenUpdatingEmployeeWithNoPicture()
         {
-            sut.UpdateEmployee(Guid.NewGuid(), "Mark", "Köln", "Management", new byte[0]);
+            sut.UpdateEmployee(Guid.NewGuid(), "Mark", "Köln", "Management", new MemoryStream());
 
             binaryFiles.DidNotReceive().Delete(Arg.Any<ObjectId>());
         }
@@ -157,7 +157,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb.Tests
         {
             sut.UpdateEmployee(Guid.NewGuid(), "Mark", "Köln", "Management", null);
 
-            binaryFiles.DidNotReceive().UploadFromBytes(Arg.Any<string>(), Arg.Any<byte[]>());
+            binaryFiles.DidNotReceive().UploadFromStream(Arg.Any<string>(), Arg.Any<Stream>());
         }
 
         [TestMethod]

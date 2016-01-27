@@ -56,7 +56,7 @@
   <ItemGroup>
     <Content Include="ConsoleEmployeeSynchronizer.nuspec" />
     <None Include="ActiveDirectory.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="App.config" />
     <None Include="packages.config" />

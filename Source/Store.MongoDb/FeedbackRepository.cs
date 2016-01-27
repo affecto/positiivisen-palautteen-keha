@@ -29,7 +29,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             return employees.Find(e => e.Id.Equals(id)).Any();
         }
 
-        public void AddEmployee(Guid id, string name, string location, string organization, byte[] picture)
+        public void AddEmployee(Guid id, string name, string location, string organization, Stream picture)
         {
             ValidateIdAndName(id, name);
             ObjectId pictureId = AddEmployeePicture(id, picture);
@@ -45,7 +45,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             employees.InsertOne(document);
         }
 
-        public void UpdateEmployee(Guid id, string name, string location, string organization, byte[] picture)
+        public void UpdateEmployee(Guid id, string name, string location, string organization, Stream picture)
         {
             ValidateIdAndName(id, name);
             ObjectId pictureId = UpdateEmployeePicture(id, picture);
@@ -111,27 +111,29 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
                 new Application.Employee(employee.Id, employee.Name);
         }
 
-        private ObjectId UpdateEmployeePicture(Guid employeeId, byte[] picture)
+        private ObjectId UpdateEmployeePicture(Guid employeeId, Stream picture)
         {
             FilterDefinition<GridFSFileInfo> filter = new FilterDefinitionBuilder<GridFSFileInfo>().Where(info => info.Filename.Equals(employeeId.ToString()));
             GridFSFileInfo oldPictureInfo = binaryFiles.Find(filter).SingleOrDefault();
+
             if (picture == null)
             {
-                return oldPictureInfo == null ? ObjectId.Empty : oldPictureInfo.Id;
+                return oldPictureInfo?.Id ?? ObjectId.Empty;
             }
             if (oldPictureInfo != null)
             {
                 binaryFiles.Delete(oldPictureInfo.Id);
             }
-            return binaryFiles.UploadFromBytes(employeeId.ToString(), picture);
+
+            return binaryFiles.UploadFromStream(employeeId.ToString(), picture);
         }
 
-        private ObjectId AddEmployeePicture(Guid employeeId, byte[] picture)
+        private ObjectId AddEmployeePicture(Guid employeeId, Stream picture)
         {
             ObjectId pictureReference = ObjectId.Empty;
             if (picture != null)
             {
-                pictureReference = binaryFiles.UploadFromBytes(employeeId.ToString(), picture);
+                pictureReference = binaryFiles.UploadFromStream(employeeId.ToString(), picture);
             }
             return pictureReference;
         }

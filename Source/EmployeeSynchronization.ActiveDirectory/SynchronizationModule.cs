@@ -1,6 +1,5 @@
 ﻿using System.Configuration;
 using Affecto.ActiveDirectoryService;
-using Affecto.Mapping;
 using Autofac;
 
 namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
@@ -11,11 +10,16 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
         {
             base.Load(builder);
 
+            builder.RegisterInstance(Configuration.Settings).As<IConfiguration>();
             builder.RegisterType<Controller>();
             builder.RegisterType<EmployeeRepository>().As<IEmployeeRepository>();
-            builder.Register(ctx => ActiveDirectoryServiceFactory.CreateActiveDirectoryService(Configuration.Settings.DomainPath)).As<IActiveDirectoryService>();
-            builder.RegisterInstance(Configuration.Settings).As<IConfiguration>();
-            builder.RegisterType<PrincipalMapper>().As<IMapper<IPrincipal, Employee>>();
+            builder
+                .Register(componentContext =>
+                {
+                    IConfiguration configuration = componentContext.Resolve<IConfiguration>();
+                    return ActiveDirectoryServiceFactory.CreateActiveDirectoryService(configuration.DomainPath);
+                })
+                .As<IActiveDirectoryService>();
         }
     }
 }
