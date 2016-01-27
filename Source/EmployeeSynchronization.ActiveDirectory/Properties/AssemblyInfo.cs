@@ -35,3 +35,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 [assembly: InternalsVisibleTo("Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.ConfigurationTests")]
+[assembly: InternalsVisibleTo("Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Tests")]
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

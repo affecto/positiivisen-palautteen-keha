@@ -84,7 +84,7 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
                 }
             }
             catch (Exception)
-            {
+                {
                 return null;
             }
         }
