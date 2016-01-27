@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using Affecto.PositiveFeedback.Application;
 using Affecto.PositiveFeedback.EmployeeSynchronization;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -30,19 +29,19 @@ namespace EmployeeSynchronization.Tests
             const string newEmployee1Name = "Peter";
             const string newEmployee1Location = "NY";
             const string newEmployee1Organization = "HR";
-            Stream newEmployee1Picture = new MemoryStream();
+            byte[] newEmployee1Picture = new byte[0];
 
             Guid newEmployee2Id = Guid.NewGuid();
             const string newEmployee2Name = "James";
             const string newEmployee2Location = "LA";
             const string newEmployee2Organization = "IT";
-            Stream newEmployee2Picture = new MemoryStream();
+            byte[] newEmployee2Picture = new byte[0];
 
             Guid oldEmployeeId = Guid.NewGuid();
             const string oldEmployeeName = "John";
             const string oldEmployeeLocation = "NJ";
             const string oldEmployeeOrganization = "Sanitation";
-            Stream oldEmployeePicture = new MemoryStream();
+            byte[] oldEmployeePicture = new byte[0];
 
             feedbackRepository.HasEmployee(newEmployee1Id).Returns(false);
             feedbackRepository.HasEmployee(newEmployee2Id).Returns(false);
@@ -70,19 +69,19 @@ namespace EmployeeSynchronization.Tests
             const string newEmployeeName = "Peter";
             const string newEmployeeLocation = "NY";
             const string newEmployeeOrganization = "HR";
-            Stream newEmployeePicture = new MemoryStream();
+            byte[] newEmployeePicture = new byte[0];
 
             Guid oldEmployee1Id = Guid.NewGuid();
             const string oldEmployee1Name = "James";
             const string oldEmployee1Location = "LA";
             const string oldEmployee1Organization = "IT";
-            Stream oldEmployee1Picture = new MemoryStream();
+            byte[] oldEmployee1Picture = new byte[0];
 
             Guid oldEmployee2Id = Guid.NewGuid();
             const string oldEmployee2Name = "John";
             const string oldEmployee2Location = "NJ";
             const string oldEmployee2Organization = "Sanitation";
-            Stream oldEmployee2Picture = new MemoryStream();
+            byte[] oldEmployee2Picture = new byte[0];
 
             feedbackRepository.HasEmployee(newEmployeeId).Returns(false);
             feedbackRepository.HasEmployee(oldEmployee1Id).Returns(true);
@@ -111,7 +110,7 @@ namespace EmployeeSynchronization.Tests
             const string oldEmployeeName = "John";
             const string oldEmployeeLocation = "NJ";
             const string oldEmployeeOrganization = "Sanitation";
-            Stream oldEmployeePicture = new MemoryStream();
+            byte[] oldEmployeePicture = new byte[0];
 
             Guid oldRemovedEmployee1Id = Guid.NewGuid();
             const string oldRemovedEmployee1Name = "Mike";
@@ -145,7 +144,7 @@ namespace EmployeeSynchronization.Tests
             const string employeeName = "John";
             const string employeeLocation = "NJ";
             const string employeeOrganization = "Sanitation";
-            Stream employeePicture = new MemoryStream();
+            byte[] employeePicture = new byte[0];
 
             feedbackRepository.HasEmployee(employeeId).Returns(true);
 
@@ -159,7 +158,7 @@ namespace EmployeeSynchronization.Tests
             feedbackRepository.Received(1).UpdateEmployee(employeeId, employeeName, employeeLocation, employeeOrganization, employeePicture);
         }
 
-        private static IEmployee CreateEmployeeMock(Guid id, string name, string location, string organization, Stream picture)
+        private static IEmployee CreateEmployeeMock(Guid id, string name, string location, string organization, byte[] picture)
         {
             var employee = Substitute.For<IEmployee>();
             employee.Id.Returns(id);

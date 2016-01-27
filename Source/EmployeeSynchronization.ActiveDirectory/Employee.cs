@@ -9,6 +9,6 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
         public string Name { get; set; }
         public string Location { get; set; }
         public string Organization { get; set; }
-        public Stream Picture { get; set; }
+        public byte[] Picture { get; set; }
     }
 }

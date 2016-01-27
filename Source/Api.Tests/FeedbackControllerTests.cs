@@ -106,11 +106,11 @@ namespace Affecto.PositiveFeedback.Api.Tests
             repository.GetEmployeePicture(employeeId).Returns(pictureStream);
 
             HttpResponseMessage result = sut.GetEmployeePicture(employeeId);
-            var resultContent = result.Content as StreamContent;
+            var resultContent = result.Content as ByteArrayContent;
             
             Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
             Assert.IsNotNull(resultContent);
-            Assert.AreEqual("application/octet-stream", resultContent.Headers.ContentType.MediaType);
+            Assert.AreEqual("image/jpg", resultContent.Headers.ContentType.MediaType);
         }
 
         private IMapper<Application.Employee, Employee> CreateEmployeeMapperMock()

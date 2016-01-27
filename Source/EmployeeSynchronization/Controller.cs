@@ -41,7 +41,7 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization
             }
         }
 
-        private void AddOrUpdateEmployee(Guid id, string name, string location, string organization, Stream picture)
+        private void AddOrUpdateEmployee(Guid id, string name, string location, string organization, byte[] picture)
         {
             if (feedbackRepository.HasEmployee(id))
             {

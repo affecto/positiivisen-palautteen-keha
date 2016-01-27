@@ -70,8 +70,10 @@ namespace Affecto.PositiveFeedback.Api
                 throw new ArgumentException("Id must be provided.", nameof(id));
             }
 
-            Stream pictureStream = repository.GetEmployeePicture(id);
-            return CreateBinaryStreamResult(pictureStream);
+            using (MemoryStream pictureStream = repository.GetEmployeePicture(id))
+            {
+                return CreateByteArrayResult(pictureStream);
+            }
         }
 
         [HttpPost]
@@ -93,11 +95,16 @@ namespace Affecto.PositiveFeedback.Api
             return mapper.Map(employees);
         }
 
-        private static HttpResponseMessage CreateBinaryStreamResult(Stream pictureStream)
+        private static HttpResponseMessage CreateByteArrayResult(MemoryStream pictureStream)
         {
             HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
-            result.Content = new StreamContent(pictureStream);
-            result.Content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+
+            if (pictureStream != null)
+            {
+                result.Content = new ByteArrayContent(pictureStream.ToArray());
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
+            }
+
             return result;
         }
     }
