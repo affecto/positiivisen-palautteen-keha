@@ -9,6 +9,8 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Tests
     [TestClass]
     public class PrincipalMapperTests
     {
+        private const string PictureProperty = "pic";
+
         private PrincipalMapper sut;
         private IConfiguration configuration;
         private IPrincipal source;
@@ -19,6 +21,7 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Tests
         {
             source = Substitute.For<IPrincipal>();
             configuration = Substitute.For<IConfiguration>();
+            configuration.PictureProperty.Returns(PictureProperty);
             sut = new PrincipalMapper(configuration);
         }
 
@@ -47,10 +50,8 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Tests
         [TestMethod]
         public void PictureIsMapped()
         {
-            const string pictureProperty = "pic";
             byte[] picture = new byte[0];
-            configuration.PictureProperty.Returns(pictureProperty);
-            source.AdditionalProperties.Returns(new Dictionary<string, object> { { pictureProperty, picture } });
+            source.AdditionalProperties.Returns(new Dictionary<string, object> { { PictureProperty, picture } });
 
             destination = sut.Map(source);
 
