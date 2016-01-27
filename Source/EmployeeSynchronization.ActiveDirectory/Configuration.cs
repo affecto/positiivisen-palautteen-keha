@@ -1,6 +1,7 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
+using System.Linq;
 
 namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
 {
@@ -16,20 +17,23 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
             set { this["domainPath"] = value; }
         }
 
-        [ConfigurationProperty("groups", IsRequired = true)]
-        [TypeConverter(typeof(CommaDelimitedStringCollectionConverter))]
-        public IEnumerable Groups
+        [ConfigurationProperty("pictureProperty", IsRequired = true)]
+        public string PictureProperty
         {
-            get { return (CommaDelimitedStringCollection)this["groups"]; }
-            set { this["groups"] = value; }
+            get { return (string)this["pictureProperty"]; }
+            set { this["pictureProperty"] = value; }
         }
 
-        [ConfigurationProperty("additionalProperties", IsRequired = false)]
+        [ConfigurationProperty("groups", IsRequired = true)]
         [TypeConverter(typeof(CommaDelimitedStringCollectionConverter))]
-        public IEnumerable AdditionalProperties
+        public IEnumerable<string> Groups
         {
-            get { return (CommaDelimitedStringCollection)this["additionalProperties"]; }
-            set { this["additionalProperties"] = value; }
+            get
+            {
+                var groups = (CommaDelimitedStringCollection)this["groups"];
+                return groups.Cast<string>();
+            }
+            set { this["groups"] = value; }
         }
     }
 }
