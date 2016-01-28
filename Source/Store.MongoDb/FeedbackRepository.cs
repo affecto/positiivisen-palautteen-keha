@@ -78,7 +78,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
                 binaryFiles.DownloadToStreamByName(employeeId.ToString(), pictureStream);
                 return pictureStream;
             }
-            catch (GridFSFileNotFoundException e)
+            catch (GridFSFileNotFoundException)
             {
                 return null;
             }
