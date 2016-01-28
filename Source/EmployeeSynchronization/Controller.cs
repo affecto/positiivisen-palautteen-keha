@@ -37,19 +37,19 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization
 
             foreach (IEmployee employee in employees)
             {
-                AddOrUpdateEmployee(employee.Id, employee.Name, employee.Location, employee.Organization, employee.Picture);
+                AddOrUpdateEmployee(employee.Id, employee.Name, employee.Location, employee.Organization, employee.SubOrganization, employee.Picture);
             }
         }
 
-        private void AddOrUpdateEmployee(Guid id, string name, string location, string organization, byte[] picture)
+        private void AddOrUpdateEmployee(Guid id, string name, string location, string organization, string subOrganization, byte[] picture)
         {
             if (feedbackRepository.HasEmployee(id))
             {
-                feedbackRepository.UpdateEmployee(id, name, location, organization, picture);
+                feedbackRepository.UpdateEmployee(id, name, location, organization, subOrganization, picture);
             }
             else
             {
-                feedbackRepository.AddEmployee(id, name, location, organization, picture);
+                feedbackRepository.AddEmployee(id, name, location, organization, subOrganization, picture);
             }
         }
     }

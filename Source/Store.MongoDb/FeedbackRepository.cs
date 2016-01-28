@@ -29,7 +29,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             return employees.Find(e => e.Id.Equals(id)).Any();
         }
 
-        public void AddEmployee(Guid id, string name, string location, string organization, byte[] picture)
+        public void AddEmployee(Guid id, string name, string location, string organization, string subOrganization, byte[] picture)
         {
             ValidateIdAndName(id, name);
             ObjectId pictureId = AddEmployeePicture(id, picture);
@@ -39,18 +39,19 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
                 Name = name,
                 Location = location,
                 Organization = organization,
+                SubOrganization = subOrganization,
                 Active = true,
                 PictureFileId = pictureId
             };
             employees.InsertOne(document);
         }
 
-        public void UpdateEmployee(Guid id, string name, string location, string organization, byte[] picture)
+        public void UpdateEmployee(Guid id, string name, string location, string organization, string subOrganization, byte[] picture)
         {
             ValidateIdAndName(id, name);
             ObjectId pictureId = UpdateEmployeePicture(id, picture);
             UpdateDefinition<Employee> update = Builders<Employee>.Update.Set(e => e.Name, name).Set(e => e.Location, location)
-                .Set(e => e.Organization, organization).Set(e => e.Active, true).Set(e => e.PictureFileId, pictureId);
+                .Set(e => e.Organization, organization).Set(e => e.SubOrganization, subOrganization).Set(e => e.Active, true).Set(e => e.PictureFileId, pictureId);
             employees.UpdateOne(e => e.Id.Equals(id), update);
         }
 
