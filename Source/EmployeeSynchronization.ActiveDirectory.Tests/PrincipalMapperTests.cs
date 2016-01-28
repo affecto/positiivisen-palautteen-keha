@@ -11,6 +11,9 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Tests
     public class PrincipalMapperTests
     {
         private const string PictureProperty = "pic";
+        private const string LocationProperty = "location";
+        private const string OrganizationProperty = "org";
+        private const string SubOrganizationProperty = "suborg";
 
         private PrincipalMapper sut;
         private IConfiguration configuration;
@@ -64,12 +67,63 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Tests
             Assert.AreSame(picture, destination.Picture);
         }
 
-        //todo: location and organization tests
+        [TestMethod]
+        public void LocationIsMapped()
+        {
+            const string location = "Turku";
+            source.AdditionalProperties.ContainsKey(LocationProperty).Returns(true);
+            source.AdditionalProperties.Returns(new Dictionary<string, object> { { LocationProperty, location } });
+
+            destination = sut.Map(source);
+
+            Assert.AreEqual(location, destination.Location);
+        }
+
+        [TestMethod]
+        public void OrganizationIsMapped()
+        {
+            const string organization = "IT";
+            source.AdditionalProperties.ContainsKey(OrganizationProperty).Returns(true);
+            source.AdditionalProperties.Returns(new Dictionary<string, object> { { OrganizationProperty, organization } });
+
+            destination = sut.Map(source);
+
+            Assert.AreEqual(organization, destination.Organization);
+        }
+
+        [TestMethod]
+        public void SubOrganizationIsMapped()
+        {
+            const string subOrganization = "Testing";
+            source.AdditionalProperties.ContainsKey(SubOrganizationProperty).Returns(true);
+            source.AdditionalProperties.Returns(new Dictionary<string, object> { { SubOrganizationProperty, subOrganization } });
+
+            destination = sut.Map(source);
+
+            Assert.AreEqual(subOrganization, destination.SubOrganization);
+        }
+
+        [TestMethod]
+        public void AdditionalPropertiesAreNotFound()
+        {
+            byte[] picture = null;
+            pictureHandler.DownloadAndResizePicture(null).Returns(picture);
+
+            destination = sut.Map(source);
+
+            Assert.IsNull(destination.Location);
+            Assert.IsNull(destination.Organization);
+            Assert.IsNull(destination.SubOrganization);
+            Assert.IsNull(destination.Picture);
+        }
 
         private void SetupConfiguration()
         {
             configuration = Substitute.For<IConfiguration>();
             configuration.PictureUrlProperty.Returns(PictureProperty);
+            configuration.LocationProperty.Returns(LocationProperty);
+            configuration.OrganizationProperty.Returns(OrganizationProperty);
+            configuration.SubOrganizationProperty.Returns(SubOrganizationProperty);
         }
     }
 }

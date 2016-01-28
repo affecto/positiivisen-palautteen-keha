@@ -35,11 +35,18 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
         public IReadOnlyCollection<IEmployee> GetEmployees()
         {
             var principals = new List<IPrincipal>();
+            var additionalProperties = new[]
+            {
+                configuration.PictureUrlProperty,
+                configuration.LocationProperty,
+                configuration.OrganizationProperty,
+                configuration.SubOrganizationProperty
+            };
 
             foreach (string group in configuration.Groups)
             {
                 IEnumerable<IPrincipal> groupPrincipals = activeDirectoryService
-                    .GetGroupMembers(group, true, new[] { configuration.PictureUrlProperty })
+                    .GetGroupMembers(group, true, additionalProperties)
                     .Where(p => principals.All(e => e.NativeGuid != p.NativeGuid));
                 principals.AddRange(groupPrincipals);
             }
