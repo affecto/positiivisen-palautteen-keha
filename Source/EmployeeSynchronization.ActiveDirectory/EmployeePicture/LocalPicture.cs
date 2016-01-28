@@ -55,7 +55,7 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Emplo
 
             using (Graphics graphicsHandle = Graphics.FromImage(newImage))
             {
-                graphicsHandle.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                graphicsHandle.InterpolationMode = InterpolationMode.High;
                 graphicsHandle.DrawImage(image, 0, 0, newWidth, newHeight);
             }
 

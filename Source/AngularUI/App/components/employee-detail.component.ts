@@ -5,7 +5,6 @@ import {RouteParams, Router, ROUTER_DIRECTIVES} from "angular2/router";
 import {HTTP_PROVIDERS} from "angular2/http";
 
 import {EmployeeService} from "../services/employee.service";
-import {Configuration} from "../configuration";
 
 @Component({
     selector: "employee-detail",
@@ -20,7 +19,7 @@ export class EmployeeDetailComponent implements OnInit
     public employee: Employee;
     public feedback: string;
 
-    constructor(private routeParams: RouteParams, private router: Router, private employeeService: EmployeeService, private configuration: Configuration)
+    constructor(private routeParams: RouteParams, private router: Router, private employeeService: EmployeeService)
     {
     }
 
@@ -47,7 +46,7 @@ export class EmployeeDetailComponent implements OnInit
     {
         if (this.employee != null)
         {
-            return `${this.configuration.apiBaseUrl}employees/${this.employee.id}/picture`;
+            return this.employeeService.getEmployeePictureUrl(this.employee.id);
         }
 
         return null;

@@ -10,6 +10,11 @@ export class EmployeeService
     {
     }
 
+    public getEmployeePictureUrl(employeeId: string): string
+    {
+        return `${this.configuration.apiBaseUrl}employees/${employeeId}/picture`;
+    }
+
     public getEmployees()
     {
         return this.http

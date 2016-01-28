@@ -24,6 +24,27 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
             set { this["pictureUrlProperty"] = value; }
         }
 
+        [ConfigurationProperty("locationProperty", IsRequired = true)]
+        public string LocationProperty
+        {
+            get { return (string)this["locationProperty"]; }
+            set { this["locationProperty"] = value; }
+        }
+
+        [ConfigurationProperty("organizationProperty", IsRequired = true)]
+        public string OrganizationProperty
+        {
+            get { return (string)this["organizationProperty"]; }
+            set { this["organizationProperty"] = value; }
+        }
+
+        [ConfigurationProperty("subOrganizationProperty", IsRequired = true)]
+        public string SubOrganizationProperty
+        {
+            get { return (string)this["subOrganizationProperty"]; }
+            set { this["subOrganizationProperty"] = value; }
+        }
+
         [ConfigurationProperty("groups", IsRequired = true)]
         [TypeConverter(typeof(CommaDelimitedStringCollectionConverter))]
         public IEnumerable<string> Groups

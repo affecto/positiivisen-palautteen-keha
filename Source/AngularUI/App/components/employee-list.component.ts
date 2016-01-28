@@ -8,14 +8,7 @@ import {EmployeeListItemComponent} from "./employee-list-item.component"
 
 @Component({
     selector: "employee-list",
-    template: `
-        <div>
-            <span *ngFor="#employee of employees">
-                <employee-list-item [employee]="employee"></employee-list-item>
-            </span>
-        </div>
-        <a [routerLink]="['FeedbackReport']">Raportti</a>
-    `,
+    templateUrl: "app/components/employee-list.html",
     providers: [HTTP_PROVIDERS, EmployeeService],
     directives: [ROUTER_DIRECTIVES, EmployeeListItemComponent]
 })
@@ -28,9 +21,14 @@ export class EmployeeListComponent implements OnInit
     {
     }
 
-    ngOnInit()
+    public ngOnInit()
     {
         this.getEmployees();
+    }
+
+    public getEmployeePictureUrl(employeeId: string): string
+    {
+        return this.employeeService.getEmployeePictureUrl(employeeId);
     }
 
     private getEmployees(): void

@@ -26,6 +26,13 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
 
         public Employee Map(IPrincipal source)
         {
+            string organization = source.AdditionalProperties.ContainsKey(configuration.OrganizationProperty) ?
+                source.AdditionalProperties[configuration.OrganizationProperty] as string : null;
+            string subOrganization = source.AdditionalProperties.ContainsKey(configuration.SubOrganizationProperty) ?
+                source.AdditionalProperties[configuration.SubOrganizationProperty] as string : null;
+            string location = source.AdditionalProperties.ContainsKey(configuration.LocationProperty) ?
+                source.AdditionalProperties[configuration.LocationProperty] as string : null;
+
             string pictureUrl = source.AdditionalProperties.ContainsKey(configuration.PictureUrlProperty) ?
                 source.AdditionalProperties[configuration.PictureUrlProperty] as string : null;
             byte[] picture = pictureHandler.DownloadAndResizePicture(pictureUrl);
@@ -34,7 +41,10 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
             {
                 Id = source.NativeGuid,
                 Name = source.DisplayName,
-                Picture = picture
+                Picture = picture,
+                Location = location,
+                Organization = organization,
+                SubOrganization = subOrganization
             };
         }
     }
