@@ -144,6 +144,7 @@
     <None Include="bower.json" />
     <Content Include="Scripts\angular2-polyfills.js" />
     <Content Include="Scripts\angular2.dev.js" />
+    <Content Include="Scripts\es6-shim.min.js" />
     <Content Include="Scripts\http.dev.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
@@ -152,6 +153,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\router.dev.js" />
     <Content Include="Scripts\Rx.js" />
+    <Content Include="Scripts\system-polyfills.js" />
     <Content Include="Scripts\system.src.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
