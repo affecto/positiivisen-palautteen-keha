@@ -3,12 +3,13 @@ import {ROUTER_DIRECTIVES} from "angular2/router";
 
 @Component({
     selector: "employee-list-item",
-    template: `<a *ngIf="employee" [routerLink]="['EmployeeDetail', { id: employee.id }]">{{ employee.name }}</a>`,
-    inputs: ["employee"],
+    templateUrl: "app/components/employee-list-item.html",
+    inputs: ["employee", "employeePictureUrl"],
     directives: [ROUTER_DIRECTIVES]
 })
 
 export class EmployeeListItemComponent
 {
     public employee: Employee;
+    public employeePictureUrl: string;
 }

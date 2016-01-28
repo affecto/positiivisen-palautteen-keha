@@ -7,17 +7,14 @@ import {EmployeeDetailComponent} from "./components/employee-detail.component"
 import {FeedbackReportComponent} from "./components/feedback-report.component"
 
 @RouteConfig([
-    { path: "/",                name: "EmployeeList",   component: EmployeeListComponent, useAsDefault: true },
+    { path: "/", name: "EmployeeList", component: EmployeeListComponent, useAsDefault: true },
     { path: "/employee/:id", name: "EmployeeDetail", component: EmployeeDetailComponent },
     { path: "/report", name: "FeedbackReport", component: FeedbackReportComponent }
 ])
 
 @Component({
     selector: "positive-feedback-app",
-    template: `
-        <h1>Positiivisen palautteen kehä</h1>
-        <router-outlet></router-outlet>
-    `,
+    templateUrl: "app/app.html",
     directives: [ROUTER_DIRECTIVES]
 })
 
