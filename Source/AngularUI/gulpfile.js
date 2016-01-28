@@ -6,7 +6,10 @@ var gulp = require("gulp"),
     rimraf = require("rimraf"),
     concat = require("gulp-concat"),
     cssmin = require("gulp-cssmin"),
-    uglify = require("gulp-uglify");
+    uglify = require("gulp-uglify"),
+    sass = require("gulp-sass"),
+    autoprefixer = require("gulp-autoprefixer"),
+    plumber = require("gulp-plumber");
 
 var paths = {
     webroot: "./",
@@ -58,3 +61,20 @@ var libsToMove = [
 gulp.task("moveToLib", function () {
     return gulp.src(libsToMove).pipe(gulp.dest(paths.libTarget));
 });
+
+
+// scss compile
+gulp.task("sass", function() {
+    gulp.src("./Content/scss/main.scss")
+    .pipe(plumber())
+    .pipe(sass().on("error", sass.logError))
+    .pipe(gulp.dest("./Content/"));
+});
+
+// watch task
+gulp.task("watch", function() {
+    gulp.watch("./Content/scss/**/*.scss", ["sass"]);
+});
+
+// Default task
+gulp.task("default", ["sass", "watch"]);
