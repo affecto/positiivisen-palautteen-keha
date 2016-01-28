@@ -1,0 +1,55 @@
+﻿@using System.Configuration
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Positiivisen palautteen kehä</title>
+
+    <base href="@Url.Content("~")" />
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <link rel="stylesheet" href="~/Content/bootstrap.min.css">
+
+    <!-- IE required polyfills, in this exact order -->
+    <script src="~/Scripts/es6-shim.min.js"></script>
+    <script src="~/Scripts/system-polyfills.js"></script>
+
+    <script src="~/Scripts/angular2-polyfills.js"></script>
+    <script src="~/Scripts/system.src.js"></script>
+    <script src="~/Scripts/Rx.js"></script>
+    <script src="~/Scripts/angular2.dev.js"></script>
+    <script src="~/Scripts/router.dev.js"></script>
+    <script src="~/Scripts/http.dev.js"></script>
+
+    <script>
+        (function(positiveFeedbackApp) {
+            (function(config) {
+                config.apiBaseUrl = '@ConfigurationManager.AppSettings["ApiBaseUrl"]';
+            })(window.positiveFeedbackApp.config || (window.positiveFeedbackApp.config = { }));
+        })(window.positiveFeedbackApp || (window.positiveFeedbackApp = { }));
+
+        System.config({
+            packages: {
+                app: {
+                    format: 'register',
+                    defaultExtension: 'js'
+                }
+            }
+        });
+        System.import('app/boot')
+            .then(null, console.error.bind(console));
+    </script>
+
+</head>
+<body>
+    <positive-feedback-app>Ladataan...</positive-feedback-app>
+</body>
+</html>
