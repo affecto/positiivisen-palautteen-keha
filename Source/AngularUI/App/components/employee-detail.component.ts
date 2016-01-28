@@ -47,7 +47,7 @@ export class EmployeeDetailComponent implements OnInit
     {
         if (this.employee != null)
         {
-            return `${this.configuration.apiBaseUrl}employee/${this.employee.id}/picture`;
+            return `${this.configuration.apiBaseUrl}employees/${this.employee.id}/picture`;
         }
 
         return null;

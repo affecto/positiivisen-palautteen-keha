@@ -25,6 +25,7 @@ before_build:
     cd ..\..
 
 build:
+  project: Source\PositiveFeedback.sln
   verbosity: minimal
 
 configuration: Release

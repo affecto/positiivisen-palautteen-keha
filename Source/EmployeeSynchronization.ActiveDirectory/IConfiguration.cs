@@ -6,6 +6,9 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
     {
         string DomainPath { get; }
         IEnumerable<string> Groups { get; }
-        string PictureProperty { get; }
+        string PictureUrlProperty { get; }
+        string LocationProperty { get; }
+        string OrganizationProperty { get; }
+        string SubOrganizationProperty { get; }
     }
 }

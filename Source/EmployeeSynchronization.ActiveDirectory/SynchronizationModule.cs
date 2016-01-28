@@ -1,5 +1,6 @@
-﻿using System.Configuration;
-using Affecto.ActiveDirectoryService;
+﻿using Affecto.ActiveDirectoryService;
+using Affecto.Mapping;
+using Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.EmployeePicture;
 using Autofac;
 
 namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
@@ -12,7 +13,9 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
 
             builder.RegisterInstance(Configuration.Settings).As<IConfiguration>();
             builder.RegisterType<Controller>();
+            builder.RegisterType<PictureHandler>();
             builder.RegisterType<EmployeeRepository>().As<IEmployeeRepository>();
+            builder.RegisterType<PrincipalMapper>().As<IMapper<IPrincipal, Employee>>();
             builder
                 .Register(componentContext =>
                 {
