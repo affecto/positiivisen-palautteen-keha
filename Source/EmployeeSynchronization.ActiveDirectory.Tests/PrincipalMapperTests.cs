@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Affecto.ActiveDirectoryService;
+using Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.EmployeePicture;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NSubstitute;
 
@@ -13,6 +14,7 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Tests
 
         private PrincipalMapper sut;
         private IConfiguration configuration;
+        private PictureHandler pictureHandler;
         private IPrincipal source;
         private Employee destination;
 
@@ -20,9 +22,9 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Tests
         public void Setup()
         {
             source = Substitute.For<IPrincipal>();
-            configuration = Substitute.For<IConfiguration>();
-            configuration.PictureProperty.Returns(PictureProperty);
-            sut = new PrincipalMapper(configuration);
+            pictureHandler = Substitute.For<PictureHandler>();
+            SetupConfiguration();
+            sut = new PrincipalMapper(configuration, pictureHandler);
         }
 
         [TestMethod]
@@ -50,8 +52,12 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Tests
         [TestMethod]
         public void PictureIsMapped()
         {
+            const string pictureUrl = @"\\server.fi\folder\pic.jpg";
             byte[] picture = new byte[0];
-            source.AdditionalProperties.Returns(new Dictionary<string, object> { { PictureProperty, picture } });
+
+            source.AdditionalProperties.ContainsKey(PictureProperty).Returns(true);
+            source.AdditionalProperties.Returns(new Dictionary<string, object> { { PictureProperty, pictureUrl } });
+            pictureHandler.DownloadAndResizePicture(pictureUrl).Returns(picture);
 
             destination = sut.Map(source);
 
@@ -59,5 +65,11 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Tests
         }
 
         //todo: location and organization tests
+
+        private void SetupConfiguration()
+        {
+            configuration = Substitute.For<IConfiguration>();
+            configuration.PictureUrlProperty.Returns(PictureProperty);
+        }
     }
 }

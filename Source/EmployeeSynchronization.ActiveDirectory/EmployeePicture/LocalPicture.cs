@@ -4,20 +4,20 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 
-namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
+namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.EmployeePicture
 {
-    internal class EmployeePicture
+    internal class LocalPicture
     {
         private readonly Image image;
 
-        public EmployeePicture(Stream pictureStream)
+        public LocalPicture(Stream pictureStream)
         {
             image = Image.FromStream(pictureStream);
         }
 
-        public MemoryStream GetResizedPicture(int width, int height)
+        public MemoryStream GetResizedPicture(Size newSize)
         {
-            Image newImage = Resize(new Size(width, height));
+            Image newImage = Resize(newSize);
 
             var stream = new MemoryStream();
             newImage.Save(stream, ImageFormat.Jpeg);
@@ -46,6 +46,11 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
                 newHeight = newSize.Height;
             }
 
+            return CreateNewImage(newWidth, newHeight);
+        }
+
+        private Image CreateNewImage(int newWidth, int newHeight)
+        {
             Image newImage = new Bitmap(newWidth, newHeight);
 
             using (Graphics graphicsHandle = Graphics.FromImage(newImage))

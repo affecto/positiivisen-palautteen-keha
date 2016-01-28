@@ -38,16 +38,8 @@
       <HintPath>..\packages\Affecto.Mapping.1.0.0\lib\net40\Affecto.Mapping.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Affecto.Mapping.AutoMapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Affecto.Mapping.AutoMapper.1.0.0\lib\net40\Affecto.Mapping.AutoMapper.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -64,7 +56,9 @@
   <ItemGroup>
     <Compile Include="Configuration.cs" />
     <Compile Include="Employee.cs" />
-    <Compile Include="EmployeePicture.cs" />
+    <Compile Include="EmployeePicture\LocalPicture.cs" />
+    <Compile Include="EmployeePicture\PictureHandler.cs" />
+    <Compile Include="EmployeePicture\RemotePicture.cs" />
     <Compile Include="EmployeeRepository.cs" />
     <Compile Include="IConfiguration.cs" />
     <Compile Include="PrincipalMapper.cs" />

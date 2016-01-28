@@ -17,11 +17,11 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
             set { this["domainPath"] = value; }
         }
 
-        [ConfigurationProperty("pictureProperty", IsRequired = true)]
-        public string PictureProperty
+        [ConfigurationProperty("pictureUrlProperty", IsRequired = true)]
+        public string PictureUrlProperty
         {
-            get { return (string)this["pictureProperty"]; }
-            set { this["pictureProperty"] = value; }
+            get { return (string)this["pictureUrlProperty"]; }
+            set { this["pictureUrlProperty"] = value; }
         }
 
         [ConfigurationProperty("groups", IsRequired = true)]
