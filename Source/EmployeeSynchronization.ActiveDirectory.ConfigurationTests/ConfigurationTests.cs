@@ -30,7 +30,7 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Confi
         [TestMethod]
         public void PictureProperty()
         {
-            Assert.AreEqual("picture", sut.PictureProperty);
+            Assert.AreEqual("picture", sut.PictureUrlProperty);
         }
     }
 }
