@@ -1,6 +1,12 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿/*
+    variables
+*/
+
+$bg-color: #fff;
+
+
+body {
+
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -21,4 +27,40 @@ input,
 select,
 textarea {
     max-width: 280px;
+}
+
+.employee-list {
+
+    span {
+        display: inline-block;
+        height: 80px;
+        width: 80px;
+        overflow: hidden;
+        background-color: #ccc;
+    }
+}
+
+.employee-detail {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+
+    form {
+        padding-top: 50px;
+    }
+}
+
+.employee {
+    display: inline-block;
+}
+
+.employee__name {
+    display: block;
+}
+
+.employee__feedback {
+    display: inline-block;
+    background-color: #e5e5e5;
+    width: calc(100% - 200px);
+    height: 300px;
 }
