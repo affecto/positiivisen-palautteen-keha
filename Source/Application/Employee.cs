@@ -24,6 +24,7 @@ namespace Affecto.PositiveFeedback.Application
 
             Id = id;
             Name = name;
+            Location = location;
             TextFeedback = textFeedback?.ToList() ?? new List<string>();
         }
     }
