@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.ConfigurationTests
 {
@@ -16,15 +14,9 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Confi
         }
 
         [TestMethod]
-        public void Groups()
+        public void QueryFilter()
         {
-            List<string> groups = sut.Groups.ToList();
-
-            Assert.AreEqual(4, groups.Count);
-            Assert.IsTrue(groups.Contains("main-list"));
-            Assert.IsTrue(groups.Contains("board-of-directors"));
-            Assert.IsTrue(groups.Contains("sanitation"));
-            Assert.IsTrue(groups.Contains("testers"));
+            Assert.AreEqual("(abc=xyz)", sut.QueryFilter);
         }
 
         [TestMethod]

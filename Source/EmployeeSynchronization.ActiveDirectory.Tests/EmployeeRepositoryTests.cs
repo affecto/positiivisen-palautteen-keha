@@ -10,6 +10,8 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Tests
     [TestClass]
     public class EmployeeRepositoryTests
     {
+        private const string QueryFilter = "(abc=xyz)";
+
         private EmployeeRepository sut;
         private IConfiguration configuration;
         private IActiveDirectoryService activeDirectoryService;
@@ -27,45 +29,16 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Tests
         [TestMethod]
         public void PrincipalsFromAllGroupsAreCollected()
         {
-            const string group1 = "IT";
-            const string group2 = "HR";
+            IPrincipal member1 = Substitute.For<IPrincipal>();
+            IPrincipal member2 = Substitute.For<IPrincipal>();
+            IPrincipal member3 = Substitute.For<IPrincipal>();
 
-            IPrincipal group1Member1 = Substitute.For<IPrincipal>();
-            IPrincipal group1Member2 = Substitute.For<IPrincipal>();
-            IPrincipal group2Member1 = Substitute.For<IPrincipal>();
+            member1.NativeGuid.Returns(Guid.NewGuid());
+            member2.NativeGuid.Returns(Guid.NewGuid());
+            member3.NativeGuid.Returns(Guid.NewGuid());
 
-            group1Member1.NativeGuid.Returns(Guid.NewGuid());
-            group1Member2.NativeGuid.Returns(Guid.NewGuid());
-            group2Member1.NativeGuid.Returns(Guid.NewGuid());
-
-            configuration.Groups.Returns(new List<string> { group1, group2 });
-
-            activeDirectoryService.GetGroupMembers(group1, true, Arg.Any<ICollection<string>>()).Returns(new List<IPrincipal> { group1Member1, group1Member2 });
-            activeDirectoryService.GetGroupMembers(group2, true, Arg.Any<ICollection<string>>()).Returns(new List<IPrincipal> { group2Member1 });
-
-            IReadOnlyCollection<IEmployee> result = sut.GetEmployees();
-
-            Assert.AreEqual(3, result.Count);
-        }
-
-        [TestMethod]
-        public void PrincipalsInMultipleGroupsAreNotCollectedTwice()
-        {
-            const string group1 = "IT";
-            const string group2 = "HR";
-
-            IPrincipal group1Member = Substitute.For<IPrincipal>();
-            IPrincipal group2Member = Substitute.For<IPrincipal>();
-            IPrincipal memberInBothGroups = Substitute.For<IPrincipal>();
-
-            group1Member.NativeGuid.Returns(Guid.NewGuid());
-            group2Member.NativeGuid.Returns(Guid.NewGuid());
-            memberInBothGroups.NativeGuid.Returns(Guid.NewGuid());
-
-            configuration.Groups.Returns(new List<string> { group1, group2 });
-
-            activeDirectoryService.GetGroupMembers(group1, true, Arg.Any<ICollection<string>>()).Returns(new List<IPrincipal> { group1Member, memberInBothGroups });
-            activeDirectoryService.GetGroupMembers(group2, true, Arg.Any<ICollection<string>>()).Returns(new List<IPrincipal> { group2Member, memberInBothGroups });
+            configuration.QueryFilter.Returns(QueryFilter);
+            activeDirectoryService.SearchPrincipals(QueryFilter, Arg.Any<ICollection<string>>()).Returns(new List<IPrincipal> { member1, member2, member3 });
 
             IReadOnlyCollection<IEmployee> result = sut.GetEmployees();
 
