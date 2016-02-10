@@ -115,8 +115,8 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
 
         private Application.Employee CreateEmployee(Employee employee, bool includeFeedback)
         {
-            return includeFeedback ? new Application.Employee(employee.Id, employee.Name, employee.TextFeedback) : 
-                new Application.Employee(employee.Id, employee.Name);
+            return includeFeedback ? new Application.Employee(employee.Id, employee.Name, employee.Location, employee.TextFeedback) : 
+                new Application.Employee(employee.Id, employee.Name, employee.Location);
         }
 
         private ObjectId UpdateEmployeePicture(Guid employeeId, byte[] picture)
