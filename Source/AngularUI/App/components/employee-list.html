@@ -1,6 +1,4 @@
-﻿<div>
-    <span *ngFor="#employee of employees">
-        <employee-list-item [employee]="employee" [employeePictureUrl]="getEmployeePictureUrl(employee.id)"></employee-list-item>
-    </span>
+﻿<div class="employee-grid">
+    <employee-list-item *ngFor="#employee of employees" [employee]="employee" [employeePictureUrl]="getEmployeePictureUrl(employee.id)"></employee-list-item>
 </div>
-<a [routerLink]="['FeedbackReport']">Raportti</a>
+<!--<a [routerLink]="['FeedbackReport']">Raportti</a>-->

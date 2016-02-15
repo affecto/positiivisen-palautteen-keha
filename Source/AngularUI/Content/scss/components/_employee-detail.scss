@@ -1,0 +1,66 @@
+﻿.employee-name {
+    position: absolute;
+    top: 50%;
+    text-align: center;
+    right: 0;
+    left: 0;
+    transform: translateY(-50%);
+    color: #fff;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+
+.employee-detail {
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.1);
+    padding: 0;
+    background-color: #f1f1f1;
+    border: 1px solid #d1d1d1;
+
+    form {
+        padding: 0 20px 20px 20px;
+
+        button {
+            font-weight: bold;
+        }
+    }
+
+    textarea {
+        max-width: 100%;
+        padding: 5px;
+        height: 130px;
+        border-radius: 0px;
+        resize: none;
+
+        &::-webkit-input-placeholder,
+        &:-moz-placeholder,
+        &::-moz-placeholder,
+        &:-ms-input-placeholder {
+            font-size: 12px;
+            color: rgba(102, 102, 102, 0.3);
+        }
+    }
+}
+
+.employee {
+    display: inline-block;
+    float: left;
+}
+
+.employee__name {
+    display: block;
+    font-size: 24px;
+    font-family: $font-base;
+    font-weight: bold;
+    color: #434343;
+    padding: 20px;
+}
+
+.employee__feedback {
+    display: inline-block;
+    width: calc(100% - 200px);
+    height: 267px;
+}

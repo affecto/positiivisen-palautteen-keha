@@ -1,4 +1,4 @@
-﻿/// <binding Clean='clean' />
+﻿/// <binding BeforeBuild='sass' Clean='clean' ProjectOpened='default' />
 
 "use strict";
 
@@ -55,7 +55,9 @@ var libsToMove = [
    paths.npmSource + "/systemjs/dist/system.src.js",
    paths.npmSource + "/rxjs/bundles/Rx.js",
    paths.npmSource + "/angular2/bundles/angular2.dev.js",
-   paths.npmSource + "/angular2/bundles/router.dev.js"
+   paths.npmSource + "/angular2/bundles/router.dev.js",
+   paths.npmSource + "/jquery/dist/jquery.js",
+   paths.npmSource + "/isotope-layout/dist/isotope.pkgd.js"
 ];
 
 gulp.task("moveToLib", function () {

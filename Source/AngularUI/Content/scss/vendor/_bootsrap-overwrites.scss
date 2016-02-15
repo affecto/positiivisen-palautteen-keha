@@ -1,0 +1,5 @@
+﻿.btn-default {
+    @include button-variant(#fff, $brand-main, $brand-main);
+    float: right;
+    border-radius: 0px;
+}

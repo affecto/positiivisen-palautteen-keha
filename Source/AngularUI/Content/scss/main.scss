@@ -1,12 +1,22 @@
-﻿/*
-    variables
-*/
+﻿*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
 
-$bg-color: #fff;
+// imports 
+
+@import "utils/bundle";
+@import "vendor/bundle";
+@import "layout/bundle";
+@import "components/bundle";
+
+
 
 
 body {
-
+    background-color: $bg-color;
+    padding: 0 25px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -29,38 +39,6 @@ textarea {
     max-width: 280px;
 }
 
-.employee-list {
 
-    span {
-        display: inline-block;
-        height: 80px;
-        width: 80px;
-        overflow: hidden;
-        background-color: #ccc;
-    }
-}
 
-.employee-detail {
-    max-width: 800px;
-    width: 100%;
-    margin: 0 auto;
 
-    form {
-        padding-top: 50px;
-    }
-}
-
-.employee {
-    display: inline-block;
-}
-
-.employee__name {
-    display: block;
-}
-
-.employee__feedback {
-    display: inline-block;
-    background-color: #e5e5e5;
-    width: calc(100% - 200px);
-    height: 300px;
-}
