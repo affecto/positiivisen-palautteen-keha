@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Linq;
+﻿using System.Configuration;
 
 namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
 {
@@ -15,6 +12,13 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
         {
             get { return (string) this["domainPath"]; }
             set { this["domainPath"] = value; }
+        }
+
+        [ConfigurationProperty("queryFilter", IsRequired = true)]
+        public string QueryFilter
+        {
+            get { return (string) this["queryFilter"]; }
+            set { this["queryFilter"] = value; }
         }
 
         [ConfigurationProperty("pictureUrlProperty", IsRequired = true)]
@@ -43,18 +47,6 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
         {
             get { return (string)this["subOrganizationProperty"]; }
             set { this["subOrganizationProperty"] = value; }
-        }
-
-        [ConfigurationProperty("groups", IsRequired = true)]
-        [TypeConverter(typeof(CommaDelimitedStringCollectionConverter))]
-        public IEnumerable<string> Groups
-        {
-            get
-            {
-                var groups = (CommaDelimitedStringCollection)this["groups"];
-                return groups.Cast<string>();
-            }
-            set { this["groups"] = value; }
         }
     }
 }

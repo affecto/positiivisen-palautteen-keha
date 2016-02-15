@@ -30,8 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Affecto.ActiveDirectoryService, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Affecto.ActiveDirectoryService.2.0.0\lib\net40\Affecto.ActiveDirectoryService.dll</HintPath>
+    <Reference Include="Affecto.ActiveDirectoryService, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Affecto.ActiveDirectoryService.2.1.0\lib\net40\Affecto.ActiveDirectoryService.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Affecto.Mapping, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
