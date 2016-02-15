@@ -7948,13 +7948,17 @@ header {
   font-size: 24px;
   line-height: 31px;
   font-family: "Helvetica", sans-serif;
-  font-weight: bold;
-  color: #ee008c; }
+  font-weight: bold; }
+  .site-title a {
+    text-decoration: none;
+    color: #ee008c; }
+    .site-title a:visited {
+      color: #ee008c; }
 
 .menu {
   position: absolute;
   right: 10px;
-  top: 0;
+  top: 10px;
   font-size: 16px;
   color: #333; }
 
@@ -8001,6 +8005,7 @@ header {
   font-weight: 600; }
 
 .employee-detail {
+  position: relative;
   max-width: 500px;
   width: 100%;
   margin: 0 auto;
@@ -8038,6 +8043,14 @@ header {
   display: inline-block;
   width: calc(100% - 200px);
   height: 267px; }
+
+#back-to-list {
+  position: absolute;
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.3);
+  bottom: -30px; }
+  #back-to-list:hover {
+    color: rgba(0, 0, 0, 0.8); }
 
 body {
   background-color: #eee;

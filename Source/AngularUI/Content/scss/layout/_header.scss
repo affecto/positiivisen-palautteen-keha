@@ -8,7 +8,15 @@
     line-height: 31px;
     font-family: $font-base;
     font-weight: bold;
-    color: $brand-main;
+    
+    a {
+        text-decoration: none;
+        color:  $brand-main;
+
+        &:visited {
+            color: $brand-main;
+        }
+    }
 }
 
 .menu {

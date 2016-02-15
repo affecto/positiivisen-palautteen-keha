@@ -52,7 +52,7 @@ export class EmployeeListComponent implements OnInit
         var colWidth = 160;
         var gridCols = Math.floor($gridWidth / colWidth);
 
-        jQuery('.employee-grid').width(gridCols * colWidth);
+        jQuery('.employee-grid').width( (gridCols - 1) * colWidth );
     }
 
 
