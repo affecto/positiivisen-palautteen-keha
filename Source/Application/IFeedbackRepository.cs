@@ -10,6 +10,7 @@ namespace Affecto.PositiveFeedback.Application
         void AddEmployee(Guid id, string name, string location, string organization, string subOrganization, byte[] picture);
         void UpdateEmployee(Guid id, string name, string location, string organization, string subOrganization, byte[] picture);
         IReadOnlyCollection<Employee> GetActiveEmployees();
+        IReadOnlyCollection<Employee> SearchActiveEmployees(string searchCriteria);
         IReadOnlyCollection<Employee> GetActiveEmployeesWithFeedback();
         Employee GetEmployee(Guid id);
         MemoryStream GetEmployeePicture(Guid employeeId);

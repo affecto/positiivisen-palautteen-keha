@@ -50,6 +50,15 @@ namespace Affecto.PositiveFeedback.Api
         }
 
         [HttpGet]
+        [Route("v1/employees/search/{searchCriteria}")]
+        public IHttpActionResult SearchEmployees(string searchCriteria)
+        {
+            IEnumerable<Application.Employee> employees = repository.SearchActiveEmployees(searchCriteria);
+            var mappedEmployees = MapEmployees(employees);
+            return Ok(mappedEmployees);
+        }
+
+        [HttpGet]
         [Route("v1/employees/{id}")]
         public IHttpActionResult GetEmployee(Guid id)
         {
