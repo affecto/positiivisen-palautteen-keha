@@ -1,21 +1,20 @@
-﻿import {Component} from "angular2/core";
-import {OnInit} from "angular2/core";
+﻿/// <reference path="../../typings/jquery/jquery.d.ts" />
+
+import {Component} from "angular2/core";
+import {OnInit, OnChanges, AfterContentInit, AfterContentChecked, AfterViewInit, AfterViewChecked} from "angular2/core";
 import {HTTP_PROVIDERS} from "angular2/http";
 import {ROUTER_DIRECTIVES} from "angular2/router";
 
 import {EmployeeService} from "../services/employee.service";
-import {EmployeeListItemComponent} from "./employee-list-item.component"
+import {EmployeeListItemComponent} from "./employee-list-item.component";
+
+declare var jQuery: JQueryStatic;
+declare var Isotope: any;
+
 
 @Component({
     selector: "employee-list",
-    template: `
-        <div>
-            <span *ngFor="#employee of employees">
-                <employee-list-item [employee]="employee"></employee-list-item>
-            </span>
-        </div>
-        <a [routerLink]="['FeedbackReport']">Raportti</a>
-    `,
+    templateUrl: "app/components/employee-list.html",
     providers: [HTTP_PROVIDERS, EmployeeService],
     directives: [ROUTER_DIRECTIVES, EmployeeListItemComponent]
 })
@@ -28,9 +27,16 @@ export class EmployeeListComponent implements OnInit
     {
     }
 
-    ngOnInit()
+    public ngOnInit()
     {
         this.getEmployees();
+        window.addEventListener("resize", this.calculateGridWidth, false);  
+        this.calculateGridWidth();
+    }
+
+    public getEmployeePictureUrl(employeeId: string): string
+    {
+        return this.employeeService.getEmployeePictureUrl(employeeId);
     }
 
     private getEmployees(): void
@@ -38,4 +44,18 @@ export class EmployeeListComponent implements OnInit
         this.employeeService.getEmployees()
             .subscribe(employees => this.employees = employees);
     }
+
+    public calculateGridWidth(): void {
+        console.log("initializing isotope grid");
+
+        var $gridWidth = jQuery('body').width();
+        var colWidth = 160;
+        var gridCols = Math.floor($gridWidth / colWidth);
+
+        jQuery('.employee-grid').width( (gridCols - 1) * colWidth );
+    }
+
+
+    
+
 }

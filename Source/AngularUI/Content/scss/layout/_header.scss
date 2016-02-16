@@ -1,0 +1,28 @@
+﻿header {
+    height: 60px;
+    position: relative;
+}
+
+.site-title {
+    font-size: 24px;
+    line-height: 31px;
+    font-family: $font-base;
+    font-weight: bold;
+    
+    a {
+        text-decoration: none;
+        color:  $brand-main;
+
+        &:visited {
+            color: $brand-main;
+        }
+    }
+}
+
+.menu {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 16px;
+    color: $font-base-color;
+}

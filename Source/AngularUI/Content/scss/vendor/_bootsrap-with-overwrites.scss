@@ -1,0 +1,5 @@
+﻿@import "bootstrap";
+
+.btn-default {
+    @include button-variant(#fff, $brand-main, $brand-main);
+}

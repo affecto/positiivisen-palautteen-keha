@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Web.Http.Results;
 using Affecto.Mapping;
 using Affecto.PositiveFeedback.Application;
@@ -25,13 +28,28 @@ namespace Affecto.PositiveFeedback.Api.Tests
         }
 
         [TestMethod]
+        public void GetEmployeesWithFeedback()
+        {
+            IMapper<Application.Employee, Employee> employeeMapper = CreateEmployeeMapperMock();
+            var appEmployee = new Application.Employee(Guid.NewGuid(), "name", null);
+            var apiEmployee = new Employee();
+            employeeMapper.Map(appEmployee).Returns(apiEmployee);
+            repository.GetActiveEmployeesWithFeedback().Returns(new List<Application.Employee> { appEmployee });
+
+            var result = sut.GetEmployeesWithFeedback() as OkNegotiatedContentResult<IEnumerable<Employee>>;
+
+            Assert.IsNotNull(result);
+            Assert.AreSame(apiEmployee, result.Content.Single());
+        }
+
+        [TestMethod]
         public void GetEmployees()
         {
             IMapper<Application.Employee, Employee> employeeMapper = CreateEmployeeMapperMock();
-            var appEmployee = new Application.Employee(Guid.NewGuid(), "name");
+            var appEmployee = new Application.Employee(Guid.NewGuid(), "name", null);
             var apiEmployee = new Employee();
             employeeMapper.Map(appEmployee).Returns(apiEmployee);
-            repository.GetEmployees().Returns(new List<Application.Employee> { appEmployee });
+            repository.GetActiveEmployees().Returns(new List<Application.Employee> { appEmployee });
 
             var result = sut.GetEmployees() as OkNegotiatedContentResult<IEnumerable<Employee>>;
 
@@ -58,7 +76,7 @@ namespace Affecto.PositiveFeedback.Api.Tests
         {
             Guid id = Guid.NewGuid();
             IMapper<Application.Employee, Employee> employeeMapper = CreateEmployeeMapperMock();
-            var appEmployee = new Application.Employee(id, "name");
+            var appEmployee = new Application.Employee(id, "name", null);
             var apiEmployee = new Employee();
             employeeMapper.Map(appEmployee).Returns(apiEmployee);
             repository.GetEmployee(id).Returns(appEmployee);
@@ -78,6 +96,21 @@ namespace Affecto.PositiveFeedback.Api.Tests
             sut.GiveEmployeeTextFeedback(employeeId, feedback);
 
             repository.Received(1).AddTextFeedback(employeeId, feedback);
+        }
+
+        [TestMethod]
+        public void GetEmployeePicture()
+        {
+            Guid employeeId = Guid.NewGuid();
+            Stream pictureStream = new MemoryStream();
+            repository.GetEmployeePicture(employeeId).Returns(pictureStream);
+
+            HttpResponseMessage result = sut.GetEmployeePicture(employeeId);
+            var resultContent = result.Content as ByteArrayContent;
+            
+            Assert.AreEqual(HttpStatusCode.OK, result.StatusCode);
+            Assert.IsNotNull(resultContent);
+            Assert.AreEqual("image/jpg", resultContent.Headers.ContentType.MediaType);
         }
 
         private IMapper<Application.Employee, Employee> CreateEmployeeMapperMock()

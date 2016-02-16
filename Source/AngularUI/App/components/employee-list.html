@@ -1,0 +1,4 @@
+﻿<div class="employee-grid">
+    <employee-list-item *ngFor="#employee of employees" [employee]="employee" [employeePictureUrl]="getEmployeePictureUrl(employee.id)"></employee-list-item>
+</div>
+<!--<a [routerLink]="['FeedbackReport']">Raportti</a>-->

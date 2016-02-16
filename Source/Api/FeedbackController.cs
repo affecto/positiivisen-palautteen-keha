@@ -1,11 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
 using Affecto.Mapping;
 using Affecto.PositiveFeedback.Application;
+using WebApi.OutputCache.V2.TimeAttributes;
 
 namespace Affecto.PositiveFeedback.Api
 {
+    [CacheOutputUntilToday(23, 55)]
     public class FeedbackController : ApiController
     {
         private readonly IFeedbackRepository repository;
@@ -26,17 +32,25 @@ namespace Affecto.PositiveFeedback.Api
         }
 
         [HttpGet]
-        [Route("v1/employees")]
-        public IHttpActionResult GetEmployees()
+        [Route("v1/employeefeedback")]
+        public IHttpActionResult GetEmployeesWithFeedback()
         {
-            IEnumerable<Application.Employee> employees = repository.GetEmployees();
-            var mapper = mapperFactory.CreateEmployeeMapper();
-            IEnumerable<Employee> mappedEmployees = mapper.Map(employees);
+            IEnumerable<Application.Employee> employees = repository.GetActiveEmployeesWithFeedback();
+            var mappedEmployees = MapEmployees(employees);
             return Ok(mappedEmployees);
         }
 
         [HttpGet]
-        [Route("v1/employee/{id}")]
+        [Route("v1/employees")]
+        public IHttpActionResult GetEmployees()
+        {
+            IEnumerable<Application.Employee> employees = repository.GetActiveEmployees();
+            var mappedEmployees = MapEmployees(employees);
+            return Ok(mappedEmployees);
+        }
+
+        [HttpGet]
+        [Route("v1/employees/{id}")]
         public IHttpActionResult GetEmployee(Guid id)
         {
             if (id == Guid.Empty)
@@ -49,8 +63,23 @@ namespace Affecto.PositiveFeedback.Api
             return Ok(mapper.Map(employee));
         }
 
+        [HttpGet]
+        [Route("v1/employees/{id}/picture")]
+        public HttpResponseMessage GetEmployeePicture(Guid id)
+        {
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentException("Id must be provided.", nameof(id));
+            }
+
+            using (MemoryStream pictureStream = repository.GetEmployeePicture(id))
+            {
+                return CreateByteArrayResult(pictureStream);
+            }
+        }
+
         [HttpPost]
-        [Route("v1/employee/{id}/textfeedback")]
+        [Route("v1/employees/{id}/textfeedback")]
         public IHttpActionResult GiveEmployeeTextFeedback(Guid id, [FromBody] string feedback)
         {
             if (id == Guid.Empty)
@@ -60,6 +89,25 @@ namespace Affecto.PositiveFeedback.Api
 
             repository.AddTextFeedback(id, feedback);
             return Ok();
+        }
+
+        private IEnumerable<Employee> MapEmployees(IEnumerable<Application.Employee> employees)
+        {
+            var mapper = mapperFactory.CreateEmployeeMapper();
+            return mapper.Map(employees);
+        }
+
+        private static HttpResponseMessage CreateByteArrayResult(MemoryStream pictureStream)
+        {
+            HttpResponseMessage result = new HttpResponseMessage(HttpStatusCode.OK);
+
+            if (pictureStream != null)
+            {
+                result.Content = new ByteArrayContent(pictureStream.ToArray());
+                result.Content.Headers.ContentType = new MediaTypeHeaderValue("image/jpg");
+            }
+
+            return result;
         }
     }
 }

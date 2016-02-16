@@ -1,6 +1,22 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+// imports 
+
+@import "utils/bundle";
+@import "vendor/bundle";
+@import "layout/bundle";
+@import "components/bundle";
+
+
+
+
+body {
+    background-color: $bg-color;
+    padding: 0 25px;
 }
 
 /* Set padding to keep content from hitting the edges */
@@ -22,3 +38,7 @@ select,
 textarea {
     max-width: 280px;
 }
+
+
+
+
