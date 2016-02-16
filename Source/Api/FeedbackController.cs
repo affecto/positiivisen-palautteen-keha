@@ -7,9 +7,11 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using Affecto.Mapping;
 using Affecto.PositiveFeedback.Application;
+using WebApi.OutputCache.V2.TimeAttributes;
 
 namespace Affecto.PositiveFeedback.Api
 {
+    [CacheOutputUntilToday(23, 55)]
     public class FeedbackController : ApiController
     {
         private readonly IFeedbackRepository repository;
