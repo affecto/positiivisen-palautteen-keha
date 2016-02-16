@@ -6,6 +6,7 @@ using Affecto.PositiveFeedback.Application;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
+using MongoDB.Driver.Linq;
 
 namespace Affecto.PositiveFeedback.Store.MongoDb
 {
@@ -57,12 +58,33 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
 
         public IReadOnlyCollection<Application.Employee> GetActiveEmployees()
         {
-            return FindActiveEmployees().Select(e => CreateEmployee(e, false)).ToList();
+            return FindActiveEmployees()
+                .ToList()
+                .Select(e => CreateEmployee(e, false))
+                .ToList();
+        }
+
+        public IReadOnlyCollection<Application.Employee> SearchActiveEmployees(string searchCriteria)
+        {
+            if (string.IsNullOrWhiteSpace(searchCriteria))
+            {
+                return Enumerable.Empty<Application.Employee>().ToList();
+            }
+
+            return FindActiveEmployees()
+                .Where(e => (e.Name != null && e.Name.ToLower().Contains(searchCriteria.ToLower()))
+                    || (e.Location != null && e.Location.ToLower().Contains(searchCriteria.ToLower())))
+                .ToList()
+                .Select(e => CreateEmployee(e, false))
+                .ToList();
         }
 
         public IReadOnlyCollection<Application.Employee> GetActiveEmployeesWithFeedback()
         {
-            return FindActiveEmployees().Select(e => CreateEmployee(e, true)).ToList();
+            return FindActiveEmployees()
+                .ToList()
+                .Select(e => CreateEmployee(e, true))
+                .ToList();
         }
 
         public Application.Employee GetEmployee(Guid id)
@@ -108,9 +130,9 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             employees.UpdateOne(e => e.Id.Equals(id), update);
         }
 
-        private IEnumerable<Employee> FindActiveEmployees()
+        private IMongoQueryable<Employee> FindActiveEmployees()
         {
-            return employees.Find(e => e.Active).ToEnumerable();
+            return employees.AsQueryable().Where(e => e.Active);
         }
 
         private Application.Employee CreateEmployee(Employee employee, bool includeFeedback)
