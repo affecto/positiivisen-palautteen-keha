@@ -95,7 +95,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
         {
             return FindActiveEmployees()
                 .ToList()
-                .Select(e => CreateEmployee(e, HasEmployeePicture(e.Id), false))
+                .Select(e => CreateEmployee(e, HasEmployeePicture(e.Id), true))
                 .ToList();
         }
 
