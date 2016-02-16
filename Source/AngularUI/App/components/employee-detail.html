@@ -2,15 +2,17 @@
 
 <div class="employee-detail">
 
-    <div class="">
-        <div class="employee">
-            <img src="{{ getEmployeePictureUrl() }}" class="employee__pic"/>
-
+    <div class="employee">
+        <div class="employee__pic">
+            <img src="{{ getEmployeePictureUrl() }}"/>
         </div><!--
         -->
         <div class="employee__feedback">
             <span class="employee__name" *ngIf="employee">
                 {{ employee.name }}
+            </span>
+            <span class="employee__location" *ngIf="employee">
+                {{ employee.location }}
             </span>
             <form (ngSubmit)="sendFeedback()" #employeeFeedbackForm="ngForm">
                 <div class="form-group">
@@ -25,4 +27,5 @@
         </div>
     </div>
     <a id="back-to-list" [routerLink]="['EmployeeList']"><i class="fa fa-arrow-circle-o-left"></i> Back to people</a>
+
 </div>
