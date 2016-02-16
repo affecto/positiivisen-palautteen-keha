@@ -220,7 +220,7 @@
     <Content Include="Content\scss\vendor\bootstrap\_utilities.scss" />
     <Content Include="Content\scss\vendor\bootstrap\_variables.scss" />
     <Content Include="Content\scss\vendor\bootstrap\_wells.scss" />
-    <Content Include="Content\scss\vendor\_bootsrap-overwrites.scss" />
+    <Content Include="Content\scss\vendor\_bootsrap-with-overwrites.scss" />
     <Content Include="Content\scss\vendor\font-awesome\_animated.scss" />
     <Content Include="Content\scss\vendor\font-awesome\_bordered-pulled.scss" />
     <Content Include="Content\scss\vendor\font-awesome\_core.scss" />
