@@ -34,6 +34,20 @@ export class EmployeeListComponent implements OnInit
         this.calculateGridWidth();
     }
 
+    public onSearch(event: KeyboardEvent)
+    {
+        var searchCriteria = (<HTMLInputElement>event.target).value;
+
+        if (searchCriteria === "")
+        {
+            this.getEmployees();
+        }
+        else
+        {
+            this.searchEmployees(searchCriteria);
+        }
+    }
+
     public getEmployeePictureUrl(employeeId: string): string
     {
         return this.employeeService.getEmployeePictureUrl(employeeId);
@@ -42,20 +56,29 @@ export class EmployeeListComponent implements OnInit
     private getEmployees(): void
     {
         this.employeeService.getEmployees()
-            .subscribe(employees => this.employees = employees);
+            .subscribe((employees: Employee[]) => this.employees = employees);
     }
 
-    public calculateGridWidth(): void {
+    private searchEmployees(searchCriteria: string): void
+    {
+        this.employeeService.searchEmployees(searchCriteria)
+            .subscribe((searchResult: SearchResult) =>
+            {
+                if (searchResult.searchCriteria === searchCriteria)
+                {
+                    this.employees = searchResult.employees;
+                }
+            });
+    }
+
+    private calculateGridWidth(): void
+    {
         console.log("initializing isotope grid");
 
-        var $gridWidth = jQuery('body').width();
+        var $gridWidth = jQuery("body").width();
         var colWidth = 160;
         var gridCols = Math.floor($gridWidth / colWidth);
 
-        jQuery('.employee-grid').width( (gridCols - 1) * colWidth );
+        jQuery(".employee-grid").width( (gridCols - 1) * colWidth );
     }
-
-
-    
-
 }
