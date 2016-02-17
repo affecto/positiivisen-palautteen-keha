@@ -91,6 +91,15 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
                 .ToList();
         }
 
+            return FindActiveEmployees()
+                .Where(e => (e.LastName != null && e.LastName.ToLower().Contains(searchCriteria.ToLower()))
+                    || (e.FirstName != null && e.FirstName.ToLower().Contains(searchCriteria.ToLower()))
+                    || (e.Location != null && e.Location.ToLower().Contains(searchCriteria.ToLower())))
+                .ToList()
+                .Select(e => CreateEmployee(e, false))
+                .ToList();
+        }
+
         public IReadOnlyCollection<Application.Employee> GetActiveEmployeesWithFeedback()
         {
             return FindActiveEmployees()
