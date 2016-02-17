@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -54,8 +55,13 @@ namespace Affecto.PositiveFeedback.Api
         public IHttpActionResult SearchEmployees(string searchCriteria)
         {
             IEnumerable<Application.Employee> employees = repository.SearchActiveEmployees(searchCriteria);
-            var mappedEmployees = MapEmployees(employees);
-            return Ok(mappedEmployees);
+            var result = new SearchResult
+            {
+                SearchCriteria = searchCriteria,
+                Employees = MapEmployees(employees).ToList()
+            };
+
+            return Ok(result);
         }
 
         [HttpGet]
