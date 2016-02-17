@@ -10,6 +10,9 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Tests
     [TestClass]
     public class PrincipalMapperTests
     {
+        private const string LastNameProperty = "last";
+        private const string FirstNameProperty = "first";
+        private const string TitleProperty = "title";
         private const string PictureProperty = "pic";
         private const string LocationProperty = "location";
         private const string OrganizationProperty = "org";
@@ -42,14 +45,39 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Tests
         }
 
         [TestMethod]
-        public void NameIsMapped()
+        public void LastNameIsMapped()
         {
-            const string name = "Karl Jenkins";
-            source.DisplayName.Returns(name);
+            const string name = "Jenkins";
+            source.AdditionalProperties.ContainsKey(LastNameProperty).Returns(true);
+            source.AdditionalProperties.Returns(new Dictionary<string, object> { { LastNameProperty, name } });
 
             destination = sut.Map(source);
 
-            Assert.AreEqual(name, destination.Name);
+            Assert.AreEqual(name, destination.LastName);
+        }
+
+        [TestMethod]
+        public void FirstNameIsMapped()
+        {
+            const string name = "Karl";
+            source.AdditionalProperties.ContainsKey(FirstNameProperty).Returns(true);
+            source.AdditionalProperties.Returns(new Dictionary<string, object> { { FirstNameProperty, name } });
+
+            destination = sut.Map(source);
+
+            Assert.AreEqual(name, destination.FirstName);
+        }
+
+        [TestMethod]
+        public void TitleIsMapped()
+        {
+            const string title = "Devaaja";
+            source.AdditionalProperties.ContainsKey(TitleProperty).Returns(true);
+            source.AdditionalProperties.Returns(new Dictionary<string, object> { { TitleProperty, title } });
+
+            destination = sut.Map(source);
+
+            Assert.AreEqual(title, destination.Title);
         }
 
         [TestMethod]
@@ -120,6 +148,9 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Tests
         private void SetupConfiguration()
         {
             configuration = Substitute.For<IConfiguration>();
+            configuration.LastNameProperty.Returns(LastNameProperty);
+            configuration.FirstNameProperty.Returns(FirstNameProperty);
+            configuration.TitleProperty.Returns(TitleProperty);
             configuration.PictureUrlProperty.Returns(PictureProperty);
             configuration.LocationProperty.Returns(LocationProperty);
             configuration.OrganizationProperty.Returns(OrganizationProperty);

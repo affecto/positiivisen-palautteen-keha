@@ -14,27 +14,41 @@ namespace Application.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void IdCannotBeEmpty()
         {
-            sut = new Employee(Guid.Empty, "Teppo", "Turku", false);
+            sut = new Employee(Guid.Empty, "Testaaja", "Teppo", "Devaaja", "Turku", false);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void NameCannotBeEmpty()
+        public void LastNameCannotBeEmpty()
         {
-            sut = new Employee(Guid.NewGuid(), string.Empty, "Turku", false);
+            sut = new Employee(Guid.NewGuid(), string.Empty, "Teppo", "Devaaja", "Turku", false);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void NameCannotBeNull()
+        public void LastNameCannotBeNull()
         {
-            sut = new Employee(Guid.NewGuid(), null, "Turku", false);
+            sut = new Employee(Guid.NewGuid(), null, "Teppo", "Devaaja", "Turku", false);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FirstNameCannotBeEmpty()
+        {
+            sut = new Employee(Guid.NewGuid(), "Testaaja", string.Empty, "Devaaja", "Turku", false);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void FirstNameCannotBeNull()
+        {
+            sut = new Employee(Guid.NewGuid(), "Testaaja", null, "Devaaja", "Turku", false);
         }
 
         [TestMethod]
         public void TextFeedbackIsEmptyByDefault()
         {
-            sut = new Employee(Guid.NewGuid(), "Teppo", "Turku", false);
+            sut = new Employee(Guid.NewGuid(), "Testaaja", "Teppo", "Devaaja", "Turku", false);
 
             Assert.IsNotNull(sut.TextFeedback);
             Assert.AreEqual(0, sut.TextFeedback.Count);
@@ -43,7 +57,7 @@ namespace Application.Tests
         [TestMethod]
         public void TextFeedbackIsInitialized()
         {
-            sut = new Employee(Guid.NewGuid(), "Teppo", "Turku", false, new List<string> { "Nice", "Good job" });
+            sut = new Employee(Guid.NewGuid(), "Testaaja", "Teppo", "Devaaja", "Turku", false, new List<string> { "Nice", "Good job" });
 
             Assert.IsNotNull(sut.TextFeedback);
             Assert.AreEqual(2, sut.TextFeedback.Count);
