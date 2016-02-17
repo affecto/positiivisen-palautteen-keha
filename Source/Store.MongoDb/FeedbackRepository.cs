@@ -57,18 +57,19 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
 
         public IReadOnlyCollection<Application.Employee> GetActiveEmployees()
         {
-            return FindActiveEmployees().Select(e => CreateEmployee(e, false)).ToList();
+            return FindActiveEmployees().Select(e => CreateEmployee(e, HasEmployeePicture(e.Id), false)).ToList();
         }
 
         public IReadOnlyCollection<Application.Employee> GetActiveEmployeesWithFeedback()
         {
-            return FindActiveEmployees().Select(e => CreateEmployee(e, true)).ToList();
+            return FindActiveEmployees().Select(e => CreateEmployee(e, HasEmployeePicture(e.Id), true)).ToList();
         }
 
         public Application.Employee GetEmployee(Guid id)
         {
             Employee employee = employees.Find(e => e.Id.Equals(id)).SingleOrDefault();
-            return employee != null ? CreateEmployee(employee, false) : null;
+            bool hasPicture = HasEmployeePicture(id);
+            return employee != null ? CreateEmployee(employee, hasPicture, false) : null;
         }
 
         public MemoryStream GetEmployeePicture(Guid employeeId)
@@ -108,20 +109,26 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             employees.UpdateOne(e => e.Id.Equals(id), update);
         }
 
+        private bool HasEmployeePicture(Guid employeeId)
+        {
+            FilterDefinition<GridFSFileInfo> filter = CreateEmployeePictureFilter(employeeId);
+            return binaryFiles.Find(filter).Any();
+        }
+
         private IEnumerable<Employee> FindActiveEmployees()
         {
             return employees.Find(e => e.Active).ToEnumerable();
         }
 
-        private Application.Employee CreateEmployee(Employee employee, bool includeFeedback)
+        private Application.Employee CreateEmployee(Employee employee, bool hasPicture, bool includeFeedback)
         {
-            return includeFeedback ? new Application.Employee(employee.Id, employee.Name, employee.Location, employee.TextFeedback) : 
-                new Application.Employee(employee.Id, employee.Name, employee.Location);
+            return includeFeedback ? new Application.Employee(employee.Id, employee.Name, employee.Location, hasPicture, employee.TextFeedback) : 
+                new Application.Employee(employee.Id, employee.Name, employee.Location, hasPicture);
         }
 
         private ObjectId UpdateEmployeePicture(Guid employeeId, byte[] picture)
         {
-            FilterDefinition<GridFSFileInfo> filter = new FilterDefinitionBuilder<GridFSFileInfo>().Where(info => info.Filename.Equals(employeeId.ToString()));
+            FilterDefinition<GridFSFileInfo> filter = CreateEmployeePictureFilter(employeeId);
             GridFSFileInfo oldPictureInfo = binaryFiles.Find(filter).SingleOrDefault();
 
             if (picture == null)
@@ -134,6 +141,11 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             }
 
             return binaryFiles.UploadFromBytes(employeeId.ToString(), picture);
+        }
+
+        private static FilterDefinition<GridFSFileInfo> CreateEmployeePictureFilter(Guid employeeId)
+        {
+            return new FilterDefinitionBuilder<GridFSFileInfo>().Where(info => info.Filename.Equals(employeeId.ToString()));
         }
 
         private ObjectId AddEmployeePicture(Guid employeeId, byte[] picture)

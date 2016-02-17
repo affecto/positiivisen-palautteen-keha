@@ -58,7 +58,7 @@ namespace EmployeeSynchronization.Tests
                 oldEmployeePicture);
             employeeRepository.GetEmployees().Returns(new List<IEmployee> { newEmployee1, newEmployee2, oldEmployee });
 
-            Employee oldActiveEmployee = new Employee(oldEmployeeId, oldEmployeeName, oldEmployeeLocation, new List<string>());
+            Employee oldActiveEmployee = new Employee(oldEmployeeId, oldEmployeeName, oldEmployeeLocation, false, new List<string>());
             feedbackRepository.GetActiveEmployees().Returns(new List<Employee> { oldActiveEmployee });
 
             sut.Synchronize();
@@ -107,8 +107,8 @@ namespace EmployeeSynchronization.Tests
                 oldEmployee2Picture);
             employeeRepository.GetEmployees().Returns(new List<IEmployee> { newEmployee, oldEmployee1, oldEmployee2 });
 
-            Employee oldActiveEmployee1 = new Employee(oldEmployee1Id, oldEmployee1Name, oldEmployee1Location, new List<string>());
-            Employee oldActiveEmployee2 = new Employee(oldEmployee2Id, oldEmployee2Name, oldEmployee2Location, new List<string>());
+            Employee oldActiveEmployee1 = new Employee(oldEmployee1Id, oldEmployee1Name, oldEmployee1Location, false, new List<string>());
+            Employee oldActiveEmployee2 = new Employee(oldEmployee2Id, oldEmployee2Name, oldEmployee2Location, false, new List<string>());
             feedbackRepository.GetActiveEmployees().Returns(new List<Employee> { oldActiveEmployee1, oldActiveEmployee2 });
 
             sut.Synchronize();
@@ -146,9 +146,9 @@ namespace EmployeeSynchronization.Tests
             IEmployee oldEmployee = CreateEmployeeMock(oldEmployeeId, oldEmployeeName, oldEmployeeLocation, oldEmployeeOrganization, oldEmployeeSubOrganization, oldEmployeePicture);
             employeeRepository.GetEmployees().Returns(new List<IEmployee> { oldEmployee });
 
-            Employee oldActiveEmployee1 = new Employee(oldEmployeeId, oldEmployeeName, oldEmployeeLocation, new List<string>());
-            Employee oldActiveEmployee2 = new Employee(oldRemovedEmployee1Id, oldRemovedEmployee1Name, oldRemovedEmployee1Location, new List<string>());
-            Employee oldActiveEmployee3 = new Employee(oldRemovedEmployee2Id, oldRemovedEmployee2Name, oldRemovedEmployee2Location, new List<string>());
+            Employee oldActiveEmployee1 = new Employee(oldEmployeeId, oldEmployeeName, oldEmployeeLocation, false, new List<string>());
+            Employee oldActiveEmployee2 = new Employee(oldRemovedEmployee1Id, oldRemovedEmployee1Name, oldRemovedEmployee1Location, false, new List<string>());
+            Employee oldActiveEmployee3 = new Employee(oldRemovedEmployee2Id, oldRemovedEmployee2Name, oldRemovedEmployee2Location, false, new List<string>());
             feedbackRepository.GetActiveEmployees().Returns(new List<Employee> { oldActiveEmployee1, oldActiveEmployee2, oldActiveEmployee3 });
 
             sut.Synchronize();

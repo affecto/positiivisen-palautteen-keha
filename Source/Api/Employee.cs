@@ -9,5 +9,6 @@ namespace Affecto.PositiveFeedback.Api
         public string Name { get; set; }
         public string Location { get; set; }
         public IEnumerable<string> TextFeedback { get; set; }
+        public bool HasPicture { get; set; }
     }
 }
