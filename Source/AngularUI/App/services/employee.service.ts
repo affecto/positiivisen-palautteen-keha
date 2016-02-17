@@ -36,6 +36,13 @@ export class EmployeeService
             .map((response: any) => response.json());
     }
 
+    public searchEmployees(searchCriteria: string)
+    {
+        return this.http
+            .get(`${this.configuration.apiBaseUrl}employees/search/${searchCriteria}`)
+            .map((response: any) => response.json());
+    }
+
     public addTextFeedback(id: string, feedback: string)
     {
         var headers = new Headers();
