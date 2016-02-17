@@ -21,6 +21,27 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
             set { this["queryFilter"] = value; }
         }
 
+        [ConfigurationProperty("lastNameProperty", IsRequired = true)]
+        public string LastNameProperty
+        {
+            get { return (string) this["lastNameProperty"]; }
+            set { this["lastNameProperty"] = value; }
+        }
+
+        [ConfigurationProperty("firstNameProperty", IsRequired = true)]
+        public string FirstNameProperty
+        {
+            get { return (string) this["firstNameProperty"]; }
+            set { this["firstNameProperty"] = value; }
+        }
+
+        [ConfigurationProperty("titleProperty", IsRequired = true)]
+        public string TitleProperty
+        {
+            get { return (string) this["titleProperty"]; }
+            set { this["titleProperty"] = value; }
+        }
+
         [ConfigurationProperty("pictureUrlProperty", IsRequired = true)]
         public string PictureUrlProperty
         {
