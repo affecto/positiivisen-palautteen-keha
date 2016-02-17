@@ -26,6 +26,13 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
 
         public Employee Map(IPrincipal source)
         {
+            string lastName = source.AdditionalProperties.ContainsKey(configuration.LastNameProperty) ?
+                source.AdditionalProperties[configuration.LastNameProperty] as string : null;
+            string firstName = source.AdditionalProperties.ContainsKey(configuration.FirstNameProperty) ?
+                source.AdditionalProperties[configuration.FirstNameProperty] as string : null;
+            string title = source.AdditionalProperties.ContainsKey(configuration.TitleProperty) ?
+                source.AdditionalProperties[configuration.TitleProperty] as string : null;
+
             string organization = source.AdditionalProperties.ContainsKey(configuration.OrganizationProperty) ?
                 source.AdditionalProperties[configuration.OrganizationProperty] as string : null;
             string subOrganization = source.AdditionalProperties.ContainsKey(configuration.SubOrganizationProperty) ?
@@ -40,7 +47,9 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
             return new Employee
             {
                 Id = source.NativeGuid,
-                Name = source.DisplayName,
+                LastName = lastName,
+                FirstName = firstName,
+                Title = title,
                 Picture = picture,
                 Location = location,
                 Organization = organization,

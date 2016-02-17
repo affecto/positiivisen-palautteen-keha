@@ -8,5 +8,8 @@
         string LocationProperty { get; }
         string OrganizationProperty { get; }
         string SubOrganizationProperty { get; }
+        string LastNameProperty { get; set; }
+        string FirstNameProperty { get; set; }
+        string TitleProperty { get; set; }
     }
 }

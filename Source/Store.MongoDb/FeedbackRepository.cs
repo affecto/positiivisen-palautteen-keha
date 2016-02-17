@@ -30,14 +30,17 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             return employees.Find(e => e.Id.Equals(id)).Any();
         }
 
-        public void AddEmployee(Guid id, string name, string location, string organization, string subOrganization, byte[] picture)
+        public void AddEmployee(Guid id, string lastName, string firstName, string title, string location, string organization, string subOrganization, byte[] picture)
         {
-            ValidateIdAndName(id, name);
+            ValidateIdAndName(id, lastName, firstName);
+
             ObjectId pictureId = AddEmployeePicture(id, picture);
             var document = new Employee
             {
                 Id = id,
-                Name = name,
+                LastName = lastName,
+                FirstName = firstName,
+                Title = title,
                 Location = location,
                 Organization = organization,
                 SubOrganization = subOrganization,
@@ -47,12 +50,20 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             employees.InsertOne(document);
         }
 
-        public void UpdateEmployee(Guid id, string name, string location, string organization, string subOrganization, byte[] picture)
+        public void UpdateEmployee(Guid id, string lastName, string firstName, string title, string location, string organization, string subOrganization, byte[] picture)
         {
-            ValidateIdAndName(id, name);
+            ValidateIdAndName(id, lastName, firstName);
+
             ObjectId pictureId = UpdateEmployeePicture(id, picture);
-            UpdateDefinition<Employee> update = Builders<Employee>.Update.Set(e => e.Name, name).Set(e => e.Location, location)
-                .Set(e => e.Organization, organization).Set(e => e.SubOrganization, subOrganization).Set(e => e.Active, true).Set(e => e.PictureFileId, pictureId);
+            UpdateDefinition<Employee> update = Builders<Employee>.Update
+                .Set(e => e.LastName, lastName)
+                .Set(e => e.FirstName, firstName)
+                .Set(e => e.Title, title)
+                .Set(e => e.Location, location)
+                .Set(e => e.Organization, organization)
+                .Set(e => e.SubOrganization, subOrganization)
+                .Set(e => e.Active, true)
+                .Set(e => e.PictureFileId, pictureId);
             employees.UpdateOne(e => e.Id.Equals(id), update);
         }
 
@@ -72,7 +83,8 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             }
 
             return FindActiveEmployees()
-                .Where(e => (e.Name != null && e.Name.ToLower().Contains(searchCriteria.ToLower()))
+                .Where(e => (e.LastName != null && e.LastName.ToLower().Contains(searchCriteria.ToLower()))
+                    || (e.FirstName != null && e.FirstName.ToLower().Contains(searchCriteria.ToLower()))
                     || (e.Location != null && e.Location.ToLower().Contains(searchCriteria.ToLower())))
                 .ToList()
                 .Select(e => CreateEmployee(e, false))
@@ -137,8 +149,9 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
 
         private Application.Employee CreateEmployee(Employee employee, bool includeFeedback)
         {
-            return includeFeedback ? new Application.Employee(employee.Id, employee.Name, employee.Location, employee.TextFeedback) : 
-                new Application.Employee(employee.Id, employee.Name, employee.Location);
+            return includeFeedback
+                ? new Application.Employee(employee.Id, employee.LastName, employee.FirstName, employee.Title, employee.Location, employee.TextFeedback) :
+                new Application.Employee(employee.Id, employee.LastName, employee.FirstName, employee.Title, employee.Location);
         }
 
         private ObjectId UpdateEmployeePicture(Guid employeeId, byte[] picture)
@@ -173,15 +186,19 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             return employees.Find(e => e.Id.Equals(employeeId) && e.TextFeedback.Contains(feedback)).Any();
         }
 
-        private static void ValidateIdAndName(Guid id, string name)
+        private static void ValidateIdAndName(Guid id, string lastName, string firstName)
         {
             if (id.Equals(Guid.Empty))
             {
                 throw new ArgumentException("Id must be defined.");
             }
-            if (string.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(lastName))
             {
-                throw new ArgumentException("Name must be defined.");
+                throw new ArgumentException("Last name must be defined.");
+            }
+            if (string.IsNullOrWhiteSpace(firstName))
+            {
+                throw new ArgumentException("First name must be defined.");
             }
         }
     }
