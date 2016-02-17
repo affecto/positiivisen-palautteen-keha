@@ -57,6 +57,18 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Tests
         }
 
         [TestMethod]
+        public void LastNameIsTrimmed()
+        {
+            const string name = "Jenkins";
+            source.AdditionalProperties.ContainsKey(LastNameProperty).Returns(true);
+            source.AdditionalProperties.Returns(new Dictionary<string, object> { { LastNameProperty, "  Jenkins    " } });
+
+            destination = sut.Map(source);
+
+            Assert.AreEqual(name, destination.LastName);
+        }
+
+        [TestMethod]
         public void FirstNameIsMapped()
         {
             const string name = "Karl";
@@ -78,6 +90,17 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Tests
             destination = sut.Map(source);
 
             Assert.AreEqual(title, destination.Title);
+        }
+
+        [TestMethod]
+        public void EmptyTitleIsMappedToNull()
+        {
+            source.AdditionalProperties.ContainsKey(TitleProperty).Returns(true);
+            source.AdditionalProperties.Returns(new Dictionary<string, object> { { TitleProperty, "    " } });
+
+            destination = sut.Map(source);
+
+            Assert.IsNull(destination.Title);
         }
 
         [TestMethod]
