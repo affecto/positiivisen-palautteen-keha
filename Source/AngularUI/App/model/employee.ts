@@ -4,4 +4,5 @@
     name: string;
     location: string;
     textFeedback: string[];
+    hasPicture: boolean;
 }

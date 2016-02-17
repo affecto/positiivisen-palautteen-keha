@@ -250,6 +250,7 @@
     <Content Include="Scripts\http.dev.js" />
     <Content Include="Scripts\isotope.pkgd.js" />
     <Content Include="Scripts\jquery.js" />
+    <Content Include="Scripts\lazysizes.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.js" />

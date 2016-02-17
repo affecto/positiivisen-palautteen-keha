@@ -1,10 +1,11 @@
 ﻿
 
-<div class="employee-detail">
+<div class="employee-detail" *ngIf="employee">
 
     <div class="employee">
         <div class="employee__pic">
-            <img src="{{ getEmployeePictureUrl() }}"/>
+            <img *ngIf="employee.hasPicture" src="{{ getEmployeePictureUrl() }}" alt="{{ employee.name }}" width="200" height="267"/>
+            <i *ngIf="!employee.hasPicture" class="fa fa-smile-o"></i>
         </div><!--
         -->
         <div class="employee__feedback">

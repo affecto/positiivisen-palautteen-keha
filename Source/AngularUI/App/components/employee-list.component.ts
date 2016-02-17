@@ -46,8 +46,6 @@ export class EmployeeListComponent implements OnInit
     }
 
     public calculateGridWidth(): void {
-        console.log("initializing isotope grid");
-
         var $gridWidth = jQuery('body').width();
         var colWidth = 160;
         var gridCols = Math.floor($gridWidth / colWidth);

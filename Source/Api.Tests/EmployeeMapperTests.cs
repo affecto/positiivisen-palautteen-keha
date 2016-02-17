@@ -20,7 +20,7 @@ namespace Affecto.PositiveFeedback.Api.Tests
         public void IdIsMapped()
         {
             Guid id = Guid.NewGuid();
-            source = new Application.Employee(id, "name", null);
+            source = new Application.Employee(id, "name", null, false);
 
             destination = sut.Map(source);
 
@@ -31,11 +31,22 @@ namespace Affecto.PositiveFeedback.Api.Tests
         public void NameIsMapped()
         {
             const string name = "Teppo";
-            source = new Application.Employee(Guid.NewGuid(), name, null);
+            source = new Application.Employee(Guid.NewGuid(), name, null, false);
 
             destination = sut.Map(source);
 
             Assert.AreEqual(name, destination.Name);
+        }
+
+        [TestMethod]
+        public void HasPictureIsMapped()
+        {
+            const bool hasPicture = true;
+            source = new Application.Employee(Guid.NewGuid(), "name", null, hasPicture);
+
+            destination = sut.Map(source);
+
+            Assert.AreEqual(hasPicture, destination.HasPicture);
         }
     }
 }

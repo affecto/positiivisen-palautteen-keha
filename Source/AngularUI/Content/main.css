@@ -7969,14 +7969,26 @@ header {
     clear: both; }
 
 .employee-grid-item {
+  position: relative;
   float: left;
-  width: 140px;
-  margin: 10px; }
+  height: 170px;
+  width: 135px;
+  margin: 10px;
+  display: block; }
+  .employee-grid-item i {
+    position: absolute;
+    top: 50%;
+    font-size: 100px;
+    margin: 0 auto;
+    width: 135px;
+    text-align: center;
+    transform: translateY(-50%);
+    color: #ee008c; }
 
 .employee-thumb {
   position: relative;
   height: 170px;
-  width: 140px; }
+  width: 135px; }
 
 .thumb-overlay {
   position: absolute;
@@ -8035,6 +8047,15 @@ header {
   float: left;
   height: 267px;
   width: 200px; }
+  .employee__pic i {
+    position: absolute;
+    top: 50%;
+    font-size: 150px;
+    margin: 0 auto;
+    width: 200px;
+    text-align: center;
+    transform: translateY(-50%);
+    color: #ee008c; }
 
 .employee__name {
   display: block;
