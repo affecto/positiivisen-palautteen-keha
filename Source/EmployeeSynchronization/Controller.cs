@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Affecto.PositiveFeedback.Application;
 
@@ -30,26 +29,29 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization
         {
             IReadOnlyCollection<IEmployee> employees = employeeRepository.GetEmployees();
 
-            foreach (Employee employeeWithFeedback in feedbackRepository.GetActiveEmployees().Where(emplWithFeedback => !employees.Any(e => e.Id.Equals(emplWithFeedback.Id))))
+            foreach (Employee employeeWithFeedback in
+                feedbackRepository.GetActiveEmployees().Where(emplWithFeedback => !employees.Any(e => e.Id.Equals(emplWithFeedback.Id))))
             {
                 feedbackRepository.DeactivateEmployee(employeeWithFeedback.Id);
             }
 
             foreach (IEmployee employee in employees)
             {
-                AddOrUpdateEmployee(employee.Id, employee.Name, employee.Location, employee.Organization, employee.SubOrganization, employee.Picture);
+                AddOrUpdateEmployee(employee.Id, employee.LastName, employee.FirstName, employee.Title, employee.Location, employee.Organization,
+                    employee.SubOrganization, employee.Picture);
             }
         }
 
-        private void AddOrUpdateEmployee(Guid id, string name, string location, string organization, string subOrganization, byte[] picture)
+        private void AddOrUpdateEmployee(Guid id, string lastName, string firstName, string title, string location, string organization, string subOrganization,
+            byte[] picture)
         {
             if (feedbackRepository.HasEmployee(id))
             {
-                feedbackRepository.UpdateEmployee(id, name, location, organization, subOrganization, picture);
+                feedbackRepository.UpdateEmployee(id, lastName, firstName, title, location, organization, subOrganization, picture);
             }
             else
             {
-                feedbackRepository.AddEmployee(id, name, location, organization, subOrganization, picture);
+                feedbackRepository.AddEmployee(id, lastName, firstName, title, location, organization, subOrganization, picture);
             }
         }
     }
