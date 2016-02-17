@@ -1,10 +1,9 @@
-﻿<a class="employee-grid-item" [routerLink]="['EmployeeDetail', { id: employee.id }]">
-    <div class="employee-thumb" style="background: url('{{ employeePictureUrl }}'); background-repeat: no-repeat; background-size: cover;">
-        <!--<img src="{{ employeePictureUrl }}" height="100%" width="100%"/>-->
-        <!--<a *ngIf="employee" [routerLink]="['EmployeeDetail', { id: employee.id }]">{{ employee.name }}</a>-->
-        <div class="thumb-overlay">
-            <span class="employee-name">{{ employee.lastName }} {{ employee.firstName }}</span>
-        </div>
-</div>
-    
+﻿<a class="employee-grid-item lazyload" *ngIf="employee" [routerLink]="['EmployeeDetail', { id: employee.id }]" data-expand="-20">
+
+    <img *ngIf="employee.hasPicture" data-src="{{ employeePictureUrl }}" class="employee-thumb lazyload" alt="{{ employee.name }}" height="170" width="135" src="" />
+    <i *ngIf="!employee.hasPicture" class="fa fa-smile-o"></i>
+    <div class="thumb-overlay">
+        <span class="employee-name">{{ employee.firstName }} {{ employee.lastName }}</span>
+    </div>
+
 </a>
