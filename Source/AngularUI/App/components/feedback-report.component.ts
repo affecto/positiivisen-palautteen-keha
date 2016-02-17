@@ -28,6 +28,6 @@ export class FeedbackReportComponent implements OnInit
     private getEmployees(): void
     {
         this.employeeService.getEmployeeFeedback()
-            .subscribe(employees => this.employees = employees);
+            .subscribe((employees: Employee[]) => this.employees = employees);
     }
 }

@@ -1,7 +1,9 @@
 ﻿interface Employee
 {
     id: string;
-    name: string;
+    lastName: string;
+    firstName: string;
+    title: string;
     location: string;
     textFeedback: string[];
 }
