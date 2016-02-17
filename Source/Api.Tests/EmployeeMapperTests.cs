@@ -20,7 +20,7 @@ namespace Affecto.PositiveFeedback.Api.Tests
         public void IdIsMapped()
         {
             Guid id = Guid.NewGuid();
-            source = new Application.Employee(id, "lastName", "firstName", "title", null);
+            source = new Application.Employee(id, "lastName", "firstName", "title", null, false);
 
             destination = sut.Map(source);
 
@@ -31,7 +31,7 @@ namespace Affecto.PositiveFeedback.Api.Tests
         public void LastNameIsMapped()
         {
             const string name = "Testaaja";
-            source = new Application.Employee(Guid.NewGuid(), name, "firstName", "title", null);
+            source = new Application.Employee(Guid.NewGuid(), name, "firstName", "title", null, false);
 
             destination = sut.Map(source);
 
