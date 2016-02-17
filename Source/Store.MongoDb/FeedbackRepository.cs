@@ -80,7 +80,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
             if (string.IsNullOrWhiteSpace(searchCriteria))
             {
                 return Enumerable.Empty<Application.Employee>().ToList();
-        }
+            }
 
             return FindActiveEmployees()
                 .Where(e => (e.LastName != null && e.LastName.ToLower().Contains(searchCriteria.ToLower()))
