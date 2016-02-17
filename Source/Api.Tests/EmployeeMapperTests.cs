@@ -20,7 +20,7 @@ namespace Affecto.PositiveFeedback.Api.Tests
         public void IdIsMapped()
         {
             Guid id = Guid.NewGuid();
-            source = new Application.Employee(id, "lastName", "firstName", "title", null, false);
+            source = new Application.Employee(id, "lastName", "firstName", "title", null);
 
             destination = sut.Map(source);
 
