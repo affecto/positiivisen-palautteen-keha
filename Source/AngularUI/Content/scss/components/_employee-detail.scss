@@ -56,6 +56,17 @@
     float: left;
     height: 267px;
     width: 200px;
+
+    i {
+        position: absolute;
+        top: 50%;
+        font-size: 150px;
+        margin: 0 auto;
+        width: 200px;
+        text-align: center;
+        transform: translateY(-50%);
+        color: #ee008c;
+    }
 }
 
 .employee__name {

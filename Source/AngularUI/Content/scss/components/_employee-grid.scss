@@ -1,7 +1,7 @@
 ﻿
 .employee-grid {
     margin: 0 auto;
-    
+
     /* clear fix */
     &:after {
         content: "";
@@ -14,15 +14,29 @@ employee-list-item {
 }
 
 .employee-grid-item {
+    position: relative;
     float: left;
-    width: 140px;
+    height: 170px;
+    width: 135px;
     margin: 10px;
+    display: block;
+
+    i {
+        position: absolute;
+        top: 50%;
+        font-size: 100px;
+        margin: 0 auto;
+        width: 135px;
+        text-align: center;
+        transform: translateY(-50%);
+        color: #ee008c;
+    }
 }
 
 .employee-thumb {
     position: relative;
     height: 170px;
-    width: 140px;
+    width: 135px;
 }
 
 .thumb-overlay {
