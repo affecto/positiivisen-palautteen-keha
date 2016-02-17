@@ -54,63 +54,83 @@ namespace Affecto.PositiveFeedback.Store.MongoDb.Tests
         [ExpectedException(typeof(ArgumentException))]
         public void EmployeeWithAnEmptyIdCannotBeAdded()
         {
-            sut.AddEmployee(Guid.Empty, "Jeff", "LA", "Management", "Directors", new byte[0]);
+            sut.AddEmployee(Guid.Empty, "Bridges", "Jeff", "Actor", "LA", "Management", "Directors", new byte[0]);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void EmployeeWithAnEmptyNameCannotBeAdded()
+        public void EmployeeWithAnEmptyLastNameCannotBeAdded()
         {
-            sut.AddEmployee(Guid.NewGuid(), string.Empty, "LA", "Management", "Directors", new byte[0]);
+            sut.AddEmployee(Guid.NewGuid(), string.Empty, "Jeff", "Actor", "LA", "Management", "Directors", new byte[0]);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void EmployeeWithNullNameCannotBeAdded()
+        public void EmployeeWithNullLastNameCannotBeAdded()
         {
-            sut.AddEmployee(Guid.NewGuid(), null, "LA", "Management", "Directors", new byte[0]);
+            sut.AddEmployee(Guid.NewGuid(), null, "Jeff", "Actor", "LA", "Management", "Directors", new byte[0]);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void EmployeeWithAnEmptyFirstNameCannotBeAdded()
+        {
+            sut.AddEmployee(Guid.NewGuid(), "Bridges", string.Empty, "Actor", "LA", "Management", "Directors", new byte[0]);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentException))]
+        public void EmployeeWithNullFirstNameCannotBeAdded()
+        {
+            sut.AddEmployee(Guid.NewGuid(), "Bridges", null, "Actor", "LA", "Management", "Directors", new byte[0]);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void EmployeeWithAnEmptyIdCannotBeUpdated()
         {
-            sut.UpdateEmployee(Guid.Empty, "Jeff", "LA", "Management", "Directors", new byte[0]);
+            sut.UpdateEmployee(Guid.Empty, "Bridges", "Jeff", "Actor", "LA", "Management", "Directors", new byte[0]);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void EmployeeWithAnEmptyNameCannotBeUpdated()
         {
-            sut.UpdateEmployee(Guid.NewGuid(), string.Empty, "LA", "Management", "Directors", new byte[0]);
+            sut.UpdateEmployee(Guid.NewGuid(), string.Empty, "Jeff", "Actor", "LA", "Management", "Directors", new byte[0]);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void EmployeeWithNullNameCannotBeUpdated()
         {
-            sut.UpdateEmployee(Guid.NewGuid(), null, "LA", "Management", "Directors", new byte[0]);
+            sut.UpdateEmployee(Guid.NewGuid(), null, "Jeff", "Actor", "LA", "Management", "Directors", new byte[0]);
         }
 
         [TestMethod]
         public void AddEmployee()
         {
             Guid id = Guid.NewGuid();
-            const string name = "Matt";
+            const string lastName = "LeBlanc";
+            const string firstName = "Matt";
+            const string title = "comedian";
             const string organization = "cleaning";
             const string subOrganization = "floor";
             const string location = "London";
 
-            sut.AddEmployee(id, name, location, organization, subOrganization, new byte[0]);
+            sut.AddEmployee(id, lastName, firstName, title, location, organization, subOrganization, new byte[0]);
 
-            employees.Received(1).InsertOne(Arg.Is<Employee>(e => e.Id.Equals(id) && e.Name.Equals(name) && e.Location.Equals(location) && e.Organization.Equals(organization)
-                && e.SubOrganization.Equals(subOrganization)));
+            employees
+                .Received(1)
+                .InsertOne(
+                    Arg.Is<Employee>(
+                        e => e.Id.Equals(id) && e.LastName.Equals(lastName) && e.FirstName.Equals(firstName) && e.Title.Equals(title)
+                            && e.Location.Equals(location) && e.Organization.Equals(organization) && e.SubOrganization.Equals(subOrganization)));
         }
 
         [TestMethod]
         public void AddedEmployeesAreActive()
         {
-            sut.AddEmployee(Guid.NewGuid(), "Matt", "Madrid", "bosses", string.Empty, new byte[0]);
+            sut.AddEmployee(Guid.NewGuid(), "LeBlanc", "Matt", "comedian", "Madrid", "bosses", string.Empty, new byte[0]);
 
             employees.Received(1).InsertOne(Arg.Is<Employee>(e => e.Active));
         }
@@ -118,7 +138,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb.Tests
         [TestMethod]
         public void EmployeeWithNoPictureIsAdded()
         {
-            sut.AddEmployee(Guid.NewGuid(), "Matt", "Madrid", "bosses", string.Empty, null);
+            sut.AddEmployee(Guid.NewGuid(), "LeBlanc", "Matt", "comedian", "Madrid", "bosses", string.Empty, null);
 
             employees.Received(1).InsertOne(Arg.Is<Employee>(e => e.PictureFileId.Equals(ObjectId.Empty)));
         }
@@ -132,7 +152,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb.Tests
 
             binaryFiles.UploadFromBytes(id.ToString(), picture).Returns(pictureId);
 
-            sut.AddEmployee(id, "Matt", "Madrid", "bosses", string.Empty, picture);
+            sut.AddEmployee(id, "LeBlanc", "Matt", "comedian", "Madrid", "bosses", string.Empty, picture);
             
             employees.Received(1).InsertOne(Arg.Is<Employee>(e => e.PictureFileId.Equals(pictureId)));
         }
@@ -148,7 +168,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb.Tests
         [TestMethod]
         public void OldPictureIsNotDeletedWhenUpdatingEmployeeWithNoPicture()
         {
-            sut.UpdateEmployee(Guid.NewGuid(), "Mark", "Köln", "Management", string.Empty, new byte[0]);
+            sut.UpdateEmployee(Guid.NewGuid(), "Hamill", "Mark", "skywalker", "Köln", "Management", string.Empty, new byte[0]);
 
             binaryFiles.DidNotReceive().Delete(Arg.Any<ObjectId>());
         }
@@ -156,7 +176,7 @@ namespace Affecto.PositiveFeedback.Store.MongoDb.Tests
         [TestMethod]
         public void UpdatingEmployeeWithNoNewPictureUploadsNoFile()
         {
-            sut.UpdateEmployee(Guid.NewGuid(), "Mark", "Köln", "Management", string.Empty, null);
+            sut.UpdateEmployee(Guid.NewGuid(), "Hamill", "Mark", "skywalker", "Köln", "Management", string.Empty, null);
 
             binaryFiles.DidNotReceive().UploadFromBytes(Arg.Any<string>(), Arg.Any<byte[]>());
         }
