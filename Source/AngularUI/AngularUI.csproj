@@ -241,6 +241,7 @@
     <Content Include="Content\fonts\FontAwesome.otf" />
     <Content Include="Content\scss\layout\_bundle.scss" />
     <Content Include="Content\scss\layout\_header.scss" />
+    <Content Include="Content\scss\components\_employee-search.scss" />
     <None Include="gulpfile.js" />
     <Content Include="package.json" />
     <None Include="bower.json" />

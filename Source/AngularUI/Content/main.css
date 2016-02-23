@@ -8086,6 +8086,21 @@ header {
   #back-to-list:hover {
     color: rgba(0, 0, 0, 0.8); }
 
+.search-employee {
+  font-size: 14pt;
+  height: 50px;
+  margin-bottom: 30px;
+  margin-left: 40px; }
+
+.employee-search-icon {
+  float: left;
+  font-size: 25pt; }
+
+.employee-search-container {
+  width: 26em;
+  margin-left: auto;
+  margin-right: auto; }
+
 body {
   background-color: #eee;
   padding: 0 25px; }
