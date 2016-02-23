@@ -1,7 +1,8 @@
 ﻿<a class="employee-grid-item lazyload" *ngIf="employee" [routerLink]="['EmployeeDetail', { id: employee.id }]" data-expand="-20">
     <img *ngIf="employee.hasPicture" data-src="{{ employeePictureUrl }}" class="employee-thumb lazyload" alt="{{ employee.firstName }} {{ employee.lastName }}"
          height="170" width="135" src="" />
-    <i *ngIf="!employee.hasPicture" class="fa fa-smile-o"></i>
+    <img *ngIf="!employee.hasPicture" class="employee-thumb lazyload" alt="{{ employee.firstName }} {{ employee.lastName }}" height="170" width="135" 
+         src="/Content/images/faxe.png"/>
     <div class="thumb-overlay">
         <div class="employee-name">
             <div>
@@ -9,7 +10,7 @@
             </div>
             <div>
                 {{ employee.lastName }}
-            </div>            
+            </div>
         </div>
     </div>
 </a>

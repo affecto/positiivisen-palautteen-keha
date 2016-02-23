@@ -2,7 +2,7 @@
     <div class="employee">
         <div class="employee__pic">
             <img *ngIf="employee.hasPicture" src="{{ getEmployeePictureUrl() }}" alt="{{ employee.firstName }} {{ employee.lastName }}" width="200" height="267" />
-            <i *ngIf="!employee.hasPicture" class="fa fa-smile-o"></i>
+            <img *ngIf="!employee.hasPicture" alt="{{ employee.firstName }} {{ employee.lastName }}" width="200" height="267" src="/Content/images/faxe.png" />
         </div>
         <div class="employee__feedback">
             <span class="employee__name" *ngIf="employee">
