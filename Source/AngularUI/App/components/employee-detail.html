@@ -1,19 +1,17 @@
-﻿
-
-<div class="employee-detail" *ngIf="employee">
-
+﻿<div class="employee-detail" *ngIf="employee">
     <div class="employee">
         <div class="employee__pic">
-            <img *ngIf="employee.hasPicture" src="{{ getEmployeePictureUrl() }}" alt="{{ employee.name }}" width="200" height="267"/>
-            <i *ngIf="!employee.hasPicture" class="fa fa-smile-o"></i>
-        </div><!--
-        -->
+            <img *ngIf="employee.hasPicture" src="{{ getEmployeePictureUrl() }}" alt="{{ employee.firstName }} {{ employee.lastName }}" width="200" height="267" />
+            <img *ngIf="!employee.hasPicture" alt="{{ employee.firstName }} {{ employee.lastName }}" width="200" height="267" src="/Content/images/faxe.png" />
+        </div>
         <div class="employee__feedback">
             <span class="employee__name" *ngIf="employee">
-                {{ employee.name }}
+                {{ employee.firstName }} {{ employee.lastName }}
             </span>
             <span class="employee__location" *ngIf="employee">
-                {{ employee.location }}
+                <span *ngIf="employee.title">
+                    {{ employee.title }},
+                </span>{{ employee.location }}
             </span>
             <form (ngSubmit)="sendFeedback()" #employeeFeedbackForm="ngForm">
                 <div class="form-group">
@@ -28,5 +26,4 @@
         </div>
     </div>
     <a id="back-to-list" [routerLink]="['EmployeeList']"><i class="fa fa-arrow-circle-o-left"></i> Back to people</a>
-
 </div>

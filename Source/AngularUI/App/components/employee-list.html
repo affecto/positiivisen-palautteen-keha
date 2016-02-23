@@ -1,4 +1,13 @@
-﻿<div class="employee-grid">
+﻿<div class="employee-search-container">
+    <span class="employee-search-icon">
+        <i class="fa fa-search"></i>
+    </span>
+    <div>
+        <input class="form-control search-employee" placeholder="Search employees" type="search" (keyup)="onSearch($event)"/>
+    </div>
+</div>
+
+<div class="employee-grid">
     <employee-list-item *ngFor="#employee of employees" [employee]="employee" [employeePictureUrl]="getEmployeePictureUrl(employee.id)"></employee-list-item>
 </div>
 <!--<a [routerLink]="['FeedbackReport']">Raportti</a>-->

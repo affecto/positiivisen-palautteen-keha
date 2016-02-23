@@ -5867,8 +5867,8 @@ button.close {
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url("/Content/fonts//fontawesome-webfont.eot?v=4.5.0");
-  src: url("/Content/fonts//fontawesome-webfont.eot?#iefix&v=4.5.0") format("embedded-opentype"), url("/Content/fonts//fontawesome-webfont.woff2?v=4.5.0") format("woff2"), url("/Content/fonts//fontawesome-webfont.woff?v=4.5.0") format("woff"), url("/Content/fonts//fontawesome-webfont.ttf?v=4.5.0") format("truetype"), url("/Content/fonts//fontawesome-webfont.svg?v=4.5.0#fontawesomeregular") format("svg");
+  src: url("fonts/fontawesome-webfont.eot?v=4.5.0");
+  src: url("fonts/fontawesome-webfont.eot?#iefix&v=4.5.0") format("embedded-opentype"), url("fonts/fontawesome-webfont.woff2?v=4.5.0") format("woff2"), url("fonts/fontawesome-webfont.woff?v=4.5.0") format("woff"), url("fonts/fontawesome-webfont.ttf?v=4.5.0") format("truetype"), url("fonts/fontawesome-webfont.svg?v=4.5.0#fontawesomeregular") format("svg");
   font-weight: normal;
   font-style: normal; }
 
@@ -8085,6 +8085,21 @@ header {
   -webkit-transition: all 100ms linear; }
   #back-to-list:hover {
     color: rgba(0, 0, 0, 0.8); }
+
+.search-employee {
+  font-size: 14pt;
+  height: 50px;
+  margin-bottom: 30px;
+  margin-left: 40px; }
+
+.employee-search-icon {
+  float: left;
+  font-size: 25pt; }
+
+.employee-search-container {
+  width: 26em;
+  margin-left: auto;
+  margin-right: auto; }
 
 body {
   background-color: #eee;

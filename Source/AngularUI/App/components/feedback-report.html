@@ -1,12 +1,11 @@
 ﻿<div *ngFor="#employee of employees">
     <div>
-        <h3>{{ employee.name }}</h3>
+        <h3>{{ employee.firstName }} {{ employee.lastName }}</h3>
         <div *ngFor="#feedback of employee.textFeedback">
             <span>{{ feedback }}</span>
         </div>
     </div>
 </div>
-
 <p>
     <a [routerLink]="['EmployeeList']">Palaa etusivulle</a>
 </p>
