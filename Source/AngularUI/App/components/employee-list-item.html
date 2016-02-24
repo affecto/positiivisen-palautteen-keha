@@ -1,4 +1,4 @@
-﻿<a class="employee-grid-item lazyload" *ngIf="employee" [routerLink]="['EmployeeDetail', { id: employee.id }]" data-expand="-20">
+﻿<a class="employee-grid-item lazyload" *ngIf="employee" (click)="goToEmployee()" data-expand="-20">
     <img *ngIf="employee.hasPicture" data-src="{{ employeePictureUrl }}" class="employee-thumb lazyload" alt="{{ employee.firstName }} {{ employee.lastName }}"
          height="170" width="135" src="" />
     <img *ngIf="!employee.hasPicture" class="employee-thumb lazyload" alt="{{ employee.firstName }} {{ employee.lastName }}" height="170" width="135" 
