@@ -2,11 +2,10 @@
     <span class="employee-search-icon">
         <i class="fa fa-search"></i>
     </span>
-    <input #employeeSearchInput class="form-control search-employee" placeholder="Search employees by name or city" type="search" (keyup)="onSearch($event)"/>
+    <input class="form-control search-employee" placeholder="Search employees by name or city" type="search" (keyup)="onSearch($event)" [(ngModel)]="searchCriteria"/>
 </div>
 
 <div class="employee-grid">
-    <employee-list-item *ngFor="#employee of employees" [employee]="employee" [employeePictureUrl]="getEmployeePictureUrl(employee.id)" [employeeSearchInput]="employeeSearchInput">
-    </employee-list-item>
+    <employee-list-item *ngFor="#employee of employees" [employee]="employee" [employeePictureUrl]="getEmployeePictureUrl(employee.id)"></employee-list-item>
 </div>
 <!--<a [routerLink]="['FeedbackReport']">Raportti</a>-->
