@@ -8138,7 +8138,8 @@ header {
     height: 50px;
     padding-right: 50px;
     width: 100%;
-    max-width: 400px; }
+    max-width: 400px;
+    border-radius: 0; }
   .search-bar__icon {
     font-size: 1em;
     position: absolute;
