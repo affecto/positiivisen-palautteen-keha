@@ -30,13 +30,13 @@ export class EmployeeListComponent implements OnInit
 
     public ngOnInit()
     {
-        this.searchCriteria = "";
+        this.emptySearchCriteria();
         this.getEmployees();
         window.addEventListener("resize", this.calculateGridWidth, false);  
         this.calculateGridWidth();
     }
 
-    public onSearch(event: KeyboardEvent)
+    public onSearch()
     {
         if (this.searchCriteria === "")
         {
@@ -51,6 +51,12 @@ export class EmployeeListComponent implements OnInit
     public getEmployeePictureUrl(employeeId: string): string
     {
         return this.employeeService.getEmployeePictureUrl(employeeId);
+    }
+
+    public emptySearchCriteria(): void
+    {
+        this.searchCriteria = "";
+        this.getEmployees();
     }
 
     private getEmployees(): void
