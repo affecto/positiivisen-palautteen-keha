@@ -29,10 +29,7 @@ namespace Affecto.PositiveFeedback.Api
 
             ConfigureWebApi(config);
             app.UseAutofacWebApi(config);
-#if(DEBUG)
             app.UseCors(CorsOptions.AllowAll);
-#endif
-
             app.UseWebApi(config);
 
             config.EnsureInitialized();
