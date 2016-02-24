@@ -22,6 +22,7 @@ declare var Isotope: any;
 export class EmployeeListComponent implements OnInit
 {
     public employees: Employee[];
+    public searchCriteria: string;
 
     constructor(private employeeService: EmployeeService)
     {
@@ -29,28 +30,33 @@ export class EmployeeListComponent implements OnInit
 
     public ngOnInit()
     {
+        this.emptySearchCriteria();
         this.getEmployees();
         window.addEventListener("resize", this.calculateGridWidth, false);  
         this.calculateGridWidth();
     }
 
-    public onSearch(event: KeyboardEvent)
+    public onSearch()
     {
-        var searchCriteria = (<HTMLInputElement>event.target).value;
-
-        if (searchCriteria === "")
+        if (this.searchCriteria === "")
         {
             this.getEmployees();
         }
         else
         {
-            this.searchEmployees(searchCriteria);
+            this.searchEmployees(this.searchCriteria);
         }
     }
 
     public getEmployeePictureUrl(employeeId: string): string
     {
         return this.employeeService.getEmployeePictureUrl(employeeId);
+    }
+
+    public emptySearchCriteria(): void
+    {
+        this.searchCriteria = "";
+        this.getEmployees();
     }
 
     private getEmployees(): void
