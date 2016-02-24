@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="Configuration.cs" />
     <Compile Include="Employee.cs" />
+    <Compile Include="EmployeePicture\ImageExtensions.cs" />
     <Compile Include="EmployeePicture\LocalPicture.cs" />
     <Compile Include="EmployeePicture\PictureHandler.cs" />
     <Compile Include="EmployeePicture\RemotePicture.cs" />
