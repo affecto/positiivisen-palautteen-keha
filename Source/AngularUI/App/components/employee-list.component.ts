@@ -59,6 +59,11 @@ export class EmployeeListComponent implements OnInit
         this.getEmployees();
     }
 
+    public hasSearchCriteria(): boolean 
+    {
+        return this.searchCriteria !== null && this.searchCriteria !== "";
+    }
+
     private getEmployees(): void
     {
         this.employeeService.getEmployees()
