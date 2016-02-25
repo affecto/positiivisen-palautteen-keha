@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using Affecto.Mapping;
 using Affecto.PositiveFeedback.Application;
+using WebApi.OutputCache.V2;
 using WebApi.OutputCache.V2.TimeAttributes;
 
 namespace Affecto.PositiveFeedback.Api
@@ -34,6 +35,7 @@ namespace Affecto.PositiveFeedback.Api
 
         [HttpGet]
         [Route("v1/employeefeedback")]
+        [IgnoreCacheOutput]
         public IHttpActionResult GetEmployeesWithFeedback()
         {
             IEnumerable<Application.Employee> employees = repository.GetActiveEmployeesWithFeedback();
