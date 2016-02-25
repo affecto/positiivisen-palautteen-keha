@@ -8035,7 +8035,7 @@ header {
   .employee-detail textarea {
     max-width: 100%;
     padding: 5px;
-    height: 120px;
+    height: 110px;
     border-radius: 0px;
     resize: none; }
     .employee-detail textarea::-webkit-input-placeholder, .employee-detail textarea:-moz-placeholder, .employee-detail textarea::-moz-placeholder, .employee-detail textarea:-ms-input-placeholder {
@@ -8063,13 +8063,14 @@ header {
   font-family: "Helvetica", sans-serif;
   font-weight: bold;
   color: #434343;
-  padding: 20px 20px 0 20px; }
+  padding: 10px 20px 0 20px; }
 
 .employee__location {
   display: block;
   font-size: 14px;
   color: #555;
-  padding: 0 20px; }
+  padding: 0 20px;
+  min-height: 40px; }
 
 .employee__feedback {
   display: inline-block;

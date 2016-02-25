@@ -37,7 +37,7 @@
     textarea {
         max-width: 100%;
         padding: 5px;
-        height: 120px;
+        height: 110px;
         border-radius: 0px;
         resize: none;
 
@@ -75,7 +75,7 @@
     font-family: $font-base;
     font-weight: bold;
     color: #434343;
-    padding: 20px 20px 0 20px;
+    padding: 10px 20px 0 20px;
 }
 
 .employee__location {
@@ -83,6 +83,7 @@
     font-size: 14px;
     color: #555;
     padding: 0 20px;
+    min-height: 40px;
 }
 
 .employee__feedback {
