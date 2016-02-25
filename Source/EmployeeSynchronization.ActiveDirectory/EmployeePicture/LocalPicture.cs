@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 
@@ -17,49 +16,57 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Emplo
 
         public MemoryStream GetResizedPicture(Size newSize)
         {
-            Image newImage = Resize(newSize);
+            Image resizedImage = Resize(newSize);
 
             var stream = new MemoryStream();
-            newImage.Save(stream, ImageFormat.Jpeg);
+            resizedImage.Save(stream, ImageFormat.Jpeg);
 
             return stream;
         }
 
-        private Image Resize(Size newSize, bool preserveAspectRatio = true)
+        private Image Resize(Size newSize)
         {
-            int newWidth;
-            int newHeight;
+            int originalWidth = image.Width;
+            int originalHeight = image.Height;
+            double percentWidth = ((double) newSize.Width) / originalWidth;
+            double percentHeight = ((double) newSize.Height) / originalHeight;
+            double percent = percentHeight > percentWidth ? percentHeight : percentWidth;
 
-            if (preserveAspectRatio)
+            int newWidth = CalculateNewSize(newSize.Width, originalWidth, percent);
+            int newHeight = CalculateNewSize(newSize.Height, originalHeight, percent);
+
+            Image resizedImage = image.Resize(newWidth, newHeight);
+
+            if (newWidth == newSize.Width && newHeight == newSize.Height)
             {
-                int originalWidth = image.Width;
-                int originalHeight = image.Height;
-                float percentWidth = ((float) newSize.Width) / originalWidth;
-                float percentHeight = ((float) newSize.Height) / originalHeight;
-                float percent = percentHeight < percentWidth ? percentHeight : percentWidth;
-                newWidth = (int) Math.Ceiling(originalWidth * percent);
-                newHeight = (int) Math.Ceiling(originalHeight * percent);
-            }
-            else
-            {
-                newWidth = newSize.Width;
-                newHeight = newSize.Height;
+                return resizedImage;
             }
 
-            return CreateNewImage(newWidth, newHeight);
+            return Crop(resizedImage, newSize.Width, newSize.Height);
         }
 
-        private Image CreateNewImage(int newWidth, int newHeight)
+        private static int CalculateNewSize(int targetSize, int originalSize, double percent)
         {
-            Image newImage = new Bitmap(newWidth, newHeight);
-
-            using (Graphics graphicsHandle = Graphics.FromImage(newImage))
+            int newLength = (int) Math.Ceiling(originalSize * percent);
+            if (newLength == targetSize + 1)
             {
-                graphicsHandle.InterpolationMode = InterpolationMode.High;
-                graphicsHandle.DrawImage(image, 0, 0, newWidth, newHeight);
+                newLength = targetSize;
             }
 
-            return newImage;
+            return newLength;
+        }
+
+        private static Image Crop(Image image, int newWidth, int newHeight)
+        {
+            int x = 0;
+
+            if (image.Width > newWidth)
+            {
+                int excessWidth = image.Width - newWidth;
+                x = excessWidth / 2;
+            }
+
+            return image.Crop(newWidth, newHeight, x);
         }
     }
 }

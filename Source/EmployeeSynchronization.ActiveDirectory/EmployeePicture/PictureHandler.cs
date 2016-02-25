@@ -8,7 +8,7 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory.Emplo
         public virtual byte[] DownloadAndResizePicture(string pictureUrl)
         {
             const int pictureWidth = 200;
-            const int pictureHeight = 300;
+            const int pictureHeight = 267;
 
             byte[] picture = null;
             using (Stream stream = RemotePicture.Download(pictureUrl))

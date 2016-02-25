@@ -22,6 +22,7 @@ declare var Isotope: any;
 export class EmployeeListComponent implements OnInit
 {
     public employees: Employee[];
+    public searchCriteria: string;
 
     constructor(private employeeService: EmployeeService)
     {
@@ -29,9 +30,22 @@ export class EmployeeListComponent implements OnInit
 
     public ngOnInit()
     {
+        this.emptySearchCriteria();
         this.getEmployees();
         window.addEventListener("resize", this.calculateGridWidth, false);  
         this.calculateGridWidth();
+    }
+
+    public onSearch()
+    {
+        if (this.searchCriteria === "")
+        {
+            this.getEmployees();
+        }
+        else
+        {
+            this.searchEmployees(this.searchCriteria);
+        }
     }
 
     public getEmployeePictureUrl(employeeId: string): string
@@ -39,23 +53,43 @@ export class EmployeeListComponent implements OnInit
         return this.employeeService.getEmployeePictureUrl(employeeId);
     }
 
+    public emptySearchCriteria(): void
+    {
+        this.searchCriteria = "";
+        this.getEmployees();
+    }
+
+    public hasSearchCriteria(): boolean 
+    {
+        return this.searchCriteria !== null && this.searchCriteria !== "";
+    }
+
     private getEmployees(): void
     {
         this.employeeService.getEmployees()
-            .subscribe(employees => this.employees = employees);
+            .subscribe((employees: Employee[]) => this.employees = employees);
     }
 
-    public calculateGridWidth(): void {
+    private searchEmployees(searchCriteria: string): void
+    {
+        this.employeeService.searchEmployees(searchCriteria)
+            .subscribe((searchResult: SearchResult) =>
+            {
+                if (searchResult.searchCriteria === searchCriteria)
+                {
+                    this.employees = searchResult.employees;
+                }
+            });
+    }
+
+    private calculateGridWidth(): void
+    {
         console.log("initializing isotope grid");
 
-        var $gridWidth = jQuery('body').width();
+        var $gridWidth = jQuery("body").width();
         var colWidth = 160;
         var gridCols = Math.floor($gridWidth / colWidth);
 
-        jQuery('.employee-grid').width( (gridCols - 1) * colWidth );
+        jQuery(".employee-grid").width( (gridCols - 1) * colWidth );
     }
-
-
-    
-
 }

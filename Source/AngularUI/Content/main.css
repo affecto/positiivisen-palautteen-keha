@@ -5867,8 +5867,8 @@ button.close {
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url("/Content/fonts//fontawesome-webfont.eot?v=4.5.0");
-  src: url("/Content/fonts//fontawesome-webfont.eot?#iefix&v=4.5.0") format("embedded-opentype"), url("/Content/fonts//fontawesome-webfont.woff2?v=4.5.0") format("woff2"), url("/Content/fonts//fontawesome-webfont.woff?v=4.5.0") format("woff"), url("/Content/fonts//fontawesome-webfont.ttf?v=4.5.0") format("truetype"), url("/Content/fonts//fontawesome-webfont.svg?v=4.5.0#fontawesomeregular") format("svg");
+  src: url("fonts/fontawesome-webfont.eot?v=4.5.0");
+  src: url("fonts/fontawesome-webfont.eot?#iefix&v=4.5.0") format("embedded-opentype"), url("fonts/fontawesome-webfont.woff2?v=4.5.0") format("woff2"), url("fonts/fontawesome-webfont.woff?v=4.5.0") format("woff"), url("fonts/fontawesome-webfont.ttf?v=4.5.0") format("truetype"), url("fonts/fontawesome-webfont.svg?v=4.5.0#fontawesomeregular") format("svg");
   font-weight: normal;
   font-style: normal; }
 
@@ -7969,14 +7969,26 @@ header {
     clear: both; }
 
 .employee-grid-item {
+  position: relative;
   float: left;
-  width: 140px;
-  margin: 10px; }
+  height: 170px;
+  width: 135px;
+  margin: 10px;
+  display: block; }
+  .employee-grid-item i {
+    position: absolute;
+    top: 50%;
+    font-size: 100px;
+    margin: 0 auto;
+    width: 135px;
+    text-align: center;
+    transform: translateY(-50%);
+    color: #ee008c; }
 
 .employee-thumb {
   position: relative;
   height: 170px;
-  width: 140px; }
+  width: 135px; }
 
 .thumb-overlay {
   position: absolute;
@@ -8023,7 +8035,7 @@ header {
   .employee-detail textarea {
     max-width: 100%;
     padding: 5px;
-    height: 120px;
+    height: 110px;
     border-radius: 0px;
     resize: none; }
     .employee-detail textarea::-webkit-input-placeholder, .employee-detail textarea:-moz-placeholder, .employee-detail textarea::-moz-placeholder, .employee-detail textarea:-ms-input-placeholder {
@@ -8035,6 +8047,15 @@ header {
   float: left;
   height: 267px;
   width: 200px; }
+  .employee__pic i {
+    position: absolute;
+    top: 50%;
+    font-size: 150px;
+    margin: 0 auto;
+    width: 200px;
+    text-align: center;
+    transform: translateY(-50%);
+    color: #ee008c; }
 
 .employee__name {
   display: block;
@@ -8042,13 +8063,14 @@ header {
   font-family: "Helvetica", sans-serif;
   font-weight: bold;
   color: #434343;
-  padding: 20px 20px 0 20px; }
+  padding: 10px 20px 0 20px; }
 
 .employee__location {
   display: block;
   font-size: 14px;
   color: #555;
-  padding: 0 20px; }
+  padding: 0 20px;
+  min-height: 40px; }
 
 .employee__feedback {
   display: inline-block;
@@ -8064,6 +8086,71 @@ header {
   -webkit-transition: all 100ms linear; }
   #back-to-list:hover {
     color: rgba(0, 0, 0, 0.8); }
+
+.employee-search-container {
+  margin: 0 100px;
+  padding-bottom: 50px; }
+  @media (max-width: 768px) {
+    .employee-search-container {
+      margin: 0 50px; } }
+  .employee-search-container h1 {
+    color: #fff;
+    text-shadow: 1px 1px 30px rgba(0, 0, 0, 0.2);
+    font-size: 6em;
+    padding: 30px 0;
+    text-align: center;
+    font-family: "Helvetica", sans-serif;
+    font-weight: bold;
+    margin-top: 0; }
+    @media (max-width: 1200px) {
+      .employee-search-container h1 {
+        font-size: 5em; } }
+    @media (max-width: 992px) {
+      .employee-search-container h1 {
+        font-size: 4em; } }
+    @media (max-width: 768px) {
+      .employee-search-container h1 {
+        font-size: 3em; } }
+
+.search-bar {
+  position: relative;
+  margin: 0 auto;
+  max-width: 400px;
+  /* firefox 19+ */
+  /* ie */ }
+  .search-bar ::-webkit-input-placeholder::before {
+    font-family: fontAwesome;
+    content: '\f002  ';
+    color: #666; }
+  .search-bar ::-moz-placeholder::before {
+    font-family: fontAwesome;
+    content: '\f002  ';
+    color: #666; }
+  .search-bar :-ms-input-placeholder::before {
+    font-family: fontAwesome;
+    content: '\f002  ';
+    color: #666; }
+  .search-bar input:-moz-placeholder::before {
+    font-family: fontAwesome;
+    content: '\f002  ';
+    color: #666; }
+  .search-bar__input {
+    font-size: 1em;
+    height: 50px;
+    padding-right: 50px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 0; }
+  .search-bar__icon {
+    font-size: 1em;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: #999;
+    padding: 18px;
+    cursor: pointer; }
+    .search-bar__icon:hover {
+      color: #666; }
 
 body {
   background-color: #eee;

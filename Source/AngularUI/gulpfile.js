@@ -8,7 +8,7 @@ var gulp = require("gulp"),
     cssmin = require("gulp-cssmin"),
     uglify = require("gulp-uglify"),
     sass = require("gulp-sass"),
-    autoprefixer = require("gulp-autoprefixer"),
+    //autoprefixer = require("gulp-autoprefixer"),
     plumber = require("gulp-plumber");
 
 var paths = {

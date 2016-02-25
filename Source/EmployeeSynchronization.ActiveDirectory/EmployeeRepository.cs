@@ -36,6 +36,9 @@ namespace Affecto.PositiveFeedback.EmployeeSynchronization.ActiveDirectory
         {
             var additionalProperties = new[]
             {
+                configuration.LastNameProperty,
+                configuration.FirstNameProperty,
+                configuration.TitleProperty,
                 configuration.PictureUrlProperty,
                 configuration.LocationProperty,
                 configuration.OrganizationProperty,
