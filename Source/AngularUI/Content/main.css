@@ -8152,6 +8152,9 @@ header {
     .search-bar__icon:hover {
       color: #666; }
 
+::-ms-clear {
+  display: none; }
+
 body {
   background-color: #eee;
   padding: 0 25px; }
