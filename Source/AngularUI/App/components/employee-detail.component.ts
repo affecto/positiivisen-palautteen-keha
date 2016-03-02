@@ -36,7 +36,7 @@ export class EmployeeDetailComponent implements OnInit
                 .subscribe(() =>
                 {
                     this.feedback = "";
-                    alert("Palaute lähetetty");
+                    alert("Feedback sent successfully.");
                     this.router.navigate(["EmployeeList"]);
                 });
         }
