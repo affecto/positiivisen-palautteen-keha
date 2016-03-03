@@ -9,8 +9,6 @@ import {EmployeeService} from "../services/employee.service";
 import {EmployeeListItemComponent} from "./employee-list-item.component";
 
 declare var jQuery: JQueryStatic;
-declare var Isotope: any;
-
 
 @Component({
     selector: "employee-list",
@@ -84,8 +82,6 @@ export class EmployeeListComponent implements OnInit
 
     private calculateGridWidth(): void
     {
-        console.log("initializing isotope grid");
-
         var $gridWidth = jQuery("body").width();
         var colWidth = 160;
         var gridCols = Math.floor($gridWidth / colWidth);

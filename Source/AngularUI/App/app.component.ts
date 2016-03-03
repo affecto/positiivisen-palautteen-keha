@@ -9,7 +9,7 @@ import {FeedbackReportComponent} from "./components/feedback-report.component"
 @RouteConfig([
     { path: "/", name: "EmployeeList", component: EmployeeListComponent, useAsDefault: true },
     { path: "/employee/:id", name: "EmployeeDetail", component: EmployeeDetailComponent },
-    { path: "/report", name: "FeedbackReport", component: FeedbackReportComponent }
+    { path: "/E34EB2CE-B573-48CE-BE8C-A01947D91378", name: "FeedbackReport", component: FeedbackReportComponent }
 ])
 
 @Component({
