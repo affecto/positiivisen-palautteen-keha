@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/affecto/positiivisen-palautteen-keha.png?label=ready&title=Ready)](https://waffle.io/affecto/positiivisen-palautteen-keha)
 #Positiivisen palautteen kehä
 
 Waffle board: https://waffle.io/affecto/positiivisen-palautteen-keha
