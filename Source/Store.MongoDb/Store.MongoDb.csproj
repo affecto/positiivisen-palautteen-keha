@@ -69,6 +69,7 @@
     <Compile Include="Employee.cs" />
     <Compile Include="FeedbackRepository.cs" />
     <Compile Include="ICollection.cs" />
+    <Compile Include="ListExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StoreModule.cs" />
   </ItemGroup>

@@ -53,6 +53,16 @@ namespace Affecto.PositiveFeedback.Api
         }
 
         [HttpGet]
+        [Route("v1/shuffledemployeeswithfeedback")]
+        [IgnoreCacheOutput]
+        public IHttpActionResult GetShuffledActiveEmployeesWithSingleFeedback()
+        {
+            IEnumerable<Application.Employee> employees = repository.GetShuffledActiveEmployeesWithSingleFeedback();
+            var mappedEmployees = MapEmployees(employees);
+            return Ok(mappedEmployees);
+        }
+
+        [HttpGet]
         [Route("v1/employees/search/{searchCriteria}")]
         public IHttpActionResult SearchEmployees(string searchCriteria)
         {
