@@ -55,7 +55,7 @@ export class FeedbackPresentationComponent implements OnInit, OnChanges, DoCheck
        console.log("============= ROLLING ===============");
        
 
-       var presWrapper = jQuery(".presentation-wrapper");
+       var presWrapper = jQuery(".presentation-item-wrapper");
        var presItems = jQuery(".presentation-item");
 
        var feedbackCount = presItems.length;
