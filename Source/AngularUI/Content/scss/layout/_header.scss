@@ -1,13 +1,15 @@
 ﻿header {
-    height: 60px;
+    padding: 25px 0;
     position: relative;
+    z-index: 1;
 }
 
 .site-title {
     font-size: 24px;
-    line-height: 31px;
+    line-height: 30px;
     font-family: $font-base;
     font-weight: bold;
+    margin: 0;
     
     a {
         text-decoration: none;

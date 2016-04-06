@@ -134,6 +134,7 @@
     <Content Include="App\components\employee-list.html" />
     <Content Include="App\components\employee-list-item.html" />
     <Content Include="App\components\employee-detail.html" />
+    <Content Include="App\components\feedback-presentation.html" />
     <Content Include="App\components\feedback-report.html" />
     <Content Include="App\app.html" />
     <Content Include="Content\bootstrap.min.css" />
@@ -243,6 +244,7 @@
     <Content Include="Content\scss\layout\_bundle.scss" />
     <Content Include="Content\scss\layout\_header.scss" />
     <Content Include="Content\scss\components\_employee-search.scss" />
+    <Content Include="Content\scss\components\_feedback-presentation.scss" />
     <None Include="gulpfile.js" />
     <Content Include="package.json" />
     <None Include="bower.json" />
@@ -280,6 +282,7 @@
     <TypeScriptCompile Include="App\app.component.ts" />
     <TypeScriptCompile Include="App\boot.ts" />
     <TypeScriptCompile Include="App\components\employee-detail.component.ts" />
+    <TypeScriptCompile Include="App\components\feedback-presentation.component.ts" />
     <TypeScriptCompile Include="App\components\feedback-report.component.ts" />
     <TypeScriptCompile Include="App\components\employee-list.component.ts" />
     <TypeScriptCompile Include="App\components\employee-list-item.component.ts" />

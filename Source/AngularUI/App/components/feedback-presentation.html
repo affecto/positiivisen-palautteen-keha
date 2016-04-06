@@ -1,0 +1,24 @@
+﻿<div class="presentation-wrapper">
+
+    <div class="presentation-item" *ngFor="#shuffledEmployee of shuffledEmployees">
+
+        <img *ngIf="!shuffledEmployee.hasPicture" class="presentation-item__image" src="Content/images/faxe.png" 
+             alt="{{ shuffledEmployee.firstName }} {{ shuffledEmployee.lastName }}" />
+        <img *ngIf="shuffledEmployee.hasPicture" class="presentation-item__image" src="{{ getEmployeePictureUrl(shuffledEmployee.id) }}" 
+             alt="{{ shuffledEmployee.firstName }} {{ shuffledEmployee.lastName }}"/>
+
+        <div class="presentation-item__text">
+            <header>
+                <h3>Hey there {{ shuffledEmployee.firstName }}!</h3>
+                <p>Here's what your colleagues have said about you:</p>
+            </header>
+
+            <p class="feedback">
+                {{ shuffledEmployee.textFeedback }}
+            </p>
+        </div>
+
+    </div>
+
+
+</div>

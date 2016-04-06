@@ -23,6 +23,14 @@ export class EmployeeService
             .map((response: any) => response.json());
     }
 
+    public getShuffledEmployeesWithFeedback()
+    {
+        var headers = this.createAcceptJsonHeaders();
+        return this.http
+            .get(`${this.configuration.apiBaseUrl}shuffledemployeeswithfeedback`, { headers: headers })
+            .map((response: any) => response.json());
+    }
+
     public getEmployeeFeedback()
     {
         var headers = this.createAcceptJsonHeaders();

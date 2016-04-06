@@ -30,4 +30,5 @@ export class FeedbackReportComponent implements OnInit
         this.employeeService.getEmployeeFeedback()
             .subscribe((employees: Employee[]) => this.employees = employees);
     }
+
 }
