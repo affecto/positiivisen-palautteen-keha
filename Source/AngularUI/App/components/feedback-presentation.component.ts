@@ -53,19 +53,29 @@ export class FeedbackPresentationComponent implements OnInit, OnChanges, DoCheck
    public rollFeedback(): void
    {
        console.log("============= ROLLING ===============");
-       
 
-       var presWrapper = jQuery(".presentation-item-wrapper");
+
+       var presContainer = jQuery(".presentation-container");
+       var presItemWrapper = jQuery(".presentation-item-wrapper");
        var presItems = jQuery(".presentation-item");
 
        var feedbackCount = presItems.length;
-       var wrapperHeight = presWrapper.height();
+       var wrapperHeight = presItemWrapper.height();
 
        var transitionTime = (wrapperHeight / 40) + "s";
 
        var transformHeight = `translateY(-${wrapperHeight}px)`;
 
-       presWrapper.css({
+       var containerHeight = jQuery(window).height() + "px";
+
+       console.log(containerHeight);
+
+       presContainer.css({
+           overflow: "hidden",
+           height: containerHeight
+       });
+
+       presItemWrapper.css({
            transition: `${transitionTime} all linear`,
            transform: transformHeight
        });
