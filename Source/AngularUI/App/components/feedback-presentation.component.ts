@@ -36,7 +36,6 @@ export class FeedbackPresentationComponent implements OnInit, OnChanges, DoCheck
     public ngDoCheck(): void
     {
         this.rollFeedback();
-        
     }
 
     public getShuffledEmployeesWithFeedback(): void
@@ -54,21 +53,13 @@ export class FeedbackPresentationComponent implements OnInit, OnChanges, DoCheck
    {
        console.log("============= ROLLING ===============");
 
-
        var presContainer = jQuery(".presentation-container");
        var presItemWrapper = jQuery(".presentation-item-wrapper");
-       var presItems = jQuery(".presentation-item");
 
-       var feedbackCount = presItems.length;
        var wrapperHeight = presItemWrapper.height();
-
-       var transitionTime = (wrapperHeight / 40) + "s";
-
+       var transitionTime = `${wrapperHeight / 40}s`;
        var transformHeight = `translateY(-${wrapperHeight}px)`;
-
        var containerHeight = jQuery(window).height() + "px";
-
-       console.log(containerHeight);
 
        presContainer.css({
            overflow: "hidden",
@@ -79,7 +70,6 @@ export class FeedbackPresentationComponent implements OnInit, OnChanges, DoCheck
            transition: `${transitionTime} all linear`,
            transform: transformHeight
        });
-
-       console.log("Rolling for " + wrapperHeight + " pixels");
+       
    }
 }
