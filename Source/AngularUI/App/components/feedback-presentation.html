@@ -1,17 +1,18 @@
 ﻿<div class="presentation-container">
+
     <div class="presentation-item-wrapper">
 
         <div class="presentation-item" *ngFor="#shuffledEmployee of shuffledEmployees">
 
             <img *ngIf="!shuffledEmployee.hasPicture" class="presentation-item__image" src="Content/images/faxe.png"
-                 alt="{{ shuffledEmployee.firstName }} {{ shuffledEmployee.lastName }}" />
+                  alt="{{ shuffledEmployee.firstName }} {{ shuffledEmployee.lastName }}"/>
             <img *ngIf="shuffledEmployee.hasPicture" class="presentation-item__image" src="{{ getEmployeePictureUrl(shuffledEmployee.id) }}"
-                 alt="{{ shuffledEmployee.firstName }} {{ shuffledEmployee.lastName }}" />
+                  alt="{{ shuffledEmployee.firstName }} {{ shuffledEmployee.lastName }}"/>
 
             <div class="presentation-item__text">
                 <header>
-                    <h3>Hey there {{ shuffledEmployee.firstName }}!</h3>
-                    <p>Here's what your colleagues have said about you:</p>
+                    <h3>{{ getRandomGreeting() }} {{ shuffledEmployee.firstName }}!</h3>
+                    <p>{{ getRandomInsert() }}:</p>
                 </header>
 
                 <p class="feedback">
@@ -22,3 +23,4 @@
         </div>
     </div>
 </div>
+<button (click)="resetPresentation()">reset</button>
