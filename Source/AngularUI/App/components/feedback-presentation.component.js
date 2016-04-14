@@ -55,6 +55,14 @@ System.register(["angular2/core", "angular2/http", "angular2/router", "../servic
                 FeedbackPresentationComponent.prototype.getEmployeePictureUrl = function (employeeId) {
                     return this.employeeService.getEmployeePictureUrl(employeeId);
                 };
+                FeedbackPresentationComponent.prototype.onResize = function () {
+                    var presContainer = jQuery(".presentation-container");
+                    var containerHeight = jQuery(window).height() + "px";
+                    presContainer.css({
+                        overflow: "hidden",
+                        height: containerHeight
+                    });
+                };
                 FeedbackPresentationComponent.prototype.getRandomGreeting = function () {
                     var greetings = [
                         "Hey there",

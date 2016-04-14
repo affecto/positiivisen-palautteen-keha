@@ -64,6 +64,17 @@ export class FeedbackPresentationComponent implements OnInit, OnChanges, DoCheck
         return this.employeeService.getEmployeePictureUrl(employeeId);
     }
 
+    public onResize(): void
+    {
+        var presContainer = jQuery(".presentation-container");
+        var containerHeight = jQuery(window).height() + "px";
+
+        presContainer.css({
+            overflow: "hidden",
+            height: containerHeight
+        });
+    }
+
     public getRandomGreeting(): string
     {
         var greetings = [
