@@ -8184,6 +8184,10 @@ button.close {
   width: 200px;
   height: 267px;
   margin-right: 30px; }
+  @media screen and (max-width: 768px) {
+    .presentation-item__image {
+      width: 100px;
+      height: 133.5px; } }
 
 .presentation-item__text {
   vertical-align: top;

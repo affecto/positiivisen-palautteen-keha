@@ -1,10 +1,14 @@
-﻿.presentation-item-wrapper {
+﻿$image-width: 200px;
+$image-height: 1.335 * $image-width;
+
+
+.presentation-item-wrapper {
     transform: translateY(1200px);
 }
 
 .presentation-item {
   max-width: 1000px;
-  min-height: 267px;
+  min-height: $image-height;
   width: 100%;
   position: relative;
   margin: 0 auto;
@@ -21,14 +25,20 @@
 }
 
 .presentation-item__image {
-  width: 200px;
-  height: 267px;
+  width: $image-width;
+  height: $image-height;
   margin-right: 30px;
+
+  @media screen and (max-width: 768px) {
+      width: $image-width / 2;
+      height: ($image-width / 2) * 1.335;
+  }
+
 }
 
 .presentation-item__text {
   vertical-align: top;
-  min-height: 267px;
+  min-height: $image-height;
   border: 1px solid #d1d1d1;
   padding: 30px;
   max-width: 750px;
