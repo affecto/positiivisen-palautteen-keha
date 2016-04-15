@@ -37,8 +37,6 @@ System.register(["angular2/core", "angular2/http", "angular2/router", "../servic
                     this.getShuffledEmployeesWithFeedback();
                     this.isRolling = false;
                 };
-                FeedbackPresentationComponent.prototype.ngOnChanges = function () {
-                };
                 FeedbackPresentationComponent.prototype.ngDoCheck = function () {
                     if (this.shuffledEmployees.length > 0 && this.isRolling === false) {
                         this.hidePresentationContainer();
@@ -46,11 +44,6 @@ System.register(["angular2/core", "angular2/http", "angular2/router", "../servic
                     if (this.isRolling === false) {
                         this.rollFeedback();
                     }
-                };
-                FeedbackPresentationComponent.prototype.getShuffledEmployeesWithFeedback = function () {
-                    var _this = this;
-                    this.employeeService.getShuffledEmployeesWithFeedback()
-                        .subscribe(function (shuffledEmployees) { return _this.shuffledEmployees = shuffledEmployees; });
                 };
                 FeedbackPresentationComponent.prototype.getEmployeePictureUrl = function (employeeId) {
                     return this.employeeService.getEmployeePictureUrl(employeeId);
@@ -63,16 +56,13 @@ System.register(["angular2/core", "angular2/http", "angular2/router", "../servic
                         height: containerHeight
                     });
                 };
-                FeedbackPresentationComponent.prototype.getRandomGreeting = function () {
-                    var greetings = [
-                        "Hey there",
-                        "Look at you",
-                        "Howdy",
-                        "Well isn't it",
-                        "Good yo see you",
-                        "Keep up the good work"
-                    ];
-                    return greetings[Math.floor(Math.random() * greetings.length)];
+                FeedbackPresentationComponent.prototype.getShuffledEmployeesWithFeedback = function () {
+                    var _this = this;
+                    this.employeeService.getShuffledEmployeesWithFeedback()
+                        .subscribe(function (shuffledEmployees) { return _this.shuffledEmployees = shuffledEmployees; });
+                };
+                FeedbackPresentationComponent.prototype.getRandomItemFromArray = function (array) {
+                    return array[Math.floor(Math.random() * array.length)];
                 };
                 FeedbackPresentationComponent.prototype.getRandomInsert = function () {
                     var inserts = [
@@ -83,12 +73,24 @@ System.register(["angular2/core", "angular2/http", "angular2/router", "../servic
                         "Greetings from your co-workers",
                         "This is what your friends at work say about you"
                     ];
-                    return inserts[Math.floor(Math.random() * inserts.length)];
+                    return this.getRandomItemFromArray(inserts);
+                };
+                FeedbackPresentationComponent.prototype.getRandomGreeting = function () {
+                    var greetings = [
+                        "Hey there",
+                        "Look at you",
+                        "Howdy",
+                        "Well isn't it",
+                        "Good yo see you",
+                        "Keep up the good work"
+                    ];
+                    return this.getRandomItemFromArray(greetings);
                 };
                 FeedbackPresentationComponent.prototype.hidePresentationContainer = function () {
+                    var containerHeight = jQuery(window).height();
                     jQuery(".presentation-item-wrapper").css({
                         transition: "0ms all linear",
-                        transform: "translateY(1200px)"
+                        transform: "translateY(" + containerHeight + "px)"
                     });
                 };
                 FeedbackPresentationComponent.prototype.resetPresentation = function () {
@@ -120,15 +122,6 @@ System.register(["angular2/core", "angular2/http", "angular2/router", "../servic
                         var resetTimer = ((wrapperHeight / 40) * 1000) + 5000;
                         window.setTimeout(function () { _this.resetPresentation(); }, resetTimer);
                     }
-                };
-                FeedbackPresentationComponent.prototype.bottomIsInViewport = function (el) {
-                    console.log("checking!");
-                    //special bonus for those using jQuery
-                    if (typeof jQuery === "function" && el instanceof jQuery) {
-                        el = el[0];
-                    }
-                    var rect = el.getBoundingClientRect();
-                    return (rect.bottom <= (window.innerHeight || document.documentElement.clientHeight));
                 };
                 FeedbackPresentationComponent = __decorate([
                     core_1.Component({

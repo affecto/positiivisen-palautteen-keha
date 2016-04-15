@@ -1,7 +1,7 @@
 ﻿/// <reference path="../../typings/jquery/jquery.d.ts" />
 
 import {Component} from "angular2/core";
-import {OnInit, OnChanges, DoCheck} from "angular2/core";
+import {OnInit, DoCheck} from "angular2/core";
 import {HTTP_PROVIDERS} from "angular2/http";
 import {ROUTER_DIRECTIVES} from "angular2/router";
 
@@ -16,7 +16,7 @@ declare var jQuery: JQueryStatic;
     directives: [ROUTER_DIRECTIVES]
 })
 
-export class FeedbackPresentationComponent implements OnInit, OnChanges, DoCheck
+export class FeedbackPresentationComponent implements OnInit, DoCheck
 {
     public shuffledEmployees: Employee[];
     public timeout: any;
@@ -33,11 +33,6 @@ export class FeedbackPresentationComponent implements OnInit, OnChanges, DoCheck
         this.isRolling = false;
     }
 
-    public ngOnChanges(): void
-    {
-        
-    }
-
     public ngDoCheck(): void
     {
         if (this.shuffledEmployees.length > 0 && this.isRolling === false )
@@ -51,12 +46,6 @@ export class FeedbackPresentationComponent implements OnInit, OnChanges, DoCheck
         }
        
        
-    }
-
-    public getShuffledEmployeesWithFeedback(): void
-    {
-        this.employeeService.getShuffledEmployeesWithFeedback()
-            .subscribe((shuffledEmployees: Employee[]) => this.shuffledEmployees = shuffledEmployees);
     }
 
     public getEmployeePictureUrl(employeeId: string): string
@@ -75,21 +64,18 @@ export class FeedbackPresentationComponent implements OnInit, OnChanges, DoCheck
         });
     }
 
-    public getRandomGreeting(): string
+    private getShuffledEmployeesWithFeedback(): void
     {
-        var greetings = [
-            "Hey there",
-            "Look at you",
-            "Howdy",
-            "Well isn't it",
-            "Good yo see you",
-            "Keep up the good work"
-        ];
-
-        return greetings[Math.floor(Math.random() * greetings.length)];
+        this.employeeService.getShuffledEmployeesWithFeedback()
+            .subscribe((shuffledEmployees: Employee[]) => this.shuffledEmployees = shuffledEmployees);
     }
 
-    public getRandomInsert(): string
+    private getRandomItemFromArray(array: string[]): string
+    {
+        return array[Math.floor(Math.random() * array.length)];
+    }
+
+    private getRandomInsert(): string
     {
         var inserts = [
             "Here's something your colleagues have said about you",
@@ -100,19 +86,33 @@ export class FeedbackPresentationComponent implements OnInit, OnChanges, DoCheck
             "This is what your friends at work say about you"
         ];
 
-        return inserts[Math.floor(Math.random() * inserts.length)];
+        return this.getRandomItemFromArray(inserts);
     }
         
-
-    public hidePresentationContainer(): void
+    private getRandomGreeting(): string
     {
-        jQuery(".presentation-item-wrapper").css({
-            transition: "0ms all linear",
-            transform: "translateY(1200px)"
-        });
+        var greetings = [
+            "Hey there",
+            "Look at you",
+            "Howdy",
+            "Well isn't it",
+            "Good yo see you",
+            "Keep up the good work"
+        ];
+
+        return this.getRandomItemFromArray(greetings);
     }
 
-    public resetPresentation(): void
+    private hidePresentationContainer(): void
+    {
+        var containerHeight = jQuery(window).height();
+        jQuery(".presentation-item-wrapper").css({
+            transition: "0ms all linear",
+            transform: `translateY(${containerHeight}px)`
+    });
+    }
+
+    private resetPresentation(): void
     {
         this.hidePresentationContainer();
         this.isRolling = false;
@@ -121,7 +121,7 @@ export class FeedbackPresentationComponent implements OnInit, OnChanges, DoCheck
         this.rollFeedback();
     }
 
-   public rollFeedback(): void
+    private rollFeedback(): void
    {
        var presContainer = jQuery(".presentation-container");
        var presItemWrapper = jQuery(".presentation-item-wrapper");
@@ -150,18 +150,5 @@ export class FeedbackPresentationComponent implements OnInit, OnChanges, DoCheck
        }
        
    }
-
-   public bottomIsInViewport(el: any): boolean
-   {
-       console.log("checking!");
-        //special bonus for those using jQuery
-        if (typeof jQuery === "function" && el instanceof jQuery)
-        {
-            el = el[0];
-        }
-
-        var rect = el.getBoundingClientRect();
-
-        return ( rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) );
-    }
+    
 }
