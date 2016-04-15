@@ -40,7 +40,7 @@ System.register(["angular2/core", "angular2/http", "angular2/router", "../servic
                 FeedbackPresentationComponent.prototype.ngOnChanges = function () {
                 };
                 FeedbackPresentationComponent.prototype.ngDoCheck = function () {
-                    if (jQuery(".presentation-item").length > 0 && this.isRolling === false) {
+                    if (this.shuffledEmployees.length > 0 && this.isRolling === false) {
                         this.hidePresentationContainer();
                     }
                     if (this.isRolling === false) {
@@ -117,7 +117,7 @@ System.register(["angular2/core", "angular2/http", "angular2/router", "../servic
                     });
                     if (presItems > 0) {
                         this.isRolling = true;
-                        var resetTimer = ((wrapperHeight / 40) * 1000) + 10000;
+                        var resetTimer = ((wrapperHeight / 40) * 1000) + 5000;
                         window.setTimeout(function () { _this.resetPresentation(); }, resetTimer);
                     }
                 };

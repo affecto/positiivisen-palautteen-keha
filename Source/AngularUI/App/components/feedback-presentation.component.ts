@@ -40,7 +40,7 @@ export class FeedbackPresentationComponent implements OnInit, OnChanges, DoCheck
 
     public ngDoCheck(): void
     {
-        if (jQuery(".presentation-item").length > 0 && this.isRolling === false )
+        if (this.shuffledEmployees.length > 0 && this.isRolling === false )
         {
             this.hidePresentationContainer();
         }
@@ -145,7 +145,7 @@ export class FeedbackPresentationComponent implements OnInit, OnChanges, DoCheck
        if (presItems > 0)
        {
            this.isRolling = true;
-           var resetTimer = ( (wrapperHeight / 40) * 1000 ) + 10000;
+           var resetTimer = ( (wrapperHeight / 40) * 1000 ) + 5000;
            window.setTimeout(() => { this.resetPresentation() }, resetTimer);
        }
        
