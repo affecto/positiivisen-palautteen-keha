@@ -8189,6 +8189,16 @@ button.close {
       width: 100px;
       height: 133.5px; } }
 
+.name-tag {
+  position: absolute;
+  font-size: 20px;
+  padding-top: 5px; }
+  .name-tag span {
+    display: inline-block; }
+    @media screen and (max-width: 768px) {
+      .name-tag span {
+        display: block; } }
+
 .presentation-item__text {
   vertical-align: top;
   min-height: 267px;
@@ -8210,6 +8220,14 @@ button.close {
   .presentation-item__text .feedback {
     font-size: 24px;
     font-weight: 300; }
+
+.feedback-table {
+  margin-top: 10px; }
+
+.btn--excel-export {
+  margin-top: 75px; }
+  .btn--excel-export i {
+    padding-left: 5px; }
 
 body {
   background-color: #eee;
