@@ -196,5 +196,5 @@ FakesAssemblies/
 *.opt
 
 # Custom project-specific ignores
-/Source/AngularUI/app/**/*.js
-/Source/AngularUI/app/**/*.js.map 
+/Source/AngularUI/App/**/*.js
+/Source/AngularUI/App/**/*.js.map 
