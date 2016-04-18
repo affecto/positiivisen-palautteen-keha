@@ -1,14 +1,9 @@
-﻿<div *ngFor="#employee of employees" class="col-md-4">
-    <div>
-        <h3>{{ employee.firstName }} {{ employee.lastName }}</h3>
-        <div *ngFor="#feedback of employee.textFeedback">
-            <span>{{ feedback }}</span>
-        </div>
-    </div>
-</div>
+﻿<button class="btn btn-default btn--excel-export" (click)="exportFeedbackToExcel()">
+    Lataa Excel-tiedosto <i class="fa fa-download"></i>
+</button>
 
-<div id="data">
-    <table class="table">
+<div id="feedback-report">
+    <table class="table feedback-table">
         <thead>
             <tr>
                 <td>Nimi</td>
