@@ -99,6 +99,28 @@ namespace Affecto.PositiveFeedback.Store.MongoDb
                 .ToList();
         }
 
+        public IReadOnlyCollection<Application.Employee> GetShuffledActiveEmployeesWithSingleFeedback()
+        {
+            List<Application.Employee> activeEmployees = FindActiveEmployees()
+                .ToList()
+                .Select(e => CreateEmployee(e, HasEmployeePicture(e.Id), true))
+                .ToList();
+
+            var results = new List<Application.Employee>();
+
+            foreach (Application.Employee employee in activeEmployees)
+            {
+                foreach (string feedback in employee.TextFeedback)
+                {
+                    results.Add(new Application.Employee(employee.Id, employee.LastName, employee.FirstName, employee.Title, employee.Location,
+                        employee.HasPicture, new[] { feedback }));
+                }
+            }
+
+            results.Shuffle();
+            return results;
+        }
+
         public Application.Employee GetEmployee(Guid id)
         {
             Employee employee = employees.Find(e => e.Id.Equals(id)).SingleOrDefault();

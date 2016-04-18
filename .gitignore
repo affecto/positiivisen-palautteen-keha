@@ -194,3 +194,14 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+/Source/AngularUI/App/services/employee.service.js.map
+/Source/AngularUI/App/model/searchResult.js.map
+/Source/AngularUI/App/model/employee.js.map
+/Source/AngularUI/App/configuration.js.map
+/Source/AngularUI/App/components/feedback-report.component.js.map
+/Source/AngularUI/App/components/feedback-presentation.component.js.map
+/Source/AngularUI/App/components/employee-list.component.js.map
+/Source/AngularUI/App/components/employee-list-item.component.js.map
+/Source/AngularUI/App/components/employee-detail.component.js.map
+/Source/AngularUI/App/boot.js.map
+/Source/AngularUI/App/app.component.js.map

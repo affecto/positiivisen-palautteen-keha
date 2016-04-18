@@ -12,6 +12,7 @@ namespace Affecto.PositiveFeedback.Application
         IReadOnlyCollection<Employee> GetActiveEmployees();
         IReadOnlyCollection<Employee> SearchActiveEmployees(string searchCriteria);
         IReadOnlyCollection<Employee> GetActiveEmployeesWithFeedback();
+        IReadOnlyCollection<Employee> GetShuffledActiveEmployeesWithSingleFeedback();
         Employee GetEmployee(Guid id);
         MemoryStream GetEmployeePicture(Guid employeeId);
         void AddTextFeedback(Guid employeeId, string feedback);

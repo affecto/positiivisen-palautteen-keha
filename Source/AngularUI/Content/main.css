@@ -7938,15 +7938,21 @@ button.close {
 .fa-percent:before {
   content: ""; }
 
-header {
-  height: 60px;
-  position: relative; }
+.site-header {
+  padding: 25px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: transparent; }
 
 .site-title {
   font-size: 24px;
-  line-height: 31px;
+  line-height: 30px;
   font-family: "Helvetica", sans-serif;
-  font-weight: bold; }
+  font-weight: bold;
+  margin: 0; }
   .site-title a {
     text-decoration: none;
     color: #ee008c; }
@@ -8019,6 +8025,7 @@ header {
   max-width: 500px;
   width: 100%;
   margin: 0 auto;
+  margin-top: 100px;
   box-shadow: 0 0 35px 0 rgba(0, 0, 0, 0.1);
   padding: 0;
   background-color: #f1f1f1;
@@ -8089,7 +8096,7 @@ header {
 
 .employee-search-container {
   margin: 0 100px;
-  padding-bottom: 50px; }
+  padding: 50px 0; }
   @media (max-width: 768px) {
     .employee-search-container {
       margin: 0 50px; } }
@@ -8154,6 +8161,55 @@ header {
 
 ::-ms-clear {
   display: none; }
+
+.presentation-item-wrapper {
+  transform: translateY(1200px); }
+
+.presentation-item {
+  max-width: 1000px;
+  min-height: 267px;
+  width: 100%;
+  position: relative;
+  margin: 0 auto;
+  margin-bottom: 75px;
+  display: table; }
+
+.presentation-item__image,
+.presentation-item__text {
+  display: table-cell;
+  background-color: #fff;
+  box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.2); }
+
+.presentation-item__image {
+  width: 200px;
+  height: 267px;
+  margin-right: 30px; }
+  @media screen and (max-width: 768px) {
+    .presentation-item__image {
+      width: 100px;
+      height: 133.5px; } }
+
+.presentation-item__text {
+  vertical-align: top;
+  min-height: 267px;
+  border: 1px solid #d1d1d1;
+  padding: 30px;
+  max-width: 750px;
+  width: 100%; }
+  .presentation-item__text header {
+    padding: 0 0 20px 0;
+    z-index: 0; }
+    .presentation-item__text header h3 {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 0; }
+    .presentation-item__text header p {
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0; }
+  .presentation-item__text .feedback {
+    font-size: 24px;
+    font-weight: 300; }
 
 body {
   background-color: #eee;
