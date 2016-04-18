@@ -8189,6 +8189,16 @@ button.close {
       width: 100px;
       height: 133.5px; } }
 
+.name-tag {
+  position: absolute;
+  font-size: 20px;
+  padding-top: 5px; }
+  .name-tag span {
+    display: inline-block; }
+    @media screen and (max-width: 768px) {
+      .name-tag span {
+        display: block; } }
+
 .presentation-item__text {
   vertical-align: top;
   min-height: 267px;

@@ -8,6 +8,10 @@
                   alt="{{ shuffledEmployee.firstName }} {{ shuffledEmployee.lastName }}"/>
             <img *ngIf="shuffledEmployee.hasPicture" class="presentation-item__image" src="{{ getEmployeePictureUrl(shuffledEmployee.id) }}"
                   alt="{{ shuffledEmployee.firstName }} {{ shuffledEmployee.lastName }}"/>
+            <div class="name-tag">
+                <span>{{ shuffledEmployee.firstName }}</span>
+                <span>{{ shuffledEmployee.lastName }}</span>
+            </div>
 
             <div class="presentation-item__text">
                 <header>
