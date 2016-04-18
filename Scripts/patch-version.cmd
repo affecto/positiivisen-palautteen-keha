@@ -17,8 +17,9 @@ if %APPVEYOR_REPO_BRANCH%==master (
 )
 
 set APPVEYOR_BUILD_VERSION=%APPVEYOR_REPO_BRANCH%-%CUSTOM_INFORMATIONAL_VERSION%
-appveyor UpdateBuild -Version "%APPVEYOR_BUILD_VERSION%"
 
 echo Patched version: %CUSTOM_VERSION%
 echo Patched informational version: %CUSTOM_INFORMATIONAL_VERSION%
 echo AppVeyor build version: %APPVEYOR_BUILD_VERSION%
+
+appveyor UpdateBuild -Version "%APPVEYOR_BUILD_VERSION%"
