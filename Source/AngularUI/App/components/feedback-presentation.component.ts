@@ -96,7 +96,7 @@ export class FeedbackPresentationComponent implements OnInit, DoCheck
             "Look at you",
             "Howdy",
             "Well isn't it",
-            "Good yo see you",
+            "Good to see you",
             "Keep up the good work"
         ];
 

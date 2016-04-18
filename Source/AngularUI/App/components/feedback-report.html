@@ -6,6 +6,29 @@
         </div>
     </div>
 </div>
+
+<div id="data">
+    <table class="table">
+        <thead>
+            <tr>
+                <td>Nimi</td>
+                <td>Palaute</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="#employee of employees">
+                <td>{{ employee.firstName }} {{ employee.lastName }}</td>
+                <td>
+                    <p *ngFor="#feedback of employee.textFeedback">
+                        {{ feedback }}
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
 <p>
     <a [routerLink]="['EmployeeList']">Palaa etusivulle</a>
 </p>
